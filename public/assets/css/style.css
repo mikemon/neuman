@@ -1,0 +1,44 @@
+body {
+    background-color: #eaeaea;
+    color: #303030;    
+}
+
+.container{
+
+}
+
+#main{
+	padding-top: 32px;
+	height:90%;
+	background: #FFFFFF; 
+	padding-left: 15px;
+	padding-right: 15px;
+}
+
+.box:after {
+    clear: both;
+    content: ".";
+    display: block;
+    font-size: 0;
+    line-height: 0;
+    visibility: hidden;
+}
+#footer {
+    color: #707070;
+}
+#footer {
+    background: url("design/separator.gif") repeat-x scroll 0 0 rgba(0, 0, 0, 0);
+    clear: both;
+    font: 85%/1.2 "tahoma",sans-serif;
+    padding: 15px;
+}
+.box {
+    min-height: 1px;
+}
+
+.f-left {
+    float: left !important;
+}
+.f-right {
+    float: right !important;
+}
