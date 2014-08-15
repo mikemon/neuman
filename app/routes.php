@@ -86,3 +86,12 @@ Route::get('contact', function()
 	return View::make('pages.contact');
 });
 
+/*******MAU******/
+/*medidaLLanta*/
+Route::resource('medidaLlanta', 'MedidaLlantaController');
+
+/*******/
+/*marcaLLanta*/
+Route::resource('marcaLlanta', 'MarcaLlantaController');
+
+/*******/
