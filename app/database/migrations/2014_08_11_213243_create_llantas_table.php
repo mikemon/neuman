@@ -16,7 +16,6 @@ class CreateLlantasTable extends Migration {
 			$table -> bigIncrements('id');
 			$table -> bigInteger('matricula');
 			$table -> string('descripcion',90);
-			
 			$table -> bigInteger('marcaLlanta_id');
 			$table -> bigInteger('medidaLlanta_id');
 			$table -> string('status',70);

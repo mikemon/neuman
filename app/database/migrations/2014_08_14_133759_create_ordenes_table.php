@@ -12,12 +12,14 @@ class CreateOrdenesTable extends Migration {
 	 */
 	public function up()
 	{
+		/*
 		Schema::table('ordenes', function($table) {
 			$table -> create();
 			$table -> bigIncrements('id');
 			$table -> bigInteger('observacion');
 
 		});
+		 */ 
 	}
 
 	/**
@@ -27,7 +29,8 @@ class CreateOrdenesTable extends Migration {
 	 */
 	public function down()
 	{
-		//
+		Schema::drop('ordenes');
+
 	}
 
 }

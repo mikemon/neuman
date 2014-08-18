@@ -13,7 +13,7 @@ class CreateTipoMovimientoLlantaTable extends Migration {
 			$table -> bigIncrements('id');
 			$table -> string('descripcion', 80);
 			$table -> boolean('datosRendimiento');
-			//$table->primary('id');
+			$table -> timestamps();
 		});
 	}
 	/**
@@ -22,6 +22,6 @@ class CreateTipoMovimientoLlantaTable extends Migration {
 	 * @return void
 	 */
 	public function down() {
-		//
+		Schema::drop('tipoMovimientoLlanta');	
 	}
 }

@@ -4,7 +4,6 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
 class CreateRegistroMovimientoLlantaTable extends Migration {
-
 	/**
 	 * Run the migrations.
 	 *
@@ -12,16 +11,22 @@ class CreateRegistroMovimientoLlantaTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::table('registroMovimientoLlantaTable', function($table) {
-			$table->create();
-			$table->bigIncrements('id');
-			$table->bigInt('tipoMovimientoLlanta_id');
+		Schema::table('registroMovimientoLlantaTable', function($table) {			
+			$table -> create();
+			$table -> bigIncrements('id');
+			$table -> bigInteger('llanta_id');
+			$table -> bigInteger('tipoMovimientoLlanta_id');
 			$table->longText('observacion', 80);
+			$table->bigInteger('usuarioInsert_id');
+			$table->bigInteger('usuarioEdit_id');
+			$table -> boolean('activo');
+			$table -> timestamps();
+			$table->foreign('llanta_id')->references('id')->on('llantas');
+			$table->foreign('tipoMovimientoLlanta_id')->references('id')->on('tipoMovimientoLlanta');
 			
-			//$table->primary('id');
+			
 		});
 	}
-
 	/**
 	 * Reverse the migrations.
 	 *
@@ -29,7 +34,7 @@ class CreateRegistroMovimientoLlantaTable extends Migration {
 	 */
 	public function down()
 	{
-		//
-	}
+		Schema::drop('registroMovimientoLlantaTable');
 
+	}
 }
