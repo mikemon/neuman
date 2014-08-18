@@ -29,7 +29,7 @@ class CreateOrdenDetalleTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('ordenDetalle');
+		//Schema::drop('ordenDetalle');
 
 	}
 

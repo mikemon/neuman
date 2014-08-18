@@ -19,8 +19,8 @@ class CreateDatosRendimientoTable extends Migration {
 		Schema::table('datoRendimiento', function($table) {
 			$table->create();
 			$table->bigIncrements('id');
-			$table->bigInt('kmInicial');
-			$table->bigInt('kmFinal');
+			$table->bigInteger('kmInicial');
+			$table->bigInteger('kmFinal');
 			$table->double('litros', 15, 8);
 			$table->double('odometro', 15, 8);
 			$table->longText('observacion', 80);

@@ -29,7 +29,7 @@ class CreateOrdenesTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('ordenes');
+		//Schema::drop('ordenes');
 
 	}
 
