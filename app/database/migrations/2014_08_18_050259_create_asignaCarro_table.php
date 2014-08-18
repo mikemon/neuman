@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAsignacionCarroTable extends Migration {
+class CreateAsignaCarroTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,13 +12,15 @@ class CreateAsignacionCarroTable extends Migration {
 	 */
 	public function up()
 	{
-		/**
+		
 		Schema::table('asignacionCarro', function($table) {
 			$table -> create();
 			$table -> bigIncrements('id');
 			$table -> bigInteger('carro_id');
 			$table -> bigInteger('operador_id');
-			$table -> bigInteger('usuario_id');
+			$table->bigInteger('usuarioInsert_id');
+			$table->bigInteger('usuarioEdit_id');
+			$table -> boolean('activo');
 			
 			$table -> timestamps();
 			//$table->primary('id');
@@ -27,7 +29,7 @@ class CreateAsignacionCarroTable extends Migration {
 			
 			//$table->primary('id');
 		});
-		 **/
+		 
 	}
 
 	/**
@@ -37,7 +39,7 @@ class CreateAsignacionCarroTable extends Migration {
 	 */
 	public function down()
 	{
-		//Schema::drop('asignacionCarro');
+		Schema::drop('asignacionCarro');
 	}
 
 }
