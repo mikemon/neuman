@@ -6,7 +6,7 @@
 @stop
  @section('carros')
 <li class="active">
-		<a href="{{ action('CarrosController@mostrarCarros', null )}}">Carros</a>
+		<a href="{{ action('CarrosController@index', null )}}">Carros</a>
 </li>
 @stop
 @section('content')

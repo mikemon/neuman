@@ -1,7 +1,8 @@
 <?php
 class Carro extends Eloquent{
 	protected $table='carros';
-	protected $fillable = array('marca','modelo','placas' ,'numllantas');
+	protected $fillable = array('marca','modelo','placas','noSerie','tipoCarro_id','noMotor',
+								'polizaSeguros','noEconomico','capacidadTon','inciso','tipoMotor');
 	
 	public function registroComprobantePagos(){
         return $this->hasMany('RegistroComprobantePago', 'carro_id');

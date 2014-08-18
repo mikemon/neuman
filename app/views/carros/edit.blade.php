@@ -6,7 +6,7 @@ Formulario de Marca llanta
 @stop
 @section('carros')
 <li class="active">
-		<a href="{{ action('CarrosController@index', null )}}">Carros</a>
+	<a href="{{ action('CarrosController@index', null )}}">Carros</a>
 </li>
 @stop
 @section('content')
@@ -14,13 +14,11 @@ Formulario de Marca llanta
 <br>
 <div class="panel panel-default">
 	<div class="panel-heading">
-		<h3 class="panel-title">Crear carro</h3>
+		<h3 class="panel-title">Editar carro</h3>
 	</div>
 	<div class="panel-body">
-		{{ Form::model(new Carro, ['route' => ['carros.store'],'class'=>'form-horizontal' ]) }}
-
-		@include('carros._form')
-		
+		{{ Form::model($carro, array('method' => 'PATCH', 'route' =>array('carros.update', $carro->id),'class'=>'form-horizontal')) }}
+		@include('carros._form');
 		{{ Form::close() }}
 	</div>
 </div>

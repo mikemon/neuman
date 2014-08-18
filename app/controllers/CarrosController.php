@@ -8,17 +8,17 @@ class CarrosController extends BaseController {
     /**
      * Muestra la lista con todos los carros
      */
-    public function mostrarCarros()
+    public function index()
     {
-        $carros = Carro::all();
-        return View::make('carros.lista', array('carros' => $carros));
+        $listaCarro = Carro::all();
+        return View::make('carros.index', array('listaCarro' => $listaCarro));
     }
  
  
     /**
      * Muestra formulario para crear Carro
      */
-    public function nuevoCarro()
+    public function create()
     {
         return View::make('carros.crear');
     }
@@ -26,7 +26,7 @@ class CarrosController extends BaseController {
     /**
      * Crear el carro nuevo
      */
-    public function crearCarro()
+    public function store()
     {
         Carro::create(Input::all());
     // el método create nos permite crear un nuevo carro en la base de datos, este método es proporcionado por Laravel
@@ -41,7 +41,7 @@ class CarrosController extends BaseController {
      /**
      * Ver carro con id
      */
-    public function verCarro($id)
+    public function show($id)
     {
     // en este método podemos observar como se recibe un parámetro llamado id
     // este es el id del carro que se desea buscar y se debe declarar en la ruta como un parámetro
@@ -50,8 +50,45 @@ class CarrosController extends BaseController {
         // para buscar al carro utilizamos el metido find que nos proporciona Laravel
         // este método devuelve un objete con toda la información que contiene un carro
     
-    return View::make('carros.ver', array('carro' => $carro));
+    return View::make('carros.show', array('carro' => $carro));
     }
+	
+		/**
+	 * Show the form for editing the specified resource.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function edit($id) {
+		//
+		$carro = Carro::find($id);
+	
+		if (is_null($carro)) {
+			return "No existe!";
+		} else {
+			return View::make('carros/edit') -> with('carro', $carro);
+		}
+	}
+	
+	/**
+	 * Update the specified resource in storage.
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function update($id) {
+
+		$carroInstance = Carro::find($id);
+		if (is_null($carroInstance)) {
+			return "No existe!";
+		} else {
+			$data = Input::all();
+			$carroInstance -> fill($data);
+			$carroInstance -> save();
+			return Redirect::action('CarrosController@show', array($carroInstance -> id));
+		}
+	}
+	
 	
 	public function getComprobantesPagos($id)
 	{

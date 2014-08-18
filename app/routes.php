@@ -36,13 +36,18 @@ Route::get('operadores/nuevo', array('uses' => 'OperadoresController@nuevoOperad
 Route::post('operadores/crear', array('uses' => 'OperadoresController@crearOperador'));
 Route::get('operadores/{id}', array('uses'=>'OperadoresController@verOperador'));
 /*-----------------------------------------|*/
+
 /*|------------------------CARROS***--------*/
+/*
 Route::get('carros/', array('uses' => 'CarrosController@mostrarCarros'));
 Route::get('carros/nuevo', array('uses' => 'CarrosController@nuevoCarro'));
 Route::post('carros/crear', array('uses' => 'CarrosController@crearCarro'));
 Route::get('carros/{id}', array('uses'=>'CarrosController@verCarro'));
+*/
+Route::resource('carros', 'CarrosController');
 Route::get('carros/getComprobantesForIdCarro/{id}', array('uses'=>'CarrosController@getComprobantesPagos'));
 /*-----------------------------------------|*/
+
 /*|------------------------TIPOCOMPROBANTE----------*/
 Route::get('tipoComprobante', array('uses' => 'tipoComprobanteController@mostrarTipoComprobante'));
 Route::get('tipoComprobante/nuevo', array('uses' => 'tipoComprobanteController@nuevoTipoComprobante'));
@@ -94,4 +99,8 @@ Route::resource('medidaLlanta', 'MedidaLlantaController');
 /*marcaLLanta*/
 Route::resource('marcaLlanta', 'MarcaLlantaController');
 
+/*******/
+
+/*asiganacionCarro*/
+Route::resource('asignacionCarro', 'AsignacionCarroController');
 /*******/
