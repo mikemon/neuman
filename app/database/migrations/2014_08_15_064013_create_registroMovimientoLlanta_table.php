@@ -11,7 +11,7 @@ class CreateRegistroMovimientoLlantaTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::table('registroMovimientoLlantaTable', function($table) {			
+		Schema::table('registroMovimientoLlanta', function($table) {			
 			$table -> create();
 			$table -> bigIncrements('id');
 			$table -> bigInteger('llanta_id');
