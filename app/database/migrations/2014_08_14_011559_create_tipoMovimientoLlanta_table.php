@@ -11,10 +11,10 @@ class CreateTipoMovimientoLlantaTable extends Migration {
 		Schema::table('tipoMovimientoLlanta', function($table) {
 			$table -> create();
 			$table -> bigIncrements('id');
-			$table -> string('descripcion', 80);
+			$table -> string('descripcion', 80)->nullable();
 			$table -> boolean('datosRendimiento');
 			$table->bigInteger('usuarioInsert_id');
-			$table->bigInteger('usuarioEdit_id');
+			$table->bigInteger('usuarioEdit_id')->nullable();
 			$table -> boolean('activo');
 			$table -> timestamps();
 		});

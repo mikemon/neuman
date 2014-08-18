@@ -18,8 +18,8 @@ class CreateRegistroMovimientoLlantaTable extends Migration {
 			$table -> bigInteger('tipoMovimientoLlanta_id');
 			$table->longText('observacion', 80);
 			$table->bigInteger('usuarioInsert_id');
-			$table->bigInteger('usuarioEdit_id');
-			$table -> boolean('activo');
+			$table->bigInteger('usuarioEdit_id')->nullable();
+			$table -> boolean('activo')->default(true);
 			$table -> timestamps();
 			$table->foreign('llanta_id')->references('id')->on('llantas');
 			$table->foreign('tipoMovimientoLlanta_id')->references('id')->on('tipoMovimientoLlanta');

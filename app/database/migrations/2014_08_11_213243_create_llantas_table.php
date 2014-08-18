@@ -20,7 +20,7 @@ class CreateLlantasTable extends Migration {
 			$table -> bigInteger('medidaLlanta_id');
 			$table -> string('status',70);
 			$table -> bigInteger('usuarioInsert_id');
-			$table -> bigInteger('usuarioEdit_id');
+			$table -> bigInteger('usuarioEdit_id')->nullable();
 			$table -> timestamps();
 			
 			$table->foreign('marcaLlanta_id')->references('id')->on('marcaLlanta');

@@ -17,7 +17,7 @@ class CreateMarcaLlantaTable extends Migration {
 			$table -> bigIncrements('id');
 			$table -> string('descripcion',90);
 			$table -> bigInteger('usuarioInsert_id');
-			$table -> bigInteger('usuarioEdit_id');
+			$table -> bigInteger('usuarioEdit_id')->nullable();
 			
 			$table -> timestamps();
 		});

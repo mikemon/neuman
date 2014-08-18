@@ -19,8 +19,8 @@ class CreateAsignaCarroTable extends Migration {
 			$table -> bigInteger('carro_id');
 			$table -> bigInteger('operador_id');
 			$table->bigInteger('usuarioInsert_id');
-			$table->bigInteger('usuarioEdit_id');
-			$table -> boolean('activo');
+			$table->bigInteger('usuarioEdit_id')->nullable();
+			$table -> boolean('activo')->default(true);
 			
 			$table -> timestamps();
 			//$table->primary('id');

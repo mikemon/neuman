@@ -23,10 +23,10 @@ class CreateDatosRendimientoTable extends Migration {
 			$table->bigInteger('kmFinal');
 			$table->double('litros', 15, 8);
 			$table->double('odometro', 15, 8);
-			$table->longText('observacion', 80);			
+			$table->longText('observacion', 80)->nullable();			
 			$table->bigInteger('usuarioInsert_id');
-			$table->bigInteger('usuarioEdit_id');
-			$table -> boolean('activo');
+			$table->bigInteger('usuarioEdit_id')->nullable();
+			$table -> boolean('activo')->default(false);;
 			$table -> timestamps();
 			
 			//$table->primary('id');
