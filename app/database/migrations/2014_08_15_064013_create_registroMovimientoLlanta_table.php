@@ -34,7 +34,7 @@ class CreateRegistroMovimientoLlantaTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('registroMovimientoLlantaTable');
+		Schema::drop('registroMovimientoLlanta');
 
 	}
 }

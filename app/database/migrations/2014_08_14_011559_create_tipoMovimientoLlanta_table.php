@@ -13,6 +13,9 @@ class CreateTipoMovimientoLlantaTable extends Migration {
 			$table -> bigIncrements('id');
 			$table -> string('descripcion', 80);
 			$table -> boolean('datosRendimiento');
+			$table->bigInteger('usuarioInsert_id');
+			$table->bigInteger('usuarioEdit_id');
+			$table -> boolean('activo');
 			$table -> timestamps();
 		});
 	}
