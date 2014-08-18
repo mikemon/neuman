@@ -29,7 +29,8 @@ Lista de Medida Llanta
 		<tr>
 			<th style="text-align: center; width:20%;">Opciones</th>
 			<th  style="text-align: center;width:10%;">id</th>
-			<th style="text-align: center; width:40%;">Carro</th>
+			<th  style="text-align: center;width:10%;">No. Serie</th>
+			<th style="text-align: center; width:40%;">Datos</th>
 		</tr>
 	</thead>
 	@foreach($listaCarro as $carroInstance)
@@ -42,7 +43,8 @@ Lista de Medida Llanta
 			{{ Form::close() }} 
 		</td>
 		<td style="text-align: center; width:10%;">{{$carroInstance->id}} </td>
-		<td style="text-align: left; width:40%;">{{$carroInstance->marca." ".$carroInstance->modelo}} </td>
+		<td style="text-align: center; width:10%;">{{$carroInstance->noSerie}} </td>
+		<td style="text-align: left; width:40%;">{{' <label>Marca:</label>'.$carroInstance->marca.' <label> Modelo:</label>'.$carroInstance->modelo}} </td>
 	</tr>
 	@endforeach
 </table>

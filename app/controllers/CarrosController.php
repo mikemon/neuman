@@ -20,7 +20,8 @@ class CarrosController extends BaseController {
      */
     public function create()
     {
-        return View::make('carros.crear');
+    	$tipoCarroList=TipoCarro::all();
+        return View::make('carros.crear',array('tipoCarroList'=>$tipoCarroList));
     }
  
     /**

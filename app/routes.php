@@ -104,3 +104,8 @@ Route::resource('marcaLlanta', 'MarcaLlantaController');
 /*asiganacionCarro*/
 Route::resource('asignacionCarro', 'AsignacionCarroController');
 /*******/
+/*tipoCarro*/
+Route::get('tipoCarro/getEsquemaForId/{id}', array('uses'=>'TipoCarroController@getEsquema'));
+Route::resource('tipoCarro', 'TipoCarroController');
+
+/*******/
