@@ -5,9 +5,9 @@
 Lista de Medida Llanta
 @stop
 
-@section('tipoComprobante')
+@section('medidaLlanta')
 <li class="active">
-	<a href="{{ action('tipoComprobanteController@mostrarTipoComprobante', null )}}">Tipo comprobante</a>
+	<a href="{{ action('MedidaLlantaController@index', null )}}">Medida llanta</a>
 </li>
 @stop
 @section('content')

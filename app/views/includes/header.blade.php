@@ -12,6 +12,34 @@
 				<a href="{{ action('CarrosController@index', null )}}">Carros</a>
 			</li>
 			@show
+			@section('operadores')
+			<li>
+			@show
+				<a href="{{ action('OperadoresController@mostrarOperadores', null )}}">Operadores</a>
+			</li>
+			
+			@section('asignacionCarro')
+			<li>
+			@show
+				<a href="{{ action('AsignacionCarroController@index', null )}}">Operadores</a>
+			</li>
+			
+			
+			@section('marcaLlanta')
+			<li>
+			@show
+				<a href="{{ action('MarcaLlantaController@index', null )}}">Marca llantas</a>
+			</li>
+			
+			@section('medidaLlanta')
+			<li>
+			@show
+				<a href="{{ action('MedidaLlantaController@index', null )}}">Medida llantas</a>
+			</li>
+			
+			
+			
+			
 			@section('tipoComprobante')
 			<li>
 				<a href="{{ action('tipoComprobanteController@mostrarTipoComprobante', null )}}">Tipo comprobante</a>
