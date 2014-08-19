@@ -70,12 +70,20 @@ class AsignacionCarroController extends \BaseController {
 	 */
 	public function edit($id) {
 		//
-		$asignacionCarro = AsignacionCarro::find($id);
+		$asignacionCarroInstance = AsignacionCarro::find($id);
+		
+		
+		$operadores = Operador::all();
+		$carros = Carro::all();
+		
+		//return View::make('asignacionCarro.create',array('carros' => $carros,'operadores' => $operadores));
+		
+		
 	
-		if (is_null($asignacionCarro)) {
+		if (is_null($asignacionCarroInstance)) {
 			return "No existe!";
 		} else {
-			return View::make('asignacionCarro/edit') -> with('asignacionCarro', $asignacionCarro);
+			return View::make('asignacionCarro/edit') -> with(array('asignacionCarroInstance'=>$asignacionCarroInstance,'carros' => $carros,'operadores' => $operadores));
 		}
 	}
 
