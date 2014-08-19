@@ -8,7 +8,7 @@ Lista de carros
 
 @section('sidebar')
 @parent
-Lista de Medida Llanta
+Lista de carros
 @stop
 
 @section('carros')

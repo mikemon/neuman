@@ -11,5 +11,10 @@ class Carro extends Eloquent{
         // El primero es el modelo al cual se desea asociar
         // El segundo es el id con el que se van a relacionar los modelos.
     }
+	
+	public function tipoCarro()
+	{
+		return $this->belongsTo('TipoCarro','tipoCarro_id');
+	}
 }
 ?>	

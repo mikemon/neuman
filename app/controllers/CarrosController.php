@@ -62,12 +62,13 @@ class CarrosController extends BaseController {
 	 */
 	public function edit($id) {
 		//
+		$tipoCarroList=TipoCarro::all();       
 		$carro = Carro::find($id);
-	
+		$tipoCarroInstance=TipoCarro::find($carro->tipoCarro_id);
 		if (is_null($carro)) {
 			return "No existe!";
 		} else {
-			return View::make('carros/edit') -> with('carro', $carro);
+			return View::make('carros/edit', array('carro' => $carro,'tipoCarroList'=>$tipoCarroList,'tipoCarro_id'=>$carro->tipoCarro_id));// -> with('carro', $carro);
 		}
 	}
 	

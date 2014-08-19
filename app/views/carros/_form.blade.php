@@ -33,17 +33,16 @@
 
 	<div class="form-group">
 		<label for="carro" class="col-sm-2 control-label">Tipo</label>
-		<div class="col-sm-6">
-			
+		<div class="col-sm-6">		
 			<select name="tipoCarro_id" id="tipoCarro_id" class="form-control input-lg" onchange="getEsquema()">
-					<option value="-1" selected>Seleccionar carro...</option>
-					@foreach($tipoCarroList as $tipoCarroInstance)
-					<option value="{{$tipoCarroInstance->id}}">{{$tipoCarroInstance->id." ".$tipoCarroInstance->descripcion}} </option>
-					@endforeach
-				</select>
+				<option value="-1" >Seleccionar carro...</option>
+				@foreach($tipoCarroList as $tipoCarroInstance)
+					<option  @if(@$carro->tipoCarro->id == $tipoCarroInstance->id ) {{'selected'}}  @endif   value="{{$tipoCarroInstance->id}}">{{$tipoCarroInstance->descripcion}} </option>
+				@endforeach
+			</select>
 		</div>
 	</div>
-
+	
 	<div class="form-group">
 		<label for="carro" class="col-sm-2 control-label">Capacidad/Ton</label>
 		<div class="col-sm-6">
@@ -88,7 +87,9 @@
 </div>
 
 <div id="side-b" style="margin: 0;padding-top:40px; float: left;width: 35%;height: 70%; box-shadow: 2px 2px 1px 2px rgba(50, 50, 50, 0.75); " align="center">
-	@include('carros.esquemaChasis.4neuman')
+@if(isset($carro) && ($carro->tipoCarro))
+@include('carros.esquemaChasis.'.$carro->tipoCarro->layoutChasis)
+@endif
 </div>
 
 <script>
