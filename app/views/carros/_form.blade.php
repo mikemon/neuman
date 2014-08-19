@@ -1,4 +1,4 @@
-<div id="side-a" style="float: left;width:65%;">
+<div id="side-a" style="float: left; width:65%; ">
 	<div class="form-group">
 		<label for="carro" class="col-sm-2 control-label">No. Serie</label>
 		<div class="col-sm-6">
@@ -94,7 +94,7 @@
 
 <script>
 	function getEsquema(){
-    		var myselect = document.getElementById("tipoCarro_id");
+    		var myselect = document.getElementById("tipoCarro_id")
   			myselect.options[myselect.selectedIndex].value;
   			  $.ajax({
         		type:"GET",

@@ -18,7 +18,7 @@ Formulario de Carro
 	</div>
 	<div class="panel-body">
 		{{ Form::model($carro, array('method' => 'PATCH', 'route' =>array('carros.update', $carro->id),'class'=>'form-horizontal')) }}
-		@include('carros._form');
+		@include('carros._form')
 		{{ Form::close() }}
 	</div>
 </div>

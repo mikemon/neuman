@@ -21,7 +21,7 @@
 			@section('asignacionCarro')
 			<li>
 			@show
-				<a href="{{ action('AsignacionCarroController@index', null )}}">Operadores</a>
+				<a href="{{ action('AsignacionCarroController@index', null )}}">Asignar carro</a>
 			</li>
 			
 			
