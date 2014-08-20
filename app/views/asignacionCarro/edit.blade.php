@@ -12,15 +12,11 @@ Formulario de Marca llanta
 -->
 @stop
 @section('content')
-<a class="btn btn-default"href="{{ action('MarcaLlantaController@index') }}" >Volver a listar</a>
-<h1> Editar Marca LLanta </h1>
-{{ Form::model($marcaLlanta, array('method' => 'PATCH', 'route' =>array('marcaLlanta.update', $marcaLlanta->id))) }}
+<a class="btn btn-default"href="{{ action('AsignacionCarroController@index') }}" >Volver a listar</a>
+<h1> Editar Asignacion carro </h1>
+{{ Form::model($asignacionCarroInstance, array('method' => 'PATCH', 'route' =>array('asignacionCarro.update', $asignacionCarroInstance->id),'class'=>'form-horizontal')) }}
 
-
-	{{Form::label('descripcion', 'Descripcion')}}
-	{{Form::text('descripcion', null,array('placeholder'=>'Descripcion','class'=>'form-control'))}}
-	<br>
-	{{ Form::button('Guardar', array('type'=>'submit','class'=>'btn btn-primary')) }}
+	@include('asignacionCarro._form')
 
 {{ Form::close() }}
 @stop
