@@ -7,8 +7,6 @@ Lista de Medida Llanta
 
 @section('medidaLlanta')
 <li class="active">
-	<a href="{{ action('MedidaLlantaController@index', null )}}">Medida llanta</a>
-</li>
 @stop
 @section('content')
 <?php
