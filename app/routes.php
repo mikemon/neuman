@@ -112,3 +112,8 @@ Route::resource('tipoCarro', 'TipoCarroController');
 Route::resource('cliente', 'ClienteController');
 
 /*******/
+
+/*flotilla*/
+Route::resource('flotilla', 'FlotillaController');
+
+/*******/

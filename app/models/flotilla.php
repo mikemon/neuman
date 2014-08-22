@@ -4,7 +4,7 @@ class Flotilla extends Eloquent{
 	protected $fillable = array('nombre','cliente_id','usuarioInsert_id','usuarioEdit_id','activo',);
 	 public function cliente()
     {
-        return $this->hasMany('Cliente', 'cliente_id');
+        return $this->belongsTo('Cliente', 'cliente_id');
     }
 	
 }
