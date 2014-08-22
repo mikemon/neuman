@@ -91,7 +91,6 @@ Route::get('contact', function()
 	return View::make('pages.contact');
 });
 
-/*******MAU******/
 /*medidaLLanta*/
 Route::resource('medidaLlanta', 'MedidaLlantaController');
 
@@ -107,5 +106,9 @@ Route::resource('asignacionCarro', 'AsignacionCarroController');
 /*tipoCarro*/
 Route::get('tipoCarro/getEsquemaForId/{id}', array('uses'=>'TipoCarroController@getEsquema'));
 Route::resource('tipoCarro', 'TipoCarroController');
+
+/*******/
+/*cliente*/
+Route::resource('cliente', 'ClienteController');
 
 /*******/

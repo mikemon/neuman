@@ -18,7 +18,7 @@ Lista de carros
 @stop
 @section('content')
 
-<h1> Marca Llanta	</h1>
+<h1> Carros	</h1>
 <div class="btn-group">
 	<a class="btn btn-default" href="{{ action('CarrosController@create')}}">Nuevo</a>
 	<a class="btn btn-default"href="{{ action('CarrosController@index') }}" >Actualizar</a>
