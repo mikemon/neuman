@@ -4,12 +4,6 @@
 @parent
 Lista de cliente
 @stop
-@extends('layouts.master')
-
-@section('sidebar')
-@parent
-Lista de cliente
-@stop
 
 @section('cliente')
 <li class="active">

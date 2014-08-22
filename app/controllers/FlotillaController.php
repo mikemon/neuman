@@ -52,7 +52,6 @@ class FlotillaController extends \BaseController {
 	 * @return Response
 	 */
 	public function show($id) {
-		echo json_encode($id);
 		$flotillaInstance = Flotilla::find($id);
 
 		//echo json_encode($flotillaInstance);
@@ -68,21 +67,18 @@ class FlotillaController extends \BaseController {
 	 */
 	public function edit($id) {
 		//
-		$asignacionCarroInstance = AsignacionCarro::find($id);
+		$flotillaInstance = Flotilla::find($id);
 		
-		
-		$operadores = Operador::all();
-		$carros = Carro::all();
-		
-		//return View::make('asignacionCarro.create',array('carros' => $carros,'operadores' => $operadores));
-		
-		
-	
-		if (is_null($asignacionCarroInstance)) {
+		$clientes = Cliente::all();
+		if (is_null($flotillaInstance)) {
 			return "No existe!";
 		} else {
-			return View::make('asignacionCarro/edit') -> with(array('asignacionCarroInstance'=>$asignacionCarroInstance,'carros' => $carros,'operadores' => $operadores));
+		return View::make('flotilla.edit',array('flotillaInstance' => $flotillaInstance,'clientes'=>$clientes));
 		}
+
+
+		
+		
 	}
 
 	/**
@@ -93,14 +89,14 @@ class FlotillaController extends \BaseController {
 	 */
 	public function update($id) {
 
-		$asignacionCarroInstance = AsignacionCarro::find($id);
-		if (is_null($asignacionCarroInstance)) {
+		$flotillaInstance = Flotilla::find($id);
+		if (is_null($flotillaInstance)) {
 			return "No existe!";
 		} else {
 			$data = Input::all();
-			$asignacionCarroInstance -> fill($data);
-			$asignacionCarroInstance -> save();
-			return Redirect::action('AsignacionCarroController@show', array($asignacionCarroInstance -> id));
+			$flotillaInstance -> fill($data);
+			$flotillaInstance -> save();
+			return Redirect::action('FlotillaController@show', array($flotillaInstance -> id));
 		}
 	}
 
@@ -111,9 +107,9 @@ class FlotillaController extends \BaseController {
 	 * @return Response
 	 */
 	public function destroy($id) {
-		if (AsignacionCarro::destroy($id)) {
+		if (Flotilla::destroy($id)) {
 			//return Redirect::route('medidaLlanta.index',array('datos'=> json_encode(array('id' => $id, 'exito' => true, 'msg' => 'Se borro :' . $id))));// -> with;
-			return Redirect::route('asignacionCarro.index');
+			return Redirect::route('flotilla.index');
 		} else {
 			echo "No se logro borrar";
 		}

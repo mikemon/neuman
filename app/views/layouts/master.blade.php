@@ -22,3 +22,10 @@
 
 	</body>
 </html>
+<script>
+	$(document).on("click", ".btn-danger", function(evt) {
+		if (!confirm('Esta seguro?')) {
+			return false;
+		}
+	}); 
+</script>

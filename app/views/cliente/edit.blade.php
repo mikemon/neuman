@@ -14,7 +14,7 @@ Formulario de Cliente
 <br>
 <div class="panel panel-default">
 	<div class="panel-heading">
-		<h3 class="panel-title">Editar cliente</h3>
+		<h3 class="panel-title"><label> Editar cliente: {{$clienteInstance->id}}</label></h3>
 	</div>
 	<div class="panel-body">
 		{{ Form::model($clienteInstance, array('method' => 'PATCH', 'route' =>array('cliente.update', $clienteInstance->id),'class'=>'form-horizontal')) }}

@@ -17,7 +17,7 @@
 			@section('operadores')
 			<li>
 			@show
-				<a href="{{ action('OperadoresController@mostrarOperadores', null )}}">Operadores</a>
+				<a href="{{ action('OperadorController@index', null )}}">Operadores</a>
 			</li>
 			
 			@section('asignacionCarro')

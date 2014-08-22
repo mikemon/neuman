@@ -5,7 +5,7 @@
 
 			<option value="-1" selected>Seleccionar cliente...</option>
 			@foreach($clientes as $clienteInstance)
-			<option @if(@$clienteInstance->cliente->id==$clienteInstance->id)selected @endif value="{{$clienteInstance->id}}">{{$clienteInstance->nomcte}} </option>
+			<option @if(@$flotillaInstance->cliente->id==$clienteInstance->id)selected @endif value="{{$clienteInstance->id}}">{{$clienteInstance->nomcte}} </option>
 			@endforeach
 		</select>
 	</div>

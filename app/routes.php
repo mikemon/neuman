@@ -31,10 +31,10 @@ Route::get('usuarios/{id}', array('uses'=>'UsuariosController@verUsuario'));
 
 
 /*|------------------------OPERADORES***-----*/
-Route::get('operadores', array('uses' => 'OperadoresController@mostrarOperadores'));
-Route::get('operadores/nuevo', array('uses' => 'OperadoresController@nuevoOperador'));
-Route::post('operadores/crear', array('uses' => 'OperadoresController@crearOperador'));
-Route::get('operadores/{id}', array('uses'=>'OperadoresController@verOperador'));
+/*flotilla*/
+Route::resource('operador', 'OperadorController');
+
+/*******/
 /*-----------------------------------------|*/
 
 /*|------------------------CARROS***--------*/

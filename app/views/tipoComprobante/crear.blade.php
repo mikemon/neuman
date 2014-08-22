@@ -11,7 +11,7 @@ Formulario de tipoComprobante
 @stop
 @section('content')
 <a class="btn btn-default"href="{{ action('tipoComprobanteController@mostrarTipoComprobante') }}" >Volver a listar</a>
-<h1> Crear Tip	o Comprobante </h1>
+<h1> Crear Tipo Comprobante </h1>
 {{ Form::open(array('url' => 'tipoComprobante/crear')) }}
 
 {{Form::label('descripcion', 'Descripcion')}}

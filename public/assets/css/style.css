@@ -45,3 +45,6 @@ body { padding-top: 70px; }
 .f-right {
     float: right !important;
 }
+.campo {
+    width: 10.3333%;
+}
