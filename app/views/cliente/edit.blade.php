@@ -2,23 +2,23 @@
 
 @section('sidebar')
 @parent
-Formulario de Carro
+Formulario de Cliente
 @stop
-@section('carros')
+@section('cliente')
 <li class="active">
-	<a href="{{ action('CarrosController@index', null )}}">Carros</a>
+	<a href="{{ action('ClienteController@index', null )}}">Cliente</a>
 </li>
 @stop
 @section('content')
-<a class="btn btn-default"href="{{ action('CarrosController@index') }}" >Volver a listar</a>
+<a class="btn btn-default"href="{{ action('ClienteController@index') }}" >Volver a listar</a>
 <br>
 <div class="panel panel-default">
 	<div class="panel-heading">
-		<h3 class="panel-title">Editar carro</h3>
+		<h3 class="panel-title">Editar cliente</h3>
 	</div>
 	<div class="panel-body">
-		{{ Form::model($carro, array('method' => 'PATCH', 'route' =>array('carros.update', $carro->id),'class'=>'form-horizontal')) }}
-		@include('carros._form')
+		{{ Form::model($clienteInstance, array('method' => 'PATCH', 'route' =>array('cliente.update', $clienteInstance->id),'class'=>'form-horizontal')) }}
+		@include('cliente._form')
 		{{ Form::close() }}
 	</div>
 </div>

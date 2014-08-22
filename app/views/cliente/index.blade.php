@@ -13,12 +13,12 @@ Lista de cliente
 
 @section('cliente')
 <li class="active">
-		<a href="{{ action('ClienteController@index', null )}}">Cliente</a>
+	<a href="{{ action('ClienteController@index', null )}}">Cliente</a>
 </li>
 @stop
 @section('content')
 
-<h1> Clientes	</h1>
+<h1> Clientes </h1>
 <div class="btn-group">
 	<a class="btn btn-default" href="{{ action('ClienteController@create')}}">Nuevo</a>
 	<a class="btn btn-default"href="{{ action('ClienteController@index') }}" >Actualizar</a>
@@ -29,22 +29,18 @@ Lista de cliente
 		<tr>
 			<th style="text-align: center; width:20%;">Opciones</th>
 			<th  style="text-align: center;width:10%;">id</th>
-			<th  style="text-align: center;width:10%;">No. Serie</th>
-			<th style="text-align: center; width:40%;">Datos</th>
+			<th  style="text-align: center;width:10%;">Clave</th>
+			<th style="text-align: center; width:40%;">Nombre</th>
 		</tr>
 	</thead>
 	@foreach($listaCliente as $clienteInstance)
 	<tr>
-		<td style="text-align: center; width:20%;">
-			<a href="{{ action('ClienteController@show', array($clienteInstance->id) )}}" class="btn btn-info "  >Ver</a>
-			<a href="{{ action('ClienteController@edit', array($clienteInstance->id) )}}" class="btn btn-warning " >Editar</a> 
-			{{ Form::model($clienteInstance, array('route' => array('cliente.destroy',$clienteInstance->id),'method'=>'DELETE','role'=>'form','class'=>'btn','style'=>'padding:0px')) }}
-				{{ Form::button('Borrar', array('type'=>'submit','class'=>'btn btn-danger')) }}
-			{{ Form::close() }} 
-		</td>
+		<td style="text-align: center; width:20%;"><a href="{{ action('ClienteController@show', array($clienteInstance->id) )}}" class="btn btn-info "  >Ver datos</a><a href="{{ action('ClienteController@edit', array($clienteInstance->id) )}}" class="btn btn-warning " >Editar</a> {{ Form::model($clienteInstance, array('route' => array('cliente.destroy',$clienteInstance->id),'method'=>'DELETE','role'=>'form','class'=>'btn','style'=>'padding:0px')) }}
+		{{ Form::button('Borrar', array('type'=>'submit','class'=>'btn btn-danger')) }}
+		{{ Form::close() }} </td>
 		<td style="text-align: center; width:10%;">{{$clienteInstance->id}} </td>
-		<td style="text-align: center; width:10%;">{{$clienteInstance->noSerie}} </td>
-		<td style="text-align: left; width:40%;">{{' <label>Marca:</label>'.$clienteInstance->marca.' <label> Modelo:</label>'.$clienteInstance->modelo}} </td>
+		<td style="text-align: center; width:10%;">{{$clienteInstance->numcte}} </td>
+		<td style="text-align: left; width:40%;">{{$clienteInstance->nomcte}} </td>
 	</tr>
 	@endforeach
 </table>

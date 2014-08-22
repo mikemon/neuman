@@ -9,7 +9,6 @@ class ClienteController extends \BaseController {
 	 */
 	public function index() {
 
-		//echo "estoy en index";
 		$listaCliente = Cliente::all();
 		return View::make('cliente.index', array('listaCliente' => $listaCliente));
 
@@ -78,12 +77,12 @@ class ClienteController extends \BaseController {
 	 */
 	public function edit($id) {
 		//
-		$cliente = Cliente::find($id);
+		$clienteInstance = Cliente::find($id);
 
-		if (is_null($cliente)) {
+		if (is_null($clienteInstance)) {
 			return "No existe!";
 		} else {
-			return View::make('cliente/edit') -> with('cliente', $cliente);
+			return View::make('cliente/edit') -> with('clienteInstance', $clienteInstance);
 		}
 	}
 
