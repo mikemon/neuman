@@ -4,14 +4,16 @@
 		<ul class="nav navbar-nav">
 			@section('home')
 			<li>
+			@show
 				<a href="{{URL::route('home');}}">Inicio</a>
 			</li>
-			@show
+			
 			@section('carros')
 			<li>
+			@show
 				<a href="{{ action('CarrosController@index', null )}}">Carros</a>
 			</li>
-			@show
+			
 			@section('operadores')
 			<li>
 			@show

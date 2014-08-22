@@ -3,16 +3,19 @@ body {
     color: #303030;    
 }
 
+body { padding-top: 70px; }
+
+
+
 .container{
 
 }
 
 #main{
-	padding-top: 32px;
-	height:90%;
 	background: #FFFFFF; 
 	padding-left: 15px;
 	padding-right: 15px;
+	height: 90%;
 }
 
 .box:after {

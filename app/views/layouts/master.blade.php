@@ -3,17 +3,17 @@
 		@include('includes.head')
 	</head>
 	<body>
+		<!--
 		@section('sidebar')
 		Taller-refacciones
 		@show
+		-->
 		<div class="container">
 			<header class="row">
 				@include('includes.header')
 			</header>
 			<div id="main" class="row">
-
 				@yield('content')
-
 			</div>
 			<footer class="row">
 				@include('includes.footer')

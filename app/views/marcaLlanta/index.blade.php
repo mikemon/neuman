@@ -2,7 +2,7 @@
 
 @section('sidebar')
 @parent
-Lista de Medida Llanta
+Lista de Marca Llanta
 @stop
 
 @section('marcaLlanta')

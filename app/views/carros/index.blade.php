@@ -4,17 +4,8 @@
 @parent
 Lista de carros
 @stop
-@extends('layouts.master')
-
-@section('sidebar')
-@parent
-Lista de carros
-@stop
-
 @section('carros')
 <li class="active">
-		<a href="{{ action('CarrosController@index', null )}}">Carros</a>
-</li>
 @stop
 @section('content')
 

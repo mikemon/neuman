@@ -3,7 +3,7 @@ class CarrosController extends BaseController {
 
 	public function CarrosController()
 	{
-		echo "init";
+		//echo "init";
 	}
     /**
      * Muestra la lista con todos los carros
@@ -12,7 +12,7 @@ class CarrosController extends BaseController {
     {
         $listaCarro = Carro::all();
         return View::make('carros.index', array('listaCarro' => $listaCarro));
-    }
+	}
  
  
     /**
