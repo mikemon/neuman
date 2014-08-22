@@ -4,13 +4,13 @@
      @parent
      Información deL carro
 @stop
- @section('carros')
+ @section('cliente')
 <li class="active">
 		<a href="{{ action('ClienteController@index', null )}}">Cliente</a>
 </li>
 @stop
 @section('content')
-        {{ HTML::link('carros', 'Volver'); }}
+        {{ HTML::link('cliente', 'Volver'); }}
         <h1>
   Operador {{$carro->id}}
       
