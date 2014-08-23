@@ -9,8 +9,6 @@ class OperadorController extends BaseController {
 	//echo "Ok";
 	
         $listaOperador  = Operador::all();
-       
-        
        return View::make('operadores.index', array('listaOperador' => $listaOperador ));
 	}
 	
