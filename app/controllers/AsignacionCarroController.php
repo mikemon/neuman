@@ -8,8 +8,6 @@ class AsignacionCarroController extends \BaseController {
 	 * @return Response
 	 */
 	public function index() {
-		
-		//echo "estoy en index";
 		$listaAsignacionCarro = AsignacionCarro::all();
 		return View::make('asignacionCarro.index', array('listaAsignacionCarro' => $listaAsignacionCarro));
 
@@ -54,12 +52,8 @@ class AsignacionCarroController extends \BaseController {
 	 * @return Response
 	 */
 	public function show($id) {
-		echo json_encode($id);
 		$asignacionCarroInstance = AsignacionCarro::find($id);
-
-		//echo json_encode($asignacionCarroInstance);
 		return View::make('asignacionCarro.show', array('asignacionCarroInstance' => $asignacionCarroInstance));
-
 	}
 
 	/**

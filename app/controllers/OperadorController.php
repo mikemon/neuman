@@ -36,7 +36,7 @@ class OperadorController extends BaseController {
     // create recibe como parámetro un arreglo con datos de un modelo y los inserta automáticamente en la base de datos
     // en este caso el arreglo es la información que viene desde un formulario y la obtenemos con el metido Input::all()
  
-        return Redirect::to('operadores');
+        return Redirect::to('operador');
     // el método redirect nos devuelve a la ruta de mostrar la lista de los operadors
  
     }
@@ -98,7 +98,7 @@ class OperadorController extends BaseController {
 	public function destroy($id) {
 		if (Operador::destroy($id)) {
 			//return Redirect::route('medidaLlanta.index',array('datos'=> json_encode(array('id' => $id, 'exito' => true, 'msg' => 'Se borro :' . $id))));// -> with;
-			return Redirect::route('opedadores.index');
+			return Redirect::route('opedador.index');
 		} else {
 			echo "No se logro borrar";
 		}

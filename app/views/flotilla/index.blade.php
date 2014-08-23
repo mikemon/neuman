@@ -7,7 +7,7 @@ Lista de Medida Llanta
 
 @section('flotilla')
 <li class="active">
-	<a href="{{ action('FlotillaController@index', null )}}">Asignar flotilla</a>
+	<a href="{{ action('FlotillaController@index', null )}}">Flotillas</a>
 </li>
 @stop
 @section('content')

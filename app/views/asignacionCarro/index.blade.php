@@ -2,7 +2,7 @@
 
 @section('sidebar')
 @parent
-Lista de Medida Llanta
+Lista de Asignacion carro
 @stop
 
 @section('asignacionCarro')
@@ -12,7 +12,7 @@ Lista de Medida Llanta
 @stop
 @section('content')
 
-<h1> Marca Llanta	</h1>
+<h1> Lista asignacion carro</h1>
 <div class="btn-group">
 	<a class="btn btn-default" href="{{ action('AsignacionCarroController@create')}}">Nuevo</a>
 	<a class="btn btn-default"href="{{ action('AsignacionCarroController@index') }}" >Actualizar</a>

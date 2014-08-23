@@ -2,7 +2,7 @@
 
 @section('sidebar')
 @parent
-Formulario de Marca llanta
+Formulario de Asignacion carro
 @stop
 @section('marcaLLanta')
 <!--

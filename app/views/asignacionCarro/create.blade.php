@@ -2,7 +2,7 @@
 
 @section('sidebar')
 @parent
-Formulario de Marca llanta
+Formulario de Asignacion carro
 @stop
 @section('asignacionCarro')
 <!--
@@ -16,7 +16,7 @@ Formulario de Marca llanta
 <br>
 <div class="panel panel-default">
 	<div class="panel-heading">
-		<h3 class="panel-title">Crear RegistroComprobantePago</h3>
+		<h3 class="panel-title">Crear asignacion carro</h3>
 	</div>
 	<div class="panel-body">
 		{{ Form::model(new AsignacionCarro, ['route' => ['asignacionCarro.store'],'class'=>'form-horizontal' ]) }}

@@ -8,6 +8,12 @@
 				<a href="{{URL::route('home');}}">Inicio</a>
 			</li>
 			
+			@section('flotilla')
+			<li>
+			@show
+				<a href="{{ action('FlotillaController@index', null )}}">Flotillas</a>
+			</li>
+			
 			@section('carros')
 			<li>
 			@show
@@ -26,7 +32,6 @@
 				<a href="{{ action('AsignacionCarroController@index', null )}}">Asignar carro</a>
 			</li>
 			
-			
 			@section('marcaLlanta')
 			<li>
 			@show
@@ -38,9 +43,6 @@
 			@show
 				<a href="{{ action('MedidaLlantaController@index', null )}}">Medida llantas</a>
 			</li>
-			
-			
-			
 			
 			@section('tipoComprobante')
 			<li>
