@@ -10,10 +10,17 @@
 | and give it the Closure to execute when that URI is requested.
 |
 */
-
+/*
 Route::get('/', function()
 {
 	return View::make('hello');
+});
+*/
+Route::get('/', function()
+{
+	return Redirect::to('home');
+	//exit;
+	//return View::make('hello');
 });
 Route::get('usuarios', array('uses' => 'UsuariosController@mostrarUsuarios'));
  
