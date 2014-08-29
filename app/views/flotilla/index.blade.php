@@ -7,8 +7,6 @@ Lista de Medida Llanta
 
 @section('flotilla')
 <li class="active">
-	<a href="{{ action('FlotillaController@index', null )}}">Flotillas</a>
-</li>
 @stop
 @section('content')
 

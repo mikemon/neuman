@@ -2,7 +2,7 @@
 class Carro extends Eloquent{
 	protected $table='carros';
 	protected $fillable = array('marca','modelo','placas','noSerie','tipoCarro_id','noMotor',
-								'polizaSeguros','noEconomico','capacidadTon','inciso','tipoMotor');
+								'polizaSeguros','noEconomico','capacidadTon','inciso','tipoMotor','flotilla_id');
 	
 	public function registroComprobantePagos(){
         return $this->hasMany('RegistroComprobantePago', 'carro_id');
@@ -15,6 +15,10 @@ class Carro extends Eloquent{
 	public function tipoCarro()
 	{
 		return $this->belongsTo('TipoCarro','tipoCarro_id');
+	}
+	public function flotilla()
+	{
+		return $this->belongsTo('Flotilla','flotilla_id');
 	}
 }
 ?>	

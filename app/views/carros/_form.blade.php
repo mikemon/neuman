@@ -33,16 +33,16 @@
 
 	<div class="form-group">
 		<label for="carro" class="col-sm-2 control-label">Tipo</label>
-		<div class="col-sm-6">		
+		<div class="col-sm-6">
 			<select name="tipoCarro_id" id="tipoCarro_id" class="form-control input-lg" onchange="getEsquema()">
 				<option value="-1" >Seleccionar carro...</option>
 				@foreach($tipoCarroList as $tipoCarroInstance)
-					<option  @if(@$carro->tipoCarro->id == $tipoCarroInstance->id ) {{'selected'}}  @endif   value="{{$tipoCarroInstance->id}}">{{$tipoCarroInstance->descripcion}} </option>
+				<option  @if(@$carro->tipoCarro->id == $tipoCarroInstance->id ) {{'selected'}}  @endif   value="{{$tipoCarroInstance->id}}">{{$tipoCarroInstance->descripcion}} </option>
 				@endforeach
 			</select>
 		</div>
 	</div>
-	
+
 	<div class="form-group">
 		<label for="carro" class="col-sm-2 control-label">Capacidad/Ton</label>
 		<div class="col-sm-6">
@@ -75,6 +75,18 @@
 			{{Form::text('inciso', null,array('placeholder'=>'Inciso','class'=>'form-control input-sm'))}}
 		</div>
 	</div>
+	
+	<div class="form-group">
+	<label for="carro" class="col-sm-2 control-label">Flotilla perteneciente</label>
+	<div class="col-sm-6">
+		<select name="flotilla_id" id="flotilla_id" class="form-control input-lg">
+			<option value="-1" >Seleccionar flotilla...</option>
+			@foreach($listaFlotilla as $flotillaInstance)
+			<option  @if(@$carro->flotilla_id == $flotillaInstance->id ) {{'selected'}}  @endif   value="{{$flotillaInstance->id}}">{{$flotillaInstance->nombre}} </option>
+			@endforeach
+		</select>
+	</div>
+</div>
 
 	<div class="form-group">
 		<div class="col-sm-offset-2 col-sm-10">
@@ -87,22 +99,22 @@
 </div>
 
 <div id="side-b" style="margin: 0;padding-top:40px; float: left;width: 35%;height: 70%; box-shadow: 2px 2px 1px 2px rgba(50, 50, 50, 0.75); " align="center">
-@if(isset($carro) && ($carro->tipoCarro))
-@include('carros.esquemaChasis.'.$carro->tipoCarro->layoutChasis)
-@endif
+	@if(isset($carro) && ($carro->tipoCarro))
+	@include('carros.esquemaChasis.'.$carro->tipoCarro->layoutChasis)
+	@endif
 </div>
 
 <script>
-	function getEsquema(){
-    		var myselect = document.getElementById("tipoCarro_id")
-  			myselect.options[myselect.selectedIndex].value;
-  			  $.ajax({
-        		type:"GET",
-				url:"{{asset('tipoCarro/getEsquemaForId/')}}/"+myselect.options[myselect.selectedIndex].value, //tipoCarro/getEsquemaForId/
+	function getEsquema() {
+		var myselect = document.getElementById("tipoCarro_id")
+		myselect.options[myselect.selectedIndex].value
+		$.ajax({
+			type : "GET",
+			url : "{{asset('tipoCarro/getEsquemaForId/')}}/" + myselect.options[myselect.selectedIndex].value, //tipoCarro/getEsquemaForId/
 
-        		success: function(data){
-       				$('#side-b').html(data);			
-      			}
-			});
-   }
+			success : function(data) {
+				$('#side-b').html(data);
+			}
+		});
+	}
 </script>

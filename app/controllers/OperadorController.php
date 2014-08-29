@@ -96,7 +96,7 @@ class OperadorController extends BaseController {
 	public function destroy($id) {
 		if (Operador::destroy($id)) {
 			//return Redirect::route('medidaLlanta.index',array('datos'=> json_encode(array('id' => $id, 'exito' => true, 'msg' => 'Se borro :' . $id))));// -> with;
-			return Redirect::route('opedador.index');
+			return Redirect::route('operador.index');
 		} else {
 			echo "No se logro borrar";
 		}

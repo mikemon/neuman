@@ -22,6 +22,7 @@ Lista de carros
 			<th  style="text-align: center;width:10%;">id</th>
 			<th  style="text-align: center;width:10%;">No. Serie</th>
 			<th style="text-align: center; width:40%;">Datos</th>
+			<th style="text-align: center; width:20%;">Flotilla</th>
 		</tr>
 	</thead>
 	@foreach($listaCarro as $carroInstance)
@@ -36,6 +37,8 @@ Lista de carros
 		<td style="text-align: center; width:10%;">{{$carroInstance->id}} </td>
 		<td style="text-align: center; width:10%;">{{$carroInstance->noSerie}} </td>
 		<td style="text-align: left; width:40%;">{{' <label>Marca:</label>'.$carroInstance->marca.' <label> Modelo:</label>'.$carroInstance->modelo}} </td>
+		<td style="text-align: center; width:20%;">{{@$carroInstance->flotilla->nombre}} </td>
+
 	</tr>
 	@endforeach
 </table>

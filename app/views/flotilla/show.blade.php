@@ -4,8 +4,12 @@
 @parent
 Información del flotilla
 @stop
-@section('content')
 
+@section('flotilla')
+<li class="active">
+@stop
+
+@section('content')
 <div class="btn-group">
 	<a class="btn btn-default"href="{{ action('FlotillaController@index') }}" >Volver a listar</a>
 </div>

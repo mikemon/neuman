@@ -52,7 +52,7 @@ Formulario de Registro Comprobante de Pago
 		<div class="form-group">
 			<label for="descripcion" class="col-sm-2 control-label">Descripcion</label>
 			<div class="col-sm-6">
-				{{ Form::textarea('descripcion', null, array('size' => '30x5','class'=>'form-control')) }}
+				{{ Form::textarea('descripcion', null, array('placeholder'=>'Descripcion de comprobante','size' => '30x3','class'=>'form-control')) }}
 			</div>
 		</div>
 
@@ -62,6 +62,11 @@ Formulario de Registro Comprobante de Pago
 				{{Form::text('total', '',array('placeholder'=>'00.00','class'=>'form-control decimal input-sm'))}}
 			</div>
 		</div>
+		<fieldset>
+			<legend>Datos rendimiento</legend>
+			
+			@include('datoRendimiento._form')
+		</fieldset>
 
 		<div class="form-group">
 			<div class="col-sm-offset-2 col-sm-10">
@@ -70,6 +75,7 @@ Formulario de Registro Comprobante de Pago
 
 			</div>
 		</div>
+		
 
 		{{ Form::close() }}
 	</div>

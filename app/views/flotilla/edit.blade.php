@@ -6,8 +6,6 @@ Formulario de Flotilla
 @stop
 @section('flotilla')
 <li class="active">
-	<a href="{{ action('FlotillaController@index', null )}}">Flotilla</a>
-</li>
 @stop
 @section('content')
 <a class="btn btn-default"href="{{ action('FlotillaController@index') }}" >Volver a listar</a>

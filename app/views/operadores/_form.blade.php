@@ -13,11 +13,19 @@
 </div>
 
 <div class="form-group">
-	<label for="clientes" class="col-sm-2 control-label">Telefono</label>
+	<label for="clientes" class="col-sm-2 control-label">Domicilio</label>
 	<div class="col-sm-6">
-					{{Form::text('domicilio', null,array('placeholder'=>'telefono','class'=>'form-control input-sm'))}}
+					{{Form::text('domicilio', null,array('placeholder'=>'Domicilio','class'=>'form-control input-sm'))}}
 	</div>
 </div>
+
+<div class="form-group">
+	<label for="clientes" class="col-sm-2 control-label">Telefono</label>
+	<div class="col-sm-6">
+					{{Form::text('telefono', null,array('placeholder'=>'telefono','class'=>'form-control input-sm'))}}
+	</div>
+</div>
+
 <div class="form-group">
 	<label for="clientes" class="col-sm-2 control-label">Fecha de ingreso</label>
 	<div class="col-sm-6">

@@ -21,7 +21,8 @@ class CarrosController extends BaseController {
     public function create()
     {
     	$tipoCarroList=TipoCarro::all();
-        return View::make('carros.crear',array('tipoCarroList'=>$tipoCarroList));
+		$listaFlotilla=Flotilla::all();
+        return View::make('carros.crear',array('tipoCarroList'=>$tipoCarroList,'listaFlotilla'=>$listaFlotilla));
     }
  
     /**
@@ -65,10 +66,11 @@ class CarrosController extends BaseController {
 		$tipoCarroList=TipoCarro::all();       
 		$carro = Carro::find($id);
 		$tipoCarroInstance=TipoCarro::find($carro->tipoCarro_id);
+		$listaFlotilla=Flotilla::all();
 		if (is_null($carro)) {
 			return "No existe!";
 		} else {
-			return View::make('carros/edit', array('carro' => $carro,'tipoCarroList'=>$tipoCarroList,'tipoCarro_id'=>$carro->tipoCarro_id));// -> with('carro', $carro);
+			return View::make('carros/edit', array('carro' => $carro,'tipoCarroList'=>$tipoCarroList,'tipoCarro_id'=>$carro->tipoCarro_id,'listaFlotilla'=>$listaFlotilla));// -> with('carro', $carro);
 		}
 	}
 	

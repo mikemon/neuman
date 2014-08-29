@@ -10,9 +10,9 @@
 </li>
 @stop
 @section('content')
-        {{ HTML::link('carros', 'Volver'); }}
+  <a class="btn btn-default"href="{{ action('CarrosController@index') }}" >Volver a listar</a>
         <h1>
-  Operador {{$carro->id}}
+  Carro {{$carro->id}}
       
 </h1>
         
