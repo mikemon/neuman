@@ -1,7 +1,8 @@
 <?php
 class RegistroComprobantePago extends Eloquent{
 	protected $table='registroComprobantePago';
-	protected $fillable = array('carro_id','operador_id','tipoComprobante_id','descripcion' ,'total','datoRendimiento_id');
+	protected $fillable = array('carro_id','operador_id','tipoComprobante_id','descripcion' ,
+	'total','usuarioInsert_id','usuarioEdit_id','datoRendimiento_id');
 	
 	 public function carro()
     {
@@ -19,7 +20,8 @@ class RegistroComprobantePago extends Eloquent{
 	
 	public function datoRendimiento()
     {
-        return $this->belongsTo('DatoRendimiento', 'datoRendimiento_id');
+        return $this->hasOne('DatoRendimiento', 'datoRendimiento_id');
     }
+
 }
 ?>	

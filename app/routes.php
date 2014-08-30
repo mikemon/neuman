@@ -53,6 +53,8 @@ Route::get('carros/{id}', array('uses'=>'CarrosController@verCarro'));
 */
 Route::resource('carros', 'CarrosController');
 Route::get('carros/getComprobantesForIdCarro/{id}', array('uses'=>'CarrosController@getComprobantesPagos'));
+Route::get('getDatoRendimientoActivo/{id}', array('uses'=>'CarrosController@getDatoRendimientoActivo'));
+
 /*-----------------------------------------|*/
 
 /*|------------------------TIPOCOMPROBANTE----------*/

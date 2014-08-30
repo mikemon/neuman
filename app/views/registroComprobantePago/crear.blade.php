@@ -30,7 +30,7 @@ Formulario de Registro Comprobante de Pago
 		<div class="form-group">
 			<label for="carro" class="col-sm-2 control-label">Carro</label>
 			<div class="col-sm-6">
-				<select name="carro_id" id="carro_id" class="form-control input-lg">
+				<select name="carro_id" id="carro_id" class="form-control input-lg" onchange="getDatoRendimientoActivo()">
 					<option value="-1" selected>Seleccionar carro...</option>
 					@foreach($carros as $carro)
 					<option value="{{$carro->id}}">{{$carro->id}} Marca {{$carro->marca}} Modelo: {{$carro->modelo}}</option>
@@ -56,18 +56,20 @@ Formulario de Registro Comprobante de Pago
 			</div>
 		</div>
 
+		
+		<fieldset>
+			<legend>Datos rendimiento</legend>
+			
+			@include('datoRendimiento._form')
+		</fieldset>
+		
 		<div class="form-group">
 			<label for="total" class="col-sm-2 control-label">Total</label>
 			<div class="col-sm-6">
 				{{Form::text('total', '',array('placeholder'=>'00.00','class'=>'form-control decimal input-sm'))}}
 			</div>
 		</div>
-		<fieldset>
-			<legend>Datos rendimiento</legend>
-			
-			@include('datoRendimiento._form')
-		</fieldset>
-
+		
 		<div class="form-group">
 			<div class="col-sm-offset-2 col-sm-10">
 
@@ -85,6 +87,28 @@ Formulario de Registro Comprobante de Pago
 	//alert('ready');
 	jQuery('.decimal').numeric("."); 
 </script>
+
+<script>
+	function getDatoRendimientoActivo() {
+		var myselect = document.getElementById("carro_id")
+		myselect.options[myselect.selectedIndex].value
+		$.ajax({
+			type : "GET",
+			dataType:"json",
+			url : "{{asset('getDatoRendimientoActivo/')}}/" + myselect.options[myselect.selectedIndex].value, //tipoCarro/getEsquemaForId/
+			success : function(data) {
+				//$('#side-b').html(data);
+				//alert(data.exito);
+				if (data.exito){
+					//alert('entro'+data.datoRendimientoActivo.kmFinal);
+					$('#kmInicial').val(data.datoRendimientoActivo.kmFinal);
+					$('#kmInicial').prop('disabled',true) ;
+				}
+			}
+		});
+	}
+</script>
+
 
 @stop
 

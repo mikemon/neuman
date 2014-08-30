@@ -25,13 +25,52 @@ class RegistroComprobantePagoController extends BaseController {
 	 */
 	public function crear() {//store() {//crear() {
 		//RegistroComprobantePago::create(Input::all());
-		
 		//return Redirect::to('registroComprobantePago');
-		
 		$input = Input::all();
-		$marcaLlantaInstance = new RegistroComprobantePago();
+		//echo json_encode($input);
 		
-		$marcaLlantaInstance -> descripcion = $input['descripcion'];
+		$datoRendimientoActivo=DatoRendimiento::where('activo','=','true')
+											  ->where('carro_id','=',$input['carro_id'])//whereActivo('true')->first();
+											  ->first();
+		
+		if($datoRendimientoActivo){
+			$input['kmInicial']=($datoRendimientoActivo->kmFinal==0)?$datoRendimientoActivo->kmInicial:$datoRendimientoActivo->kmFinal;
+		}
+		
+		//echo "<br>";
+		//echo json_encode($input);		
+		//exit;
+		
+		$datoRendimientoInstance=new DatoRendimiento();
+		$datoRendimientoInstance->kmInicial= $input['kmInicial'];
+		$datoRendimientoInstance->kmFinal= $input['kmFinal'];
+		$datoRendimientoInstance->litros= $input['litros'];
+		$datoRendimientoInstance->odometro= $input['odometro'];
+		$datoRendimientoInstance->observacion= $input['observacion'];
+		$datoRendimientoInstance->usuarioInsert_id= 1;
+		$datoRendimientoInstance->carro_id=$input['carro_id'];
+		$datoRendimientoInstance->activo= true;
+		$datoRendimientoInstance->save();
+		
+		$registroComprobanteInstance = new RegistroComprobantePago();
+		$registroComprobanteInstance->carro_id= $input['carro_id'];
+		$registroComprobanteInstance->operador_id= $input['operador_id'];
+		$registroComprobanteInstance->total= $input['total'];
+		$registroComprobanteInstance->descripcion= $input['descripcion'];
+		$registroComprobanteInstance->tipoComprobante_id= $input['tipoComprobante_id'];
+		$registroComprobanteInstance->usuarioInsert_id= 1;
+		$registroComprobanteInstance->datoRendimiento_id=$datoRendimientoInstance->id;
+		
+		$registroComprobanteInstance->save();
+		
+		
+		if($datoRendimientoActivo){
+			//echo "entro";
+			$datoRendimientoActivo->activo=false;
+			$datoRendimientoActivo->save();
+		}
+		
+		return Redirect::to('registroComprobantePago');
 		
 	}
 	

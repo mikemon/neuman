@@ -10,7 +10,8 @@ class CarrosController extends BaseController {
      */
     public function index()
     {
-        $listaCarro = Carro::all();
+        $listaCarro = Carro::orderBy('id', 'asc')-> paginate();;
+		//$listaCarro=$listaCarro()->orderBy('id', 'asc')-> paginate();
         return View::make('carros.index', array('listaCarro' => $listaCarro));
 	}
  
@@ -99,6 +100,25 @@ class CarrosController extends BaseController {
 			$carro = Carro::find($id);
 			echo json_encode($carro->registroComprobantePagos);
 	}
+	
+	public function getDatoRendimientoActivo($id=null)
+	{
+		//echo $id;
+		$datoRendimientoActivo=DatoRendimiento::where('carro_id','=',$id)//whereActivo('true')->first();
+											  ->first();
+		if($datoRendimientoActivo){
+			$datoRendimientoActivo=DatoRendimiento::where('activo','=','true')
+											  ->where('carro_id','=',$id)//whereActivo('true')->first();
+											  ->first();
+											  
+			if ($datoRendimientoActivo->kmFinal==0)
+			$datoRendimientoActivo->kmFinal=$datoRendimientoActivo->kmInicial;
+			
+			echo json_encode(array("exito"=>true,"datoRendimientoActivo"=>$datoRendimientoActivo));
+		}else{
+			echo json_encode(array("exito"=>false,"datoRendimientoActivo"=>null));	
+		}
+	}	
  
 }
 ?>

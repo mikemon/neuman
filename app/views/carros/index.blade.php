@@ -42,4 +42,5 @@ Lista de carros
 	</tr>
 	@endforeach
 </table>
+{{ $listaCarro->links() }}
 @stop

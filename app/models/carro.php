@@ -4,6 +4,7 @@ class Carro extends Eloquent{
 	protected $fillable = array('marca','modelo','placas','noSerie','tipoCarro_id','noMotor',
 								'polizaSeguros','noEconomico','capacidadTon','inciso','tipoMotor','flotilla_id');
 	
+	protected $perPage = 8;
 	public function registroComprobantePagos(){
         return $this->hasMany('RegistroComprobantePago', 'carro_id');
         // Para declarar una relación uno a muchos se hace uso de la función hasMany().
@@ -20,5 +21,8 @@ class Carro extends Eloquent{
 	{
 		return $this->belongsTo('Flotilla','flotilla_id');
 	}
+	public function datosRendimiento(){
+        return $this->hasMany('DatoRendimiento', 'carro_id');
+    }
 }
 ?>	
