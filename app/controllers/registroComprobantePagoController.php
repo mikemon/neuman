@@ -25,8 +25,9 @@ class RegistroComprobantePagoController extends BaseController {
 	 */
 	public function crear() {//store() {//crear() {
 		RegistroComprobantePago::create(Input::all());
+		
 		return Redirect::to('registroComprobantePago');
-
+		
 	}
 	
 	public function update($id)
