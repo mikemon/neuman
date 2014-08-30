@@ -24,9 +24,14 @@ class RegistroComprobantePagoController extends BaseController {
 	 * Crear el registroComprobantePago nuevo
 	 */
 	public function crear() {//store() {//crear() {
-		RegistroComprobantePago::create(Input::all());
+		//RegistroComprobantePago::create(Input::all());
 		
-		return Redirect::to('registroComprobantePago');
+		//return Redirect::to('registroComprobantePago');
+		
+		$input = Input::all();
+		$marcaLlantaInstance = new RegistroComprobantePago();
+		
+		$marcaLlantaInstance -> descripcion = $input['descripcion'];
 		
 	}
 	
