@@ -126,3 +126,12 @@ Route::resource('cliente', 'ClienteController');
 Route::resource('flotilla', 'FlotillaController');
 
 /*******/
+
+
+Route::get("firebird", function(){
+    $clientes = DB::connection('firebird')->select("select * from maecte");
+    //var_dump($users);
+    foreach ($clientes as  $value) {
+        echo  $value->NUMCTE." ".$value->NOMCTE."<br>";
+    }
+});

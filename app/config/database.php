@@ -17,7 +17,7 @@ return array(
 
 	/*
 	|--------------------------------------------------------------------------
-	| Default Database Connection Name
+	| Default Database Con	nection Name
 	|--------------------------------------------------------------------------
 	|
 	| Here you may specify which of the database connections below you wish
@@ -46,6 +46,17 @@ return array(
 	*/
 
 	'connections' => array(
+	
+		'firebird' => array(
+            'driver' => 'firebird',
+            'dsn' => 'host=127.0.0.1;dbname=D:/base/romasa/fernandaasturias.fdb;',
+             'host'=>'127.0.0.1',
+             'dbname'=>'D:/base/romasa/fernandaasturias.fdb',
+            'grammar' => 'DB2',
+            'username' => 'SYSDBA',
+            'password' => '050954ICA',
+            'database' => 'D:/base/romasa/fernandaasturias.fdb;',
+        ),
 
 		'sqlite' => array(
 			'driver'   => 'sqlite',
