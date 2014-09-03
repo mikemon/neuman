@@ -103,6 +103,9 @@ Formulario de Registro Comprobante de Pago
 					//alert('entro'+data.datoRendimientoActivo.kmFinal);
 					$('#kmInicial').val(data.datoRendimientoActivo.kmFinal);
 					$('#kmInicial').prop('disabled',true) ;
+				}else{
+					$('#kmInicial').val(0);
+					$('#kmInicial').prop('disabled',false) ;
 				}
 			}
 		});
