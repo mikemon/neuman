@@ -6,8 +6,7 @@ Formulario de Carro
 @stop
 @section('carros')
 <li class="active">
-	<a href="{{ action('CarrosController@index', null )}}">Carros</a>
-</li>
+
 @stop
 @section('content')
 <a class="btn btn-default"href="{{ action('CarrosController@index') }}" >Volver a listar</a>
