@@ -71,9 +71,6 @@ class OrdenServicioController extends \BaseController {
 		$carros = Carro::all();
 		
 		//return View::make('ordenServicio.create',array('carros' => $carros,'operadores' => $operadores));
-		
-		
-	
 		if (is_null($ordenServicioInstance)) {
 			return "No existe!";
 		} else {

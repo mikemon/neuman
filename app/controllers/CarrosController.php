@@ -118,6 +118,11 @@ class CarrosController extends BaseController {
 		}else{
 			echo json_encode(array("exito"=>false,"datoRendimientoActivo"=>null));	
 		}
+	}
+	
+	public function findCarro($id=null)
+	{
+		echo $id;
 	}	
  
 }

@@ -54,6 +54,8 @@ Route::get('carros/{id}', array('uses'=>'CarrosController@verCarro'));
 Route::resource('carros', 'CarrosController');
 Route::get('carros/getComprobantesForIdCarro/{id}', array('uses'=>'CarrosController@getComprobantesPagos'));
 Route::get('getDatoRendimientoActivo/{id}', array('uses'=>'CarrosController@getDatoRendimientoActivo'));
+Route::get('findCarroByText/{text}', array('uses'=>'CarrosController@findCarro'));
+
 
 /*-----------------------------------------|*/
 
@@ -126,6 +128,14 @@ Route::resource('cliente', 'ClienteController');
 Route::resource('flotilla', 'FlotillaController');
 
 /*******/
+
+
+/*flotilla*/
+Route::resource('ordenServicio', 'OrdenServicioController',array('only' => array('index','edit','create','update','store')));
+
+/*******/
+
+
 
 
 Route::get("firebird", function(){

@@ -51,11 +51,11 @@ return array(
             'driver' => 'firebird',
             'dsn' => 'host=127.0.0.1;dbname=D:/base/romasa/fernandaasturias.fdb;',
              'host'=>'127.0.0.1',
-             'dbname'=>'D:/base/romasa/fernandaasturias.fdb',
+             'dbname'=>'C:/base/fernandaasturias.fdb',
             'grammar' => 'DB2',
             'username' => 'SYSDBA',
-            'password' => '050954ICA',
-            'database' => 'D:/base/romasa/fernandaasturias.fdb;',
+            'password' => 'masterkey',//'050954ICA',
+            'database' => 'C:/base/fernandaasturias.fdb;',
         ),
 
 		'sqlite' => array(
