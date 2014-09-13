@@ -23,8 +23,31 @@
 </div>
 
 <script type="text/javascript">
+	/*
 	$("#findCarro").autocomplete({
         source: "{{ action('CarrosController@findCarro', array(null) )}}",
         minLength: 1
     });
+    */
+   $("#findCarro").autocomplete({
+    source: function (request, response){
+        $.ajax({
+            type: "POST",                        
+            url: "{{ action('CarrosController@findCarro', array(null) )}}",           
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",                                                    
+            success: function (data) {
+            response($.map(data.d, function (item) {
+                return {
+                    id: item.id,
+                    value: item.placas
+                }
+            }))
+        }
+        });
+    },
+    select: function (event, ui) {
+        $("#hdnId").val(ui.item.id);//Put Id in a hidden field
+    }
+});
 </script>

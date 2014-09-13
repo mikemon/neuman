@@ -124,12 +124,14 @@ class CarrosController extends BaseController {
 	{
 		$text= $_REQUEST['term'] ;
 		$listCarros= Carro::where('placas','like','%'.$text.'%')->get();
+		/*
 		$array = array();
 		foreach ($listCarros as $key => $value) {
 			$array[] = $value->placas;
 		}
 		echo json_encode($array);
-	}	
- 
+		 */
+		 echo json_encode($listCarros);
+	}
 }
 ?>
