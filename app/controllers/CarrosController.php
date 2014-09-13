@@ -120,9 +120,10 @@ class CarrosController extends BaseController {
 		}
 	}
 	
-	public function findCarro($id=null)
+	public function findCarro($text=null)
 	{
-		$text= $_REQUEST['term'] ;
+		$text= $text;//$_REQUEST['term'] ;
+		//exit;
 		$listCarros= Carro::where('placas','like','%'.$text.'%')->get();
 		/*
 		$array = array();

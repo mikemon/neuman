@@ -54,7 +54,7 @@ Route::get('carros/{id}', array('uses'=>'CarrosController@verCarro'));
 Route::resource('carros', 'CarrosController');
 Route::get('carros/getComprobantesForIdCarro/{id}', array('uses'=>'CarrosController@getComprobantesPagos'));
 Route::get('getDatoRendimientoActivo/{id}', array('uses'=>'CarrosController@getDatoRendimientoActivo'));
-Route::get('findCarroByText/', array('uses'=>'CarrosController@findCarro'));
+Route::get('findCarroByText/{text}', array('uses'=>'CarrosController@findCarro'));
 
 
 /*-----------------------------------------|*/
