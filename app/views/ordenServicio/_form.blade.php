@@ -1,4 +1,5 @@
 <div class="form-group">
+	<input type="hidden" name="carro_id" id="carro_id" />
 	<label for="clientes" class="col-sm-2 control-label">Carro</label>
 	<div class="col-sm-6">
 
@@ -24,30 +25,42 @@
 
 <script type="text/javascript">
 	/*
+	 $("#findCarro").autocomplete({
+	 source: "{{ action('CarrosController@findCarro', array(null) )}}",
+	 minLength: 1
+	 });
+	 */
 	$("#findCarro").autocomplete({
-        source: "{{ action('CarrosController@findCarro', array(null) )}}",
-        minLength: 1
-    });
-    */
-   $("#findCarro").autocomplete({
-    source: function (request, response){
-        $.ajax({
-            type: "POST",                        
-            url: "{{ action('CarrosController@findCarro', array(null) )}}/"+$("#findCarro").val(),           
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",                                                    
-            success: function (data) {
-            response($.map(data.d, function (item) {
-                return {
-                    id: item.id,
-                    value: item.placas
-                }
-            }))
-        }
-        });
-    },
-    select: function (event, ui) {
-        $("#hdnId").val(ui.item.id);//Put Id in a hidden field
-    }
-});
+		source : function(request, response) {
+			$.ajax({
+				type : "GET",
+				url : "{{ action('CarrosController@findCarro', array(null) )}}/" + $("#findCarro").val(),
+				contentType : "application/json; charset=utf-8",
+				dataType : "json",
+				success : function(data) {
+					/*
+					response($.map(data, function(item) {
+						return {
+							id : item.id,
+							value : item.placas
+						}
+					}))
+					*/
+					//return data;
+					response(data);
+				}
+			});
+		},
+		 focus: function( event, ui ) {
+		 	$( "#findCarro" ).val( ui.item.placas );
+		 	return false;
+		 },
+		select : function(event, ui) {
+			$("#carro_id").val(ui.item.id);
+			//Put Id in a hidden field
+		}
+	}).autocomplete("instance")._renderItem = function(ul, item) {
+		return $("<li>").append("<a><b>" + item.placas + "</b><br> Marca:" + item.marca + "</a>").appendTo(ul);
+	};
+
 </script>

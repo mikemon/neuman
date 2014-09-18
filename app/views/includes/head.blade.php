@@ -11,11 +11,11 @@
 		{{HTML::style('assets/css/docs.min.css')}}
 		{{HTML::style('assets/css/style.css')}}
 		
-		{{HTML::style('assets/js/jquery-ui/css/blitzer/jquery-ui-1.10.4.custom.css')}}
+		{{HTML::style('assets/js/jquery-ui/jquery-ui.css')}}
 		
 		{{HTML::script('assets/js/jquery.js')}}
 		
-		{{HTML::script('assets/js/jquery-ui/js/jquery-ui-1.10.4.custom.js')}}
+		{{HTML::script('assets/js/jquery-ui/jquery-ui.js')}}
 		
 		{{HTML::script('assets/js/jquery.numeric.js')}}
 		{{HTML::script('assets/js/bootstrap.js')}}
