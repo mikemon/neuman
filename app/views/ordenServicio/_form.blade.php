@@ -57,6 +57,7 @@
 		 },
 		select : function(event, ui) {
 			$("#carro_id").val(ui.item.id);
+			$('#findCarro').val()
 			//Put Id in a hidden field
 		}
 	}).autocomplete("instance")._renderItem = function(ul, item) {
