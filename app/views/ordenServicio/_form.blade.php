@@ -1,3 +1,9 @@
+<style>
+.oddRow {
+    background-color: #f5f5f5;
+    border-color: #ddd;
+}
+</style>
 <div class="form-group">
 	<input type="hidden" name="carro_id" id="carro_id" />
 	<label for="clientes" class="col-sm-2 control-label">Carro</label>
@@ -30,6 +36,7 @@
 	 minLength: 1
 	 });
 	 */
+	var icont=0;
 	$("#findCarro").autocomplete({
 		source : function(request, response) {
 			$.ajax({
@@ -57,11 +64,16 @@
 		 },
 		select : function(event, ui) {
 			$("#carro_id").val(ui.item.id);
-			$('#findCarro').val()
+			alert(ui.item.placas);
+			$('#findCarro').val(ui.item.placas);
+			return false;
 			//Put Id in a hidden field
 		}
 	}).autocomplete("instance")._renderItem = function(ul, item) {
-		return $("<li>").append("<a><b>" + item.placas + "</b><br> Marca:" + item.marca + "</a>").appendTo(ul);
+		var v=icont++;//JSON.stringify(ul);
+		var css= (((v%2)==0)?"oddRow":"evenRow");
+		return $("<li class='"+css+"'>").append("<a><b>Placas:</b> " + item.placas + "</b><br> <b>Marca:</b> " + item.marca+"<b> Modelo:</b> " + item.modelo + "</a>").appendTo(ul);
 	};
+	
 
 </script>

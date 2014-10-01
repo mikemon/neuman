@@ -124,7 +124,10 @@ class CarrosController extends BaseController {
 	{
 		$text= $text;//$_REQUEST['term'] ;
 		//exit;
-		$listCarros= Carro::where('placas','like','%'.$text.'%')->get();
+		$listCarros= Carro::where('placas','like','%'.$text.'%')
+							->orWhere('marca','like','%'.$text.'%')
+							->orWhere('modelo','like','%'.$text.'%')
+							->get();
 		/*
 		$array = array();
 		foreach ($listCarros as $key => $value) {
