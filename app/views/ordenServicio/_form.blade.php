@@ -21,13 +21,36 @@
 
 	</div>
 </div>
-<div class="form-group">
-	<div class="col-sm-offset-2 col-sm-10">
-
-		{{ Form::button('Guardar', array('type'=>'submit','class'=>'btn btn-primary')) }}
-
-	</div>
+<div class="btn-group">
+	<label >Datos del carro</label>
+	<div id="datosCarro"></div>
 </div>
+
+<br/>
+<div class="btn-group">
+	<a href="{{ action('CarrosController@show', array(0) )}}" class="btn btn-info "  >Agregar servicio</a>
+	{{ Form::button('Guardar orden', array('type'=>'submit','class'=>'btn btn-primary')) }}
+
+	
+</div>
+
+
+<table class="table table-striped table-bordered">
+		<thead>
+			<tr>
+				<th style="text-align: center; width:10%;">Opciones</th>
+				<th  style="text-align: center;width:10%;">id</th>
+				<th  style="text-align: center;width:40%;">Descripcion</th>
+				<th style="text-align: center; width:20%;">Precio</th>
+				<th style="text-align: center; width:20%;">Subtotal</th>
+			</tr>
+		</thead>
+		<tbody>
+			
+		</tbody>
+				
+	</table>
+
 
 <script type="text/javascript">
 	/*
@@ -64,8 +87,10 @@
 		 },
 		select : function(event, ui) {
 			$("#carro_id").val(ui.item.id);
-			alert(ui.item.placas);
+			//alert(ui.item.placas);
 			$('#findCarro').val(ui.item.placas);
+			var txt="<b>Placas:</b> " + ui.item.placas + "</b><br> <b>Marca:</b> " + ui.item.marca+"<b> Modelo:</b> " + ui.item.modelo + "";
+			$('#datosCarro').html(txt);
 			return false;
 			//Put Id in a hidden field
 		}
