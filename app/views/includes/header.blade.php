@@ -1,4 +1,3 @@
-
 <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
 	<div class="container">
 		<ul class="nav navbar-nav">
@@ -7,54 +6,73 @@
 			@show
 				<a href="{{URL::route('home');}}">Inicio</a>
 			</li>
-			
-			@section('flotilla')
-			<li>
+
+			@section('catalogos')
+			<li class="dropdown">
 			@show
-				<a href="{{ action('FlotillaController@index', null )}}">Flotillas</a>
+				<a class="dropdown-toggle" data-toggle="dropdown" href="#"> Catalogos <span class="caret"></span> </a>
+				<ul class="dropdown-menu" role="menu">
+					<li>
+						<a href="{{ action('CarrosController@index', null )}}">Carros</a>
+					</li>
+					<li>
+						<a href="{{ action('OperadorController@index', null )}}">Operadores</a>
+					</li>
+					<li class="divider"></li>
+					<li>
+						<a href="{{ action('FlotillaController@index', null )}}">Flotillas</a>
+					</li>
+				</ul>
 			</li>
-			
-			@section('carros')
-			<li>
+			@section('llantas')
+			<li class="dropdown">
 			@show
-				<a href="{{ action('CarrosController@index', null )}}">Carros</a>
+				<a class="dropdown-toggle" data-toggle="dropdown" href="#"> Llantas <span class="caret"></span> </a>
+				<ul class="dropdown-menu" role="menu">
+					<li>
+						<a href="{{ action('MarcaLlantaController@index', null )}}">Marca llantas</a>
+					</li>
+
+					<li>
+						<a href="{{ action('MedidaLlantaController@index', null )}}">Medida llantas</a>
+					</li>
+				</ul>
 			</li>
-			
-			@section('operadores')
 			<li>
-			@show
-				<a href="{{ action('OperadorController@index', null )}}">Operadores</a>
+				<a href="{{ action('registroComprobantePagoController@mostrarRegistroComprobantePago', null )}}">Registro de Comprobantes</a>
 			</li>
-			
-			@section('asignacionCarro')
-			<li>
+			@section('configuracion')
+			<li class="dropdown">
 			@show
-				<a href="{{ action('AsignacionCarroController@index', null )}}">Asignar carro</a>
+				<a class="dropdown-toggle" data-toggle="dropdown" href="#"> Configuracion <span class="caret"></span> </a>
+				<ul class="dropdown-menu" role="menu">
+					
+					<li>
+						<a href="{{ action('TipoCarroController@index', null )}}">Tipo carro</a>
+					</li>
+
+					<li class="divider"></li>
+					
+					
+					<li>
+						<a href="{{ action('AsignacionCarroController@index', null )}}">Asignar carro</a>
+					</li>
+
+					<li class="divider"></li>
+
+					<li>
+						<a href="{{ action('PrecioCombustibleController@index', null )}}" >Precio combustible </a>
+					</li>
+					<li>
+						<a href="{{ action('tipoComprobanteController@mostrarTipoComprobante', null )}}">Tipo comprobante</a>
+					</li>
+
+					<!--
+					<li class="divider"></li>
+					-->
+				</ul>
 			</li>
-			
-			@section('marcaLlanta')
-			<li>
-			@show
-				<a href="{{ action('MarcaLlantaController@index', null )}}">Marca llantas</a>
-			</li>
-			
-			@section('medidaLlanta')
-			<li>
-			@show
-				<a href="{{ action('MedidaLlantaController@index', null )}}">Medida llantas</a>
-			</li>
-			
-			@section('tipoComprobante')
-			<li>
-				<a href="{{ action('tipoComprobanteController@mostrarTipoComprobante', null )}}">Tipo comprobante</a>
-			</li>
-			@show
-			@section('registroComprobantepago')
-			<li>
-			@show
-				<a href="{{ action('registroComprobantePagoController@mostrarRegistroComprobantePago', null )}}">Comprobantes</a>
-			</li>
-			
+
 		</ul>
 	</div>
 </nav>

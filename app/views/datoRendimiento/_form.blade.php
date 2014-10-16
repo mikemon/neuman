@@ -12,7 +12,7 @@
 </div>
 
 <div class="form-group">
-	<label for="carro" class="col-sm-2 control-label">Litros</label>
+	<label for="carro" class="col-sm-2 control-label" id="lb-litros">Litros</label>
 	<div class="col-sm-6">
 		{{Form::text('litros', null,array('onblur'=>'calculaRendimiento()','id'=>'litros','placeholder'=>'Litros','class'=>'form-control input-sm'))}}
 	</div>
@@ -41,5 +41,12 @@
 			$('#odometro').val(0)
 		else
 			$('#odometro').val(rendimiento)
+			
+			
+			if(precioCombustible>0){
+				
+				var total=$('#litros').val()*precioCombustible;
+				$('#total').val(total);
+			}
 	}
 </script>

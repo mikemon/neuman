@@ -31,8 +31,7 @@ class RegistroComprobantePagoController extends BaseController {
 		
 		$datoRendimientoActivo=DatoRendimiento::where('activo','=','true')
 											  ->where('carro_id','=',$input['carro_id'])//whereActivo('true')->first();
-											  ->first();
-		
+											  ->first();		
 		if($datoRendimientoActivo){
 			$input['kmInicial']=($datoRendimientoActivo->kmFinal==0)?$datoRendimientoActivo->kmInicial:$datoRendimientoActivo->kmFinal;
 		}

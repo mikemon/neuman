@@ -1,3 +1,6 @@
+<script>
+	var precioCombustible=0;
+</script>
 @extends('layouts.master')
 @section('sidebar')
 @parent
@@ -33,7 +36,7 @@ Formulario de Registro Comprobante de Pago
 				<select name="carro_id" id="carro_id" class="form-control input-lg" onchange="getDatoRendimientoActivo()">
 					<option value="-1" selected>Seleccionar carro...</option>
 					@foreach($carros as $carro)
-					<option value="{{$carro->id}}">{{$carro->id}} Marca {{$carro->marca}} Modelo: {{$carro->modelo}}</option>
+					<option value="{{$carro->id}}">{{$carro->noEconomico}} Marca {{$carro->marca}} Modelo: {{$carro->modelo}}</option>
 					@endforeach
 				</select>
 			</div>
@@ -66,7 +69,7 @@ Formulario de Registro Comprobante de Pago
 		<div class="form-group">
 			<label for="total" class="col-sm-2 control-label">Total</label>
 			<div class="col-sm-6">
-				{{Form::text('total', '',array('placeholder'=>'00.00','class'=>'form-control decimal input-sm'))}}
+				{{Form::text('total', '',array('placeholder'=>'00.00','class'=>'form-control decimal input-sm','id'=>'total'))}}
 			</div>
 		</div>
 		
@@ -83,10 +86,7 @@ Formulario de Registro Comprobante de Pago
 	</div>
 </div>
 
-<script>
-	//alert('ready');
-	jQuery('.decimal').numeric("."); 
-</script>
+
 
 <script>
 	function getDatoRendimientoActivo() {
@@ -107,6 +107,8 @@ Formulario de Registro Comprobante de Pago
 					$('#kmInicial').val(0);
 					$('#kmInicial').prop('disabled',false) ;
 				}
+				$('#lb-litros').html('LITROS '+data.precioCombustible.descripcion);
+				precioCombustible=data.precioCombustible.precio;
 			}
 		});
 	}

@@ -106,6 +106,8 @@ class CarrosController extends BaseController {
 		//echo $id;
 		$datoRendimientoActivo=DatoRendimiento::where('carro_id','=',$id)//whereActivo('true')->first();
 											  ->first();
+		$carroInstance=Carro::find($id);										  
+												  
 		if($datoRendimientoActivo){
 			$datoRendimientoActivo=DatoRendimiento::where('activo','=','true')
 											  ->where('carro_id','=',$id)//whereActivo('true')->first();
@@ -114,9 +116,9 @@ class CarrosController extends BaseController {
 			if ($datoRendimientoActivo->kmFinal==0)
 			$datoRendimientoActivo->kmFinal=$datoRendimientoActivo->kmInicial;
 			
-			echo json_encode(array("exito"=>true,"datoRendimientoActivo"=>$datoRendimientoActivo));
+			echo json_encode(array("exito"=>true,"datoRendimientoActivo"=>$datoRendimientoActivo,"precioCombustible"=>$carroInstance->tipoCarro->precioCombustible));
 		}else{
-			echo json_encode(array("exito"=>false,"datoRendimientoActivo"=>null));	
+			echo json_encode(array("exito"=>false,"datoRendimientoActivo"=>null,"precioCombustible"=>$carroInstance->tipoCarro->precioCombustible));	
 		}
 	}
 	

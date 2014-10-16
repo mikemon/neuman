@@ -29,3 +29,8 @@
 		}
 	}); 
 </script>
+
+<script>
+	//alert('ready');
+	jQuery('.decimal').numeric("."); 
+</script>

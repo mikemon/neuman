@@ -36,8 +36,9 @@ if(isset($datos)){
 		<tr>
 			<th style="text-align: center; width:20%;">Opciones</th>
 			<th  style="text-align: center;width:10%;">id</th>
-			<th style="text-align: center; width:40%;">Descripcion</th>
-			<th style="text-align: center; width:30%;">Esquema</th>
+			<th style="text-align: center; width:30%;">Descripcion</th>
+			<th style="text-align: center; width:20%;">Combustible</th>
+			<th style="text-align: center; width:20%;">Esquema</th>
 		</tr>
 	</thead>
 	@foreach($listaTipoCarro as $tipoCarroInstance)
@@ -51,6 +52,7 @@ if(isset($datos)){
 		</td>
 		<td style="text-align: center; width:10%;">{{$tipoCarroInstance->id}} </td>
 		<td style="text-align: left; width:40%;">{{$tipoCarroInstance->descripcion}} </td>
+		<td style="text-align: left; width:40%;">{{@$tipoCarroInstance->precioCombustible->descripcion}} </td>
 		<td style="text-align: left; width:40%;">{{$tipoCarroInstance->layoutChasis}} </td>
 
 	</tr>

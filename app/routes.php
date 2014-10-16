@@ -130,8 +130,13 @@ Route::resource('flotilla', 'FlotillaController');
 /*******/
 
 
-/*flotilla*/
+/*ordenServicio*/
 Route::resource('ordenServicio', 'OrdenServicioController',array('only' => array('index','edit','create','update','store')));
+
+/*******/
+
+/*flotilla*/
+Route::resource('precioCombustible', 'PrecioCombustibleController');
 
 /*******/
 

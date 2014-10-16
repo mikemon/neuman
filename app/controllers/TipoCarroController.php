@@ -83,7 +83,13 @@ class TipoCarroController extends \BaseController {
 		if (is_null($tipoCarro)) {
 			return "No existe!";
 		} else {
-			return View::make('tipoCarro/edit') -> with('tipoCarro', $tipoCarro);
+			
+			$listaPrecioCombustible=PrecioCombustible::all();
+			
+			//return View::make('tipoCarro/edit') -> with('tipoCarro', $tipoCarro);
+			
+			return View::make('tipoCarro/edit', array('tipoCarro' => $tipoCarro,'listaPrecioCombustible'=>$listaPrecioCombustible));// -> with('carro', $carro);
+			
 		}
 	}
 
