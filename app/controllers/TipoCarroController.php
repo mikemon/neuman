@@ -10,7 +10,7 @@ class TipoCarroController extends \BaseController {
 	public function index() {
 		
 		//echo "estoy en index";
-		$listaTipoCarro = TipoCarro::all();
+		$listaTipoCarro = TipoCarro::orderBy('id', 'asc')-> paginate();
 		return View::make('tipoCarro.index', array('listaTipoCarro' => $listaTipoCarro));
 
 	}

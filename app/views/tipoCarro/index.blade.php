@@ -54,8 +54,8 @@ if(isset($datos)){
 		<td style="text-align: left; width:40%;">{{$tipoCarroInstance->descripcion}} </td>
 		<td style="text-align: left; width:40%;">{{@$tipoCarroInstance->precioCombustible->descripcion}} </td>
 		<td style="text-align: left; width:40%;">{{$tipoCarroInstance->layoutChasis}} </td>
-
 	</tr>
 	@endforeach
 </table>
+{{$listaTipoCarro->links()}}
 @stop
