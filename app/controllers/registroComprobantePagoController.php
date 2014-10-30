@@ -14,7 +14,7 @@ class RegistroComprobantePagoController extends BaseController {
 	 */
 	public function nuevoRegistroComprobantePago() {
 		$tipoComprobante = TipoComprobante::all();
-		$operadores = Operador::all();
+		$operadores = Operador::orderBy('nombre','asc')->orderBy('apellidos','asc')->get();//all();
 		$carros = Carro::all();
         //return View::make('carros.lista', array('carros' => $carros));
 		return View::make('registroComprobantePago.crear',array('carros' => $carros,'operadores' => $operadores,'tipoComprobante'=>$tipoComprobante));

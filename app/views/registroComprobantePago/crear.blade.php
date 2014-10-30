@@ -47,7 +47,7 @@ Formulario de Registro Comprobante de Pago
 				<select name="operador_id" id="operador_id" class="form-control input-lg">
 					<option value="-1" selected>Seleccionar operador...</option>
 					@foreach($operadores as $operador)
-					<option value="{{$operador->id}}">{{$operador->nombre}} </option>
+					<option value="{{$operador->id}}">{{$operador->nombre}} {{$operador->apellidos}} </option>
 					@endforeach
 				</select>
 			</div>
