@@ -1,0 +1,18 @@
+lista de operadores nombre apellidos en orden alfabetico
+Tipo de combustible y precio por tipo para que automaticamente se calcule el preciode liciencia 
+
+
+-Estatal
+No de licencia: entero
+tipo: texto
+vigencia: Date
+	
+-Federal
+Numer de licencia :entero
+clasificacion:texto
+Vigencia: Date
+Expediente Medico: Texto
+
+asignacion de carro:
+Poner paginador.
+Mas datos del carro en la lista.
