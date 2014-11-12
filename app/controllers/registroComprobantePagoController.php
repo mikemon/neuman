@@ -57,8 +57,11 @@ class RegistroComprobantePagoController extends BaseController {
 		$registroComprobanteInstance->total= $input['total'];
 		$registroComprobanteInstance->descripcion= $input['descripcion'];
 		$registroComprobanteInstance->tipoComprobante_id= $input['tipoComprobante_id'];
+		$registroComprobanteInstance->fechaComprobante=$input['fechaComprobante'];
 		$registroComprobanteInstance->usuarioInsert_id= 1;
 		$registroComprobanteInstance->datoRendimiento_id=$datoRendimientoInstance->id;
+		
+		
 		
 		$registroComprobanteInstance->save();
 		

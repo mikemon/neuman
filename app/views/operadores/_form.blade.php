@@ -1,3 +1,6 @@
+<style title="text/css">
+	
+</style>
 <div class="form-group">
 	<label for="clientes" class="col-sm-2 control-label">Nombre</label>
 	<div class="col-sm-6">
@@ -29,7 +32,7 @@
 <div class="form-group">
 	<label for="clientes" class="col-sm-2 control-label">Fecha de ingreso</label>
 	<div class="col-sm-6">
-					{{Form::text('fechaIngreso', null,array('placeholder'=>date("d/m/Y"),'class'=>'form-control input-sm'))}}
+					{{Form::text('fechaIngreso', null,array('placeholder'=>date("d/m/Y"),'class'=>'form-control input-sm tipoFecha'))}}
 	</div>
 </div>
 
@@ -40,3 +43,9 @@
 
 	</div>
 </div>
+
+<script type="text/javascript">
+
+	
+
+		</script>	

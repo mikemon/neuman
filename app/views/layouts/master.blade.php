@@ -33,4 +33,8 @@
 <script>
 	//alert('ready');
 	jQuery('.decimal').numeric("."); 
+	
+	$('.tipoFecha').datetimepicker({changeMonth: true,
+     changeYear: true,
+        showButtonPanel: true, dateFormat: 'yy-mm-dd' });
 </script>

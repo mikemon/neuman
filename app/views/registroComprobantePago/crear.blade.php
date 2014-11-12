@@ -58,6 +58,14 @@ Formulario de Registro Comprobante de Pago
 				{{ Form::textarea('descripcion', null, array('placeholder'=>'Descripcion de comprobante','size' => '30x3','class'=>'form-control')) }}
 			</div>
 		</div>
+		
+		<div class="form-group">
+			<label for="clientes" class="col-sm-2 control-label">Fecha Comprobante</label>
+			<div class="col-sm-6">
+				{{Form::text('fechaComprobante', null,array('placeholder'=>date("d/m/Y"),'class'=>'form-control input-sm tipoFecha'))}}
+			</div>
+		</div>
+			
 
 		
 		<fieldset>
