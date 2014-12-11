@@ -89,7 +89,7 @@
 			$("#carro_id").val(ui.item.id);
 			//alert(ui.item.placas);
 			$('#findCarro').val(ui.item.placas);
-			var txt="<b>Placas:</b> " + ui.item.placas + "</b><br> <b>Marca:</b> " + ui.item.marca+"<b> Modelo:</b> " + ui.item.modelo + "";
+			var txt="<b>No. Economico:</b> " + ui.item.noEconomico +" <b>Placas:</b> " + ui.item.placas + "</b><br> <b>Marca:</b> " + ui.item.marca+"<b> Modelo:</b> " + ui.item.modelo + "";
 			$('#datosCarro').html(txt);
 			return false;
 			//Put Id in a hidden field
@@ -97,7 +97,7 @@
 	}).autocomplete("instance")._renderItem = function(ul, item) {
 		var v=icont++;//JSON.stringify(ul);
 		var css= (((v%2)==0)?"oddRow":"evenRow");
-		return $("<li class='"+css+"'>").append("<a><b>Placas:</b> " + item.placas + "</b><br> <b>Marca:</b> " + item.marca+"<b> Modelo:</b> " + item.modelo + "</a>").appendTo(ul);
+		return $("<li class='"+css+"'>").append("<a><b>No. Economico:</b> " + item.noEconomico + " <a><b>Placas:</b> " + item.placas + "</b><br> <b>Marca:</b> " + item.marca+"<b> Modelo:</b> " + item.modelo + "</a>").appendTo(ul);
 	};
 	
 

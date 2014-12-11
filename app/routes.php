@@ -66,7 +66,8 @@ Route::get('registroComprobantePago/nuevo', array('uses' => 'registroComprobante
 //**AUTOMATICOS**/Route::resource('registroComprobantePago', 'RegistroComprobantePagoController',array('only' => array('update','store')));
 Route::post('registroComprobantePago/crear', array('uses' => 'registroComprobantePagoController@crear'));
 Route::get('registroComprobantePago/show/{id}', array('uses'=>'registroComprobantePagoController@show'));
-Route::get('registroComprobantePago/edit/{id}', array('uses' => 'registroComprobantePagoController@editarTipoComprobante'));
+Route::get('registroComprobantePago/edit/{id}', array('uses' => 'registroComprobantePagoController@editarRegistroComprobantePago'));
+Route::resource('registroComprobantePago', 'registroComprobantePagoController',array('only' => array('update')));
 Route::get('registroComprobantePago/delete/{id}', array('uses' => 'registroComprobantePagoController@borrarTipoComprobante'));
 /*---------------------------------------------------------|*/
 

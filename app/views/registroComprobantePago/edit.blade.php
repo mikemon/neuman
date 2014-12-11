@@ -1,9 +1,10 @@
 @extends('layouts.master')
+
 @section('sidebar')
 @parent
-Formulario de Registro Comprobante de Pago
+Formulario de RegistroComprobantePago
 @stop
-@section('registroComprobantepago')
+@section('registroComprobantePago')
 <li class="active">
 @stop
 @section('content')
@@ -11,16 +12,12 @@ Formulario de Registro Comprobante de Pago
 <br>
 <div class="panel panel-default">
 	<div class="panel-heading">
-		<h3 class="panel-title">Crear RegistroComprobantePago</h3>
+		<h3 class="panel-title"><label> Editar registroComprobantePago: {{$registroComprobantePagoInstance->id}}</label></h3>
 	</div>
 	<div class="panel-body">
-		{{ Form::open(array('url' => 'registroComprobantePago/crear','method'=>'POST','role'=>'form' ,'class'=>'form-horizontal')) }}
-
+		{{ Form::model($registroComprobantePagoInstance, array('method' => 'PATCH', 'route' =>array('registroComprobantePago.update', $registroComprobantePagoInstance->id),'class'=>'form-horizontal')) }}
 		@include('registroComprobantePago._form')
-
 		{{ Form::close() }}
 	</div>
 </div>
-
 @stop
-

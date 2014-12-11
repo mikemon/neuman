@@ -126,7 +126,9 @@ class CarrosController extends BaseController {
 	{
 		$text= $text;//$_REQUEST['term'] ;
 		//exit;
-		$listCarros= Carro::where('placas','like','%'.$text.'%')
+		$listCarros= Carro::where('noEconomico','like','%'.$text.'%')
+							
+							->orWhere('placas','like','%'.$text.'%')
 							->orWhere('marca','like','%'.$text.'%')
 							->orWhere('modelo','like','%'.$text.'%')
 							->get();

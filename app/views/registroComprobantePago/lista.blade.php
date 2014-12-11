@@ -21,16 +21,18 @@ Lista de Comprobantes de Pago.
               <tr>
               	<th style="text-align: center; width:20%;   ">Opciones</th>
                 <th  style="text-align: center;width:10%;   ">id</th>
-                <th style="text-align: center; width:7	0%;">Descripcion</th>
+                <th  style="text-align: center;width:10%;   ">Fecha hora</th>
+                <th style="text-align: center; width:70%;">Descripcion</th>
               </tr>
      </thead>
 	@foreach($registroComprobantePago as $registroComprobanteInstance)
 			<tr>
     			<td style="text-align: left; width:20%;">
     				<a href="{{ action('registroComprobantePagoController@show', array($registroComprobanteInstance->id) )}}" class="btn btn-info " >Ver</a>
-    				<a href="{{ action('registroComprobantePagoController@editarTipoComprobante', array($registroComprobanteInstance->id) )}}" class="btn btn-warning " >Editar</a>
+    				<a href="{{ action('registroComprobantePagoController@editarRegistroComprobantePago', array($registroComprobanteInstance->id) )}}" class="btn btn-warning " >Editar</a>
     				<a href="{{ action('registroComprobantePagoController@borrarTipoComprobante', array($registroComprobanteInstance->id) )}}" class="btn btn-danger" >Borrar</a>
                 <td style="text-align: center; width:10%;">{{$registroComprobanteInstance->id}} </td>
+                <td style="text-align: center; width:10%;">{{$registroComprobanteInstance->fechaComprobante}} </td>
                 <td style="text-align: left; width:70%;">{{$registroComprobanteInstance->descripcion}} </td>
               </tr>
 	@endforeach

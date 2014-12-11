@@ -20,7 +20,7 @@ class RegistroComprobantePago extends Eloquent{
 	
 	public function datoRendimiento()
     {
-        return $this->hasOne('DatoRendimiento', 'datoRendimiento_id');
+        return $this->hasOne('DatoRendimiento', 'id');
     }
 
 }

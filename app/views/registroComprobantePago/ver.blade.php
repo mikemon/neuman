@@ -8,14 +8,33 @@
 <li class="active">
 @stop
 @section('content')
-        {{ HTML::link('tipoComprobante', 'Volver'); }}
+<a class="btn btn-default"href="{{ action('registroComprobantePagoController@mostrarRegistroComprobantePago') }}" >Volver a listar</a>
         <h1>
-  Operador {{$registroComprobantePago->id}}
+  Registro comprobante {{$registroComprobantePago->id}}
       
 </h1>
+ <label>Carro: </label> {{$registroComprobantePago->carro->id}}  <b>No Economico:</b> {{ $registroComprobantePago->carro->noEconomico }}  <b>Marca:</b> {{ $registroComprobantePago->carro->marca }}  <b>Modelo: </b>{{ $registroComprobantePago->carro->modelo }}
+
+
+<br />
       
+     <label>Operador: </label>   {{ $registroComprobantePago->operador->nombre }} {{ $registroComprobantePago->operador->apellidos }}
+           
+<br />      
      <label>Descripcion: </label>   {{ $registroComprobantePago->descripcion }}
-        
+ <h3>Datos rendimiento</h3>
+ 
+<label>kmInicial: </label>   {{ $registroComprobantePago->datoRendimiento->kmInicial }}
+<br />      
+     <label>kmFinal: </label>   {{ $registroComprobantePago->datoRendimiento->kmFinal }}
+<br />      
+     <label>litros: </label>   {{ $registroComprobantePago->datoRendimiento->litros }}
+<br />      
+     <label>Rendimiento: </label>   {{ $registroComprobantePago->datoRendimiento->odometro }}
+    	        
+<br />      
+     <label>Observacion: </label>   {{ $registroComprobantePago->datoRendimiento->observacion }}
+    	                	                    	            	          
 <br />
 
 @stop
