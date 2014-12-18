@@ -41,6 +41,32 @@
 			<li>
 				<a href="{{ action('registroComprobantePagoController@mostrarRegistroComprobantePago', null )}}">Registro de Comprobantes</a>
 			</li>
+			
+			
+			<li>
+				<a href="{{ action('OrdenServicioController@index', null )}}">Ordenes de servicio</a>
+			</li>
+			
+			
+			
+			@section('reportes')
+			<li class="dropdown">
+			@show
+				<a class="dropdown-toggle" data-toggle="dropdown" href="#"> Reportes <span class="caret"></span> </a>
+				<ul class="dropdown-menu" role="menu">
+					
+					<li>
+						<a href="{{ action('ReportesController@comprobantes', null )}}">Comprobantes de pago</a>
+					</li>
+
+					<li class="divider"></li>
+					
+					
+				
+				</ul>
+			</li>
+			
+			
 			@section('configuracion')
 			<li class="dropdown">
 			@show

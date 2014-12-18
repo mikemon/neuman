@@ -28,7 +28,7 @@
 
 <br/>
 <div class="btn-group">
-	<a href="{{ action('CarrosController@show', array(0) )}}" class="btn btn-info "  >Agregar servicio</a>
+	<a href="{{ action('CarrosController@show', array(0) )}}" class="btn btn-info "  id="addServicio" >Agregar servicio</a>
 	{{ Form::button('Guardar orden', array('type'=>'submit','class'=>'btn btn-primary')) }}
 
 	
@@ -53,6 +53,12 @@
 
 
 <script type="text/javascript">
+
+//addServicio
+$(document).on("click", "#addServicio", function(evt) {
+		alert('ok');
+});
+
 	/*
 	 $("#findCarro").autocomplete({
 	 source: "{{ action('CarrosController@findCarro', array(null) )}}",

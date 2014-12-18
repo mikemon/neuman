@@ -12,6 +12,7 @@
 	],
 	"require": {
 		"laravel/framework": "4.2.*",
+		"maatwebsite/excel": "1.*",
 		"josecols/firebird-driver": "dev-master"
 	},
 	"autoload": {

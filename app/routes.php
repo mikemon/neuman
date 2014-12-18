@@ -129,7 +129,14 @@ Route::resource('precioCombustible', 'PrecioCombustibleController');
 
 /*******/
 
+/*Importar de xls*/
+Route::get('import/servicios', array('uses'=>'ServicioController@importServiciosXls'));
 
+/*****************/
+/*Reportes*/
+Route::get('reportes/comprobantes', array('uses'=>'ReportesController@comprobantes'));
+Route::post('reportes/consultaComprobantes', array('uses'=>'ReportesController@reporteComprobantes'));
+/***/
 
 
 Route::get("firebird", function(){
