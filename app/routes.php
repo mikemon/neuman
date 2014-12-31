@@ -1,41 +1,39 @@
 <?php
 
 /*
-|--------------------------------------------------------------------------
-| Application Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register all of the routes for an application.
-| It's a breeze. Simply tell Laravel the URIs it should respond to
-| and give it the Closure to execute when that URI is requested.
-|
-*/
+ |--------------------------------------------------------------------------
+ | Application Routes
+ |--------------------------------------------------------------------------
+ |
+ | Here is where you can register all of the routes for an application.
+ | It's a breeze. Simply tell Laravel the URIs it should respond to
+ | and give it the Closure to execute when that URI is requested.
+ |
+ */
 /*
-Route::get('/', function()
-{
-	return View::make('hello');
-});
-*/
-Route::get('/', function()
-{
+ Route::get('/', function()
+ {
+ return View::make('hello');
+ });
+ */
+Route::get('/', function() {
 	return Redirect::to('home');
 	//exit;
 	//return View::make('hello');
 });
 Route::get('usuarios', array('uses' => 'UsuariosController@mostrarUsuarios'));
- 
+
 Route::get('usuarios/nuevo', array('uses' => 'UsuariosController@nuevoUsuario'));
- 
+
 Route::post('usuarios/crear', array('uses' => 'UsuariosController@crearUsuario'));
 // esta ruta es a la cual apunta el formulario donde se introduce la información del usuario
 // como podemos observar es para recibir peticiones POST
- 
-Route::get('usuarios/{id}', array('uses'=>'UsuariosController@verUsuario'));
+
+Route::get('usuarios/{id}', array('uses' => 'UsuariosController@verUsuario'));
 // esta ruta contiene un parámetro llamado {id}, que sirve para indicar el id del usuario que deseamos buscar
 // este parámetro es pasado al controlador, podemos colocar todos los parámetros que necesitemos
 // solo hay que tomar en cuenta que los parámetros van entre llaves {}
 // si el parámetro es opcional se colocar un signo de interrogación {parámetro?}
-
 
 /*|------------------------OPERADORES***-----*/
 /*flotilla*/
@@ -44,18 +42,18 @@ Route::resource('operador', 'OperadorController');
 
 /*|------------------------CARROS***--------*/
 Route::resource('carros', 'CarrosController');
-Route::get('carros/getComprobantesForIdCarro/{id}', array('uses'=>'CarrosController@getComprobantesPagos'));
-Route::get('getDatoRendimientoActivo/{id}', array('uses'=>'CarrosController@getDatoRendimientoActivo'));
-Route::get('findCarroByText/{text}', array('uses'=>'CarrosController@findCarro'));
+Route::get('carros/getComprobantesForIdCarro/{id}', array('uses' => 'CarrosController@getComprobantesPagos'));
+Route::get('getDatoRendimientoActivo/{id}', array('uses' => 'CarrosController@getDatoRendimientoActivo'));
+Route::get('findCarroByText/{text}', array('uses' => 'CarrosController@findCarro'));
 /*-----------------------------------------|*/
 
 /*|------------------------TIPOCOMPROBANTE----------*/
 Route::get('tipoComprobante', array('uses' => 'tipoComprobanteController@mostrarTipoComprobante'));
 Route::get('tipoComprobante/nuevo', array('uses' => 'tipoComprobanteController@nuevoTipoComprobante'));
 Route::post('tipoComprobante/crear', array('uses' => 'tipoComprobanteController@crear'));
-Route::get('tipoComprobante/show/{id}', array('uses'=>'tipoComprobanteController@verTipoComprobante'));
+Route::get('tipoComprobante/show/{id}', array('uses' => 'tipoComprobanteController@verTipoComprobante'));
 Route::get('tipoComprobante/edit/{id}', array('uses' => 'tipoComprobanteController@editarTipoComprobante'));
-Route::resource('tipoComprobante', 'TipoComprobanteController',array('only' => array('update')));
+Route::resource('tipoComprobante', 'TipoComprobanteController', array('only' => array('update')));
 Route::get('tipoComprobante/delete/{id}', array('uses' => 'tipoComprobanteController@borrarTipoComprobante'));
 
 /*---------------------------------------------------------|*/
@@ -65,29 +63,24 @@ Route::get('registroComprobantePago', array('uses' => 'registroComprobantePagoCo
 Route::get('registroComprobantePago/nuevo', array('uses' => 'registroComprobantePagoController@nuevoRegistroComprobantePago'));
 //**AUTOMATICOS**/Route::resource('registroComprobantePago', 'RegistroComprobantePagoController',array('only' => array('update','store')));
 Route::post('registroComprobantePago/crear', array('uses' => 'registroComprobantePagoController@crear'));
-Route::get('registroComprobantePago/show/{id}', array('uses'=>'registroComprobantePagoController@show'));
+Route::get('registroComprobantePago/show/{id}', array('uses' => 'registroComprobantePagoController@show'));
 Route::get('registroComprobantePago/edit/{id}', array('uses' => 'registroComprobantePagoController@editarRegistroComprobantePago'));
-Route::resource('registroComprobantePago', 'registroComprobantePagoController',array('only' => array('update')));
+Route::resource('registroComprobantePago', 'registroComprobantePagoController', array('only' => array('update')));
 Route::get('registroComprobantePago/delete/{id}', array('uses' => 'registroComprobantePagoController@borrarTipoComprobante'));
 /*---------------------------------------------------------|*/
 
-
-Route::get('home', array('as' => 'home',function()
-{
+Route::get('home', array('as' => 'home', function() {
 	return View::make('pages.home');
 }));
 
-Route::get('about', function()
-{
+Route::get('about', function() {
 	return View::make('pages.about');
 });
 
-Route::get('projects', function()
-{
+Route::get('projects', function() {
 	return View::make('pages.projects');
 });
-Route::get('contact', function()
-{
+Route::get('contact', function() {
 	return View::make('pages.contact');
 });
 
@@ -104,7 +97,7 @@ Route::resource('marcaLlanta', 'MarcaLlantaController');
 Route::resource('asignacionCarro', 'AsignacionCarroController');
 /*******/
 /*tipoCarro*/
-Route::get('tipoCarro/getEsquemaForId/{id}', array('uses'=>'TipoCarroController@getEsquema'));
+Route::get('tipoCarro/getEsquemaForId/{id}', array('uses' => 'TipoCarroController@getEsquema'));
 Route::resource('tipoCarro', 'TipoCarroController');
 
 /*******/
@@ -118,13 +111,12 @@ Route::resource('flotilla', 'FlotillaController');
 
 /*******/
 
-
 /*ordenServicio*/
-Route::resource('ordenServicio', 'OrdenServicioController',array('only' => array('index','edit','create','update','store')));
+Route::resource('ordenServicio', 'OrdenServicioController', array('only' => array('index', 'edit', 'create', 'update', 'store')));
 
-Route::get('findDepartamentoByText/{text}', array('uses'=>'ServicioController@findDepartamento'));
-Route::get('findSubDepartamentoByText/{departamento_id}/{text}', array('uses'=>'ServicioController@findSubDepartamento'));
-Route::get('findServicioByText/{text}', array('uses'=>'ServicioController@findServicio'));
+Route::get('findDepartamentoByText/{text}', array('uses' => 'ServicioController@findDepartamento'));
+Route::get('findSubDepartamentoByText/{departamento_id}/{text}', array('uses' => 'ServicioController@findSubDepartamento'));
+Route::get('findServicioByText/{text}', array('uses' => 'ServicioController@findServicio'));
 
 /*******/
 
@@ -134,19 +126,59 @@ Route::resource('precioCombustible', 'PrecioCombustibleController');
 /*******/
 
 /*Importar de xls*/
-Route::get('import/servicios', array('uses'=>'ServicioController@importServiciosXls'));
+Route::get('import/servicios', array('uses' => 'ServicioController@importServiciosXls'));
 
 /*****************/
 /*Reportes*/
-Route::get('reportes/comprobantes', array('uses'=>'ReportesController@comprobantes'));
-Route::post('reportes/consultaComprobantes', array('uses'=>'ReportesController@reporteComprobantes'));
+Route::get('reportes/comprobantes', array('uses' => 'ReportesController@comprobantes'));
+Route::post('reportes/consultaComprobantes', array('uses' => 'ReportesController@reporteComprobantes'));
 /***/
 
+Route::get("firebird", function() {
+	$clientes = DB::connection('firebird') -> select("select * from maecte");
+	//var_dump($users);
+	foreach ($clientes as $value) {
+		echo $value -> NUMCTE . " " . $value -> NOMCTE . "<br>";
+	}
+});
 
-Route::get("firebird", function(){
-    $clientes = DB::connection('firebird')->select("select * from maecte");
-    //var_dump($users);
-    foreach ($clientes as  $value) {
-        echo  $value->NUMCTE." ".$value->NOMCTE."<br>";
-    }
+Route::get("visor/getProductos", function() {
+	
+	$result =Configuracion::whereVariable('numPrecioEnOrden') -> first();
+	if ($result){
+		$numprecio=$result->valor;
+	}
+	else{
+		echo "No se ha configurado el numero de precio en Ordenes de servivio";
+		exit;
+	}
+	
+	$result =Configuracion::whereVariable('almacenProductos') -> first();
+	if ($result){
+		$almacenProductos=$result->valor;
+	}
+	else{
+		echo "No se ha configurado el numero de precio en Ordenes de servivio";
+		exit;
+	}
+	
+	$sql = 'SELECT MAEART.NUMART, MAEART.NOMART, PRECIOS.PRECIO, MAEALM.exualm,maealm.apaalm
+	FROM ARTPRECIO
+	JOIN PRECIOS ON ARTPRECIO.NUMPRECIO = PRECIOS.NUMPRECIO
+	LEFT JOIN MAEART ON ARTPRECIO.NUMART = MAEART.NUMART
+	INNER JOIN maealm ON (MAEALM.numart=MAEART.NUMART AND maealm.numalm='.$almacenProductos.')
+	WHERE ARTPRECIO.NOPRECIO ='.$numprecio.' ORDER BY  MAEART.NUMART asc';
+
+	$productos = DB::connection('firebird') -> select($sql);
+	//print_r($productos);
+	//var_dump($users);
+	echo "<table>";
+	foreach ($productos as $value) {
+		echo '<tr class="rowArt" id="'.$value->NUMART.'">';
+		echo '<td>'. $value -> NUMART . '</td><td>' . $value -> NOMART . '</td><td>' . $value -> EXUALM . '</td><td>' . $value -> PRECIO . '</td>';
+		echo "</tr>";
+	}
+	
+	echo "</table>";
+
 });
