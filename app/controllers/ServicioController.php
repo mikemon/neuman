@@ -110,6 +110,34 @@ class ServicioController extends \BaseController {
 
 	}
 
+	public function findDepartamento($text=null)
+	{
+		$text= $text;
+		$resultado = DB::select('SELECT id,descripcion,"departamentoDepende_id" 
+		FROM departamento 
+		WHERE descripcion like ?', array("%".strtoupper ($text)."%"));
+		echo json_encode($resultado);
+		 		 
+	}
+	
+	public function findSubDepartamento($departamento_id,$text=null)
+	{
+		$text= $text;
+		$resultado = DB::select('SELECT id,descripcion,"departamentoDepende_id" 
+		FROM departamento 
+		WHERE descripcion like ? and "departamentoDepende_id"= ?', array("%".strtoupper($text)."%",$departamento_id));
+		
+		echo json_encode($resultado);		 		 
+	}
+	
+	public function findServicio($text=null)
+	{
+		$text= $text;
+		$resultado = DB::select('SELECT * FROM servicio 
+		WHERE codigo like ? or  descripcion like ?', array("%".strtoupper($text)."%","%".strtoupper($text)."%"));
+		echo json_encode($resultado);		 		 
+	}
+
 	public function importServiciosXls() {
 
 		$path = 'CODIGO_SERVICIOS.xlsx';

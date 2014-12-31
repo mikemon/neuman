@@ -33,8 +33,12 @@ class OrdenServicioController extends \BaseController {
 	 * @return Response
 	 */
 	public function store() {
-			
+				
 		$input = Input::all();
+		echo json_encode($input);
+		//echo $input['aCadenaServicios'];
+		
+		exit;
 		$ordenServicioInstance = new OrdenServicio();
 		$ordenServicioInstance -> carro_id = $input['carro_id'];
 		$ordenServicioInstance -> operador_id = $input['operador_id'];
@@ -42,7 +46,6 @@ class OrdenServicioController extends \BaseController {
 		$ordenServicioInstance -> usuarioInsert_id = 1;
 		$ordenServicioInstance -> save();
 		return Redirect::action('OrdenServicioController@show', array($ordenServicioInstance -> id));
-
 	}
 
 	/**

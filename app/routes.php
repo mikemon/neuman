@@ -122,6 +122,10 @@ Route::resource('flotilla', 'FlotillaController');
 /*ordenServicio*/
 Route::resource('ordenServicio', 'OrdenServicioController',array('only' => array('index','edit','create','update','store')));
 
+Route::get('findDepartamentoByText/{text}', array('uses'=>'ServicioController@findDepartamento'));
+Route::get('findSubDepartamentoByText/{departamento_id}/{text}', array('uses'=>'ServicioController@findSubDepartamento'));
+Route::get('findServicioByText/{text}', array('uses'=>'ServicioController@findServicio'));
+
 /*******/
 
 /*flotilla*/
