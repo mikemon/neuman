@@ -18,6 +18,7 @@
 			<footer class="row">
 				@include('includes.footer')
 			</footer>
+			<div id="spinner" class="fondo ui-widget-overlay"  ></div>
 		</div>
 
 	</body>
@@ -33,13 +34,21 @@
 
 <script>
 	//alert('ready');
-	jQuery('.decimal').numeric("."); 
-	
-	$('.tipoFecha').datetimepicker({changeMonth: true,
-     changeYear: true,
-        showButtonPanel: true, dateFormat: 'yy-mm-dd' });
-        
-        $('.tipoFechaSimple').datepicker({changeMonth: true,
-     changeYear: true,
-        showButtonPanel: true, dateFormat: 'yy-mm-dd'});
+	jQuery('.decimal').numeric(".");
+
+	$('.tipoFecha').datetimepicker({
+		changeMonth : true,
+		changeYear : true,
+		showButtonPanel : true,
+		dateFormat : 'yy-mm-dd'
+	});
+
+	$('.tipoFechaSimple').datepicker({
+		changeMonth : true,
+		changeYear : true,
+		showButtonPanel : true,
+		dateFormat : 'yy-mm-dd'
+	}); 
+	//document.getElementById("spinner").style.display = "block";
+
 </script>

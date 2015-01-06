@@ -99,3 +99,19 @@ body {
     z-index: 10000;
 }
 
+.fondo {
+    background: url("images/preLoader.gif") no-repeat scroll center center #FFFFFF;
+    display: none;
+    height: 100%;
+    left: 0;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 100000000;
+}
+
+
+/****quitar le borde punteado en firefox****/
+a:active, a:active * { outline: none !important; -moz-outline-style: none !important; }
+a:focus, a:focus * { outline: none !important; -moz-outline-style: none !important; }
+

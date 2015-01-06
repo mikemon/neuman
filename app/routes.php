@@ -142,43 +142,59 @@ Route::get("firebird", function() {
 	}
 });
 
-Route::get("visor/getProductos", function() {
-	
-	$result =Configuracion::whereVariable('numPrecioEnOrden') -> first();
-	if ($result){
-		$numprecio=$result->valor;
-	}
-	else{
+/*
+ Route::get('home', array('as' => 'home', function() {
+	return View::make('pages.home');
+}));
+ * */
+
+Route::post('visor/getProductos', array('as' => 'getListProductos',function() {
+	$result = Configuracion::whereVariable('numPrecioEnOrden') -> first();
+	if ($result) {
+		$numprecio = $result -> valor;
+	} else {
 		echo "No se ha configurado el numero de precio en Ordenes de servivio";
-		exit;
+		exit ;
 	}
-	
-	$result =Configuracion::whereVariable('almacenProductos') -> first();
-	if ($result){
-		$almacenProductos=$result->valor;
-	}
-	else{
+
+	$result = Configuracion::whereVariable('almacenProductos') -> first();
+	if ($result) {
+		$almacenProductos = $result -> valor;
+	} else {
 		echo "No se ha configurado el numero de precio en Ordenes de servivio";
-		exit;
+		exit ;
 	}
-	
-	$sql = 'SELECT MAEART.NUMART, MAEART.NOMART, PRECIOS.PRECIO, MAEALM.exualm,maealm.apaalm
+
+	$sql = "SELECT MAEART.NUMART, MAEART.NOMART, PRECIOS.PRECIO, MAEALM.exualm,maealm.apaalm
 	FROM ARTPRECIO
 	JOIN PRECIOS ON ARTPRECIO.NUMPRECIO = PRECIOS.NUMPRECIO
 	LEFT JOIN MAEART ON ARTPRECIO.NUMART = MAEART.NUMART
-	INNER JOIN maealm ON (MAEALM.numart=MAEART.NUMART AND maealm.numalm='.$almacenProductos.')
-	WHERE ARTPRECIO.NOPRECIO ='.$numprecio.' ORDER BY  MAEART.NUMART asc';
+	INNER JOIN maealm ON (MAEALM.numart=MAEART.NUMART AND maealm.numalm='" . $almacenProductos . "')
+	WHERE ARTPRECIO.NOPRECIO =" . $numprecio . " ORDER BY  MAEART.NUMART asc";
 
 	$productos = DB::connection('firebird') -> select($sql);
 	//print_r($productos);
 	//var_dump($users);
-	echo "<table>";
+	echo '<table  class="display" id="tableProductos">';
+	echo '<thead>';
+	echo '<tr>';
+	echo '<th>CODIGO</th><th>NOMBRE</th><td>EXISTENCIA</th><td>PRECIO</th><td>Opcion</th>';
+	echo "</tr>";
+	echo '</thead>';
 	foreach ($productos as $value) {
-		echo '<tr class="rowArt" id="'.$value->NUMART.'">';
-		echo '<td>'. $value -> NUMART . '</td><td>' . $value -> NOMART . '</td><td>' . $value -> EXUALM . '</td><td>' . $value -> PRECIO . '</td>';
+		echo '<tr class="rowArt" id="' . $value -> NUMART . '">';
+		echo '<td>' . $value -> NUMART . '</td><td>' . $value -> NOMART . '</td><td>' . $value -> EXUALM . '</td><td>' . round($value -> PRECIO, 2) . '</td>';
+		echo '<td>' . '<a><span class="glyphicon glyphicon-plus-sign" aria-hidden="true" ></span></a>' . '</td>';
 		echo "</tr>";
 	}
-	
 	echo "</table>";
+	echo "<script>";
+	echo "$('.ui-state-default').hover(function() {";
+	echo "$(this).addClass('ui-state-hover');";
+	echo "}, function() {";
+	echo "$(this).removeClass('ui-state-hover');";
+	echo "});";
+	echo "tableMac('#tableProductos');";
+	echo "</script>";
+}));
 
-});
