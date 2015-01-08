@@ -36,7 +36,7 @@ Lista de Medida Llanta
 		</td>
 		<td style="text-align: center; width:10%;">{{$ordenServicioInstance->id}} </td>
 	
-		<td style="text-align: left; width:40%;">{{$ordenServicioInstance->cliente->numcte." ".$ordenServicioInstance->cliente->nomcte}} </td>
+		<td style="text-align: left; width:40%;">{{}} </td>
 	</tr>
 	@endforeach
 </table>

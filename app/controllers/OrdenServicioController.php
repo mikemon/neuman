@@ -19,12 +19,28 @@ class OrdenServicioController extends \BaseController {
 	 * @return Response
 	 */
 	public function create() {
+
+		
+		$result = Configuracion::whereVariable('serieOS') -> first();
+		if ($result) {
+			$serieOS = $result -> valor;
+		} else {
+			echo "No se ha configurado el 'serieOS' en Ordenes de servivio";
+			exit ;
+		}
+
 		$operadores = Operador::all();
 		$carros = Carro::all();
-		
-		return View::make('ordenServicio.create',array('carros' => $carros,'operadores' => $operadores));
-		
 
+		$ordenServicioInstance = new OrdenServicio();
+		$ordenServicioInstance -> serfol=$serieOS;
+		$ordenServicioInstance -> estado = 'iniciada';
+		$ordenServicioInstance -> usuarioInsert_id = 1;
+		$ordenServicioInstance -> save();
+
+		//return View::make('ordenServicio.edit', array('carros' => $carros, 'operadores' => $operadores, 'ordenServicioInstance' => $ordenServicioInstance));
+	    return View::make('ordenServicio/edit') -> with(array('ordenServicioInstance' => $ordenServicioInstance, 'carros' => $carros, 'operadores' => $operadores));
+		
 	}
 
 	/**
@@ -32,22 +48,23 @@ class OrdenServicioController extends \BaseController {
 	 *
 	 * @return Response
 	 */
-	public function store() {
-				
-		$input = Input::all();
-		echo json_encode($input);
-		//echo $input['aCadenaServicios'];
-		
-		exit;
-		$ordenServicioInstance = new OrdenServicio();
-		$ordenServicioInstance -> carro_id = $input['carro_id'];
-		$ordenServicioInstance -> operador_id = $input['operador_id'];
-		$ordenServicioInstance->activo=true;
-		$ordenServicioInstance -> usuarioInsert_id = 1;
-		$ordenServicioInstance -> save();
-		return Redirect::action('OrdenServicioController@show', array($ordenServicioInstance -> id));
-	}
+	/*
+	 public function store() {
 
+	 $input = Input::all();
+	 echo json_encode($input);
+	 //echo $input['aCadenaServicios'];
+
+	 exit;
+	 $ordenServicioInstance = new OrdenServicio();
+	 $ordenServicioInstance -> carro_id = $input['carro_id'];
+	 $ordenServicioInstance -> operador_id = $input['operador_id'];
+	 $ordenServicioInstance->activo=true;
+	 $ordenServicioInstance -> usuarioInsert_id = 1;
+	 $ordenServicioInstance -> save();
+	 return Redirect::action('OrdenServicioController@show', array($ordenServicioInstance -> id));
+	 }
+	 */
 	/**
 	 * Display the specified resource.
 	 *
@@ -68,16 +85,15 @@ class OrdenServicioController extends \BaseController {
 	public function edit($id) {
 		//
 		$ordenServicioInstance = OrdenServicio::find($id);
-		
-		
+
 		$operadores = Operador::all();
 		$carros = Carro::all();
-		
+
 		//return View::make('ordenServicio.create',array('carros' => $carros,'operadores' => $operadores));
 		if (is_null($ordenServicioInstance)) {
 			return "No existe!";
 		} else {
-			return View::make('ordenServicio/edit') -> with(array('ordenServicioInstance'=>$ordenServicioInstance,'carros' => $carros,'operadores' => $operadores));
+			return View::make('ordenServicio/edit') -> with(array('ordenServicioInstance' => $ordenServicioInstance, 'carros' => $carros, 'operadores' => $operadores));
 		}
 	}
 

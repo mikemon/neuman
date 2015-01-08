@@ -24,7 +24,11 @@ class OrdenServicio extends Eloquent{
   'fechatermino',
   'cvearea',
   'cveareaact',
-  'edoenvio');
+  'edoenvio',
+  'carro_id',
+  'datoRendimiento_id',
+  'usuarioInsert_id',
+  'usuarioEdit_id');
 	
 	protected $perPage = 8;
 	/*
@@ -44,5 +48,12 @@ class OrdenServicio extends Eloquent{
 	{
 		return $this->belongsTo('Flotilla','flotilla_id');
 	}
+	public function servicios(){
+		return $this->belongsToMany('Servicio','ordenServicio_servicio')->withPivot('subtotal','observacion');
+	}
+	public function datoRendimiento()
+    {
+        return $this->hasOne('DatoRendimiento', 'id');
+    }
 }
 ?>	

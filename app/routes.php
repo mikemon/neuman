@@ -112,11 +112,15 @@ Route::resource('flotilla', 'FlotillaController');
 /*******/
 
 /*ordenServicio*/
-Route::resource('ordenServicio', 'OrdenServicioController', array('only' => array('index', 'edit', 'create', 'update', 'store')));
+Route::resource('ordenServicio', 'OrdenServicioController', array('only' => array('index', 'edit', 'create', 'update', 'store','destroy')));
+Route::get('ordenServicio/show/{id}', array('uses' => 'OrdenServicioController@show'));
+//Route::get('ordenServicio/delete/{id}', array('uses' => 'OrdenServicioController@destroy'));
+
+
 
 Route::get('findDepartamentoByText/{text}', array('uses' => 'ServicioController@findDepartamento'));
 Route::get('findSubDepartamentoByText/{departamento_id}/{text}', array('uses' => 'ServicioController@findSubDepartamento'));
-Route::get('findServicioByText/{text}', array('uses' => 'ServicioController@findServicio'));
+Route::get('findServicioByText/{departamento_id}/{text}', array('uses' => 'ServicioController@findServicio'));
 
 /*******/
 
@@ -141,6 +145,7 @@ Route::get("firebird", function() {
 		echo $value -> NUMCTE . " " . $value -> NOMCTE . "<br>";
 	}
 });
+
 
 /*
  Route::get('home', array('as' => 'home', function() {
@@ -184,7 +189,7 @@ Route::post('visor/getProductos', array('as' => 'getListProductos',function() {
 	foreach ($productos as $value) {
 		echo '<tr class="rowArt" id="' . $value -> NUMART . '">';
 		echo '<td>' . $value -> NUMART . '</td><td>' . $value -> NOMART . '</td><td>' . $value -> EXUALM . '</td><td>' . round($value -> PRECIO, 2) . '</td>';
-		echo '<td>' . '<a><span class="glyphicon glyphicon-plus-sign" aria-hidden="true" ></span></a>' . '</td>';
+		echo '<td>' . '<a id="'.$value -> NUMART.'" class="trProducto"><span class="glyphicon glyphicon-plus-sign" aria-hidden="true" ></span></a>' . '</td>';
 		echo "</tr>";
 	}
 	echo "</table>";

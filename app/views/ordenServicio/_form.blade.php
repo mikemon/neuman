@@ -12,33 +12,20 @@
 </style>
 
 <div class="form-group">
-	<input type="hidden" name="carro_id" id="carro_id" value="-1" />
-	<label for="clientes" class="col-sm-2 control-label">Carro</label>
 	<div class="col-sm-6">
-		<nav class="navbar navbar-inverse" role="navigation" style="padding-top: 6px;">
-			<div class="input-group">
-				<input id="findCarro" type="text" class="form-control" placeholder="Buscar por matricula, modelo o marca">
-				<span class="input-group-btn">
-					<button class="btn btn-success" type="button">
-						<i class="glyphicon glyphicon-search"></i> Buscar
-					</button> </span>
-			</div>
-		</nav>
+		{{ Form::button('Guardar orden', array('type'=>'submit','class'=>'btn btn-success')) }}
+
+		{{ Form::button('Cancelar', array('type'=>'button','class'=>'btn btn-warning')) }}
 	</div>
-</div>
 
-<br/>
-<div class="btn-group">
-	{{ Form::button('Guardar orden', array('type'=>'submit','class'=>'btn btn-success ')) }}
 </div>
-
 <div role="tabpanel">
 	<ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
 		<li class="active">
 			<a href="#carro" data-toggle="tab">Carro</a>
 		</li>
 		<li>
-			<a href="#descripcion" data-toggle="tab">Descripcion</a>
+			<a href="#descripcion" data-toggle="tab">Descripcion orden</a>
 		</li>
 		<li>
 			<a href="#datoRendimiento" data-toggle="tab">Dato rendimiento</a>
@@ -49,27 +36,46 @@
 	</ul>
 	<div id="my-tab-content" class="tab-content">
 		<div class="tab-pane active" id="carro">
-			<h4>Carro</h4>
+			<br/>
 			<div class="form-group">
-				<label class="col-sm-2 control-label" for="descripcion">Datos del carro</label>
-
+				{{Form::hidden('carro_id', null,array('id'=>'carro_id'))}}
+				<label class="col-sm-3 control-label">Carro</label>
+				<div class="col-sm-8">
+					<nav class="navbar navbar-inverse" role="navigation" style="padding-top: 6px;">
+						<div class="input-group">
+							<input id="findCarro" type="text" class="form-control" placeholder="Buscar carro por matricula, modelo o marca">
+							<span class="input-group-btn">
+								<button class="btn btn-success" type="button">
+									<i class="glyphicon glyphicon-search"></i> Buscar
+								</button> </span>
+						</div>
+					</nav>
+				</div>
+			</div>
+			<div class="form-group">
 				<div id="datosCarro" class="col-sm-8"></div>
 			</div>
-
 		</div>
 		<div class="tab-pane" id="descripcion">
 			<h4>Descripcion de la orden</h4>
 			<p>
 				<div class="form-group">
+					<label class="col-sm-2 control-label" for="descripcion">Folio</label>
+					<div class="col-sm-6">
+						{{Form::text('numfol', null,array('placeholder'=>'Folio','class'=>'form-control input-sm'))}}				
+					</div>
+				</div>
+				
+				<div class="form-group">
 					<label class="col-sm-2 control-label" for="descripcion">Falla reportada</label>
 					<div class="col-sm-6">
-						<textarea class="form-control" rows="3" cols="30" name="fallaReportada" placeholder="Falla reportada"></textarea>
+						{{ Form::textarea('fallaReportada', null, array('placeholder'=>'Falla reportada','size' => '30x3','class'=>'form-control')) }}
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="col-sm-2 control-label" for="descripcion">Observaciones</label>
 					<div class="col-sm-6">
-						<textarea class="form-control" rows="3" cols="30" name="observaciones" placeholder="Observaciones"></textarea>
+						{{ Form::textarea('observaciones', null, array('placeholder'=>'Observaciones','size' => '30x3','class'=>'form-control')) }}
 					</div>
 				</div>
 
@@ -82,7 +88,7 @@
 			</p>
 		</div>
 		<div class="tab-pane" id="servPro">
-			<h1>Servicios y productos</h1>
+			<h4>Servicios y productos</h4>
 			<p>
 				<div class="btn-group">
 					<button class="btn btn-primary" type="button"  id="addServicio">
@@ -92,6 +98,8 @@
 				<div class="btn-group">
 					<a href="#" class="btn btn-info "  id="addProducto" >Agregar productos</a>
 				</div>
+				<br>
+				<br>
 				<table class="table table-striped table-bordered" id="elementosOrden">
 					<thead>
 						<tr>
@@ -111,12 +119,6 @@
 
 	</div>
 </div>
-
-<script type="text/javascript">
-	jQuery(document).ready(function($) {
-		$('#tabs').tab();
-	}); 
-</script>
 
 <input type="hidden" id="departamento_id" value="-1" />
 
@@ -176,7 +178,48 @@
 	</div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 <div id="divProductos"></div>
+
 <script type="text/javascript">
+
+@if(@$ordenServicioInstance->carro)
+	var txt='';
+	txt+='<div class="form-group">';
+	txt+='				<label class="col-sm-4 control-label" >No. Economico</label>';
+	txt+='				<div class="col-sm-6">';
+	txt+='					{{$ordenServicioInstance->carro->noEconomico}}';				
+	txt+='				</div>';
+	txt+='</div>';
+	
+	txt+='<div class="form-group">';
+	txt+='				<label class="col-sm-4 control-label" >Placas</label>';
+	txt+='				<div class="col-sm-6">';
+	txt+='					{{$ordenServicioInstance->carro->placas}}';				
+	txt+='				</div>';
+	txt+='</div>';
+	
+	txt+='<div class="form-group">';
+	txt+='				<label class="col-sm-4 control-label" >Marca</label>';
+	txt+='				<div class="col-sm-6">';
+	txt+='					{{$ordenServicioInstance->carro->marca}}';				
+	txt+='				</div>';
+	txt+='</div>';
+	
+	txt+='<div class="form-group">';
+	txt+='				<label class="col-sm-4 control-label" >Modelo</label>';
+	txt+='				<div class="col-sm-6">';
+	txt+='					{{$ordenServicioInstance->carro->modelo}}';				
+	txt+='				</div>';
+	txt+='</div>';
+				
+	$('#datosCarro').html(txt);
+@else
+	$('#carro_id').val(-1);	
+@endif
+
+jQuery(document).ready(function($) {
+$('#tabs').tab();
+});
+
 function validar() {
 if ($('#carro_id').val() != -1) {
 if ($('.trServicio').length<=0){
@@ -191,26 +234,28 @@ return false;
 }
 
 function enviar() {
-if (validar()) {
-var aServicios = new Array();
-$(".trServicio").each(function(index, elemento) {
-var aux = aServicios.length;
-aServicios[aux] = new Object();
-var sufijo = $('#' + this.id).attr('name');
-aServicios[aux].id = this.id;
-aServicios[aux].codigo = $('#s_' + sufijo + '_codigo').html();
-aServicios[aux].cantidad = $('#s_' + sufijo + '_cantidad').html();
-aServicios[aux].descripcion = $('#s_' + sufijo + '_descripcion').html();
-aServicios[aux].precio = $('#s_' + sufijo + '_precio').html();
-aServicios[aux].subtotal = $('#s_' + sufijo + '_subtotal').html();
-});
-
-var strServiciosPOST = JSON.stringify(aServicios);
-$('#aCadenaServicios').val(strServiciosPOST);
-return true;
-} else {
-return false;
-}
+	alert('ok');
+	if (validar()) {
+	var aServicios =null;
+	aServicios = new Array();
+	//$(".trServicio").each(function(index, elemento) {
+	$(".trServicio").each(function(i){
+			var aux = aServicios.length;
+			aServicios[aux] = new Object();	
+			var sufijo = $('#' + this.id).attr('name');
+			aServicios[aux].id = $('#' + this.id).attr('rel');;
+			aServicios[aux].codigo = $('#s_' + sufijo + '_codigo').html();
+			aServicios[aux].cantidad = $('#s_' + sufijo + '_cantidad').html();
+			aServicios[aux].descripcion = $('#s_' + sufijo + '_descripcion').html();
+			aServicios[aux].precio = $('#s_' + sufijo + '_precio').html();
+			aServicios[aux].subtotal = $('#s_' + sufijo + '_subtotal').html();
+	});
+		var strServiciosPOST = JSON.stringify(aServicios);
+		$('#aCadenaServicios').val(strServiciosPOST);
+	return true;
+	} else {
+		return false;
+	}
 }
 //addServicio
 $(document).on("click", "#addServicio", function(evt) {
@@ -237,7 +282,7 @@ $(document).on("click", "#seleccionarServicio", function(evt) {
 if ($("#servicio_id").val() > 0) {
 var aux = cntRowDetalle++;
 txt = '';
-txt += '<tr class="trServicio" name="' + aux + '"  id="s_' + aux + '"><td><span class="glyphicon glyphicon-trash borraTrServicio" aria-hidden="true"id="' + aux + '"></span></td>';
+txt += '<tr class="trServicio" name="' + aux + '"  id="s_' + aux + '" rel="'+$("#servicio_id").val()+'" ><td><span class="glyphicon glyphicon-trash borraTrServicio" aria-hidden="true"id="' + aux + '"></span></td>';
 txt += '<td style="text-align:center;" id="s_' + aux + '_cons">' + aux + '</td>';
 txt += '<td style="text-align:center;" id="s_' + aux + '_codigo">' + $("#s_codigo").val() + '</td>';
 txt += '<td style="text-align:left;" id="s_' + aux + '_descripcion">' + $("#s_descripcion").val() + '</td>';
@@ -252,44 +297,72 @@ alert('No se ha seleccionado un servicio');
 });
 
 var icont = 0;
-$("#findCarro").autocomplete({
-source : function(request, response) {
-$.ajax({
-type : "GET",
-url : "{{ action('CarrosController@findCarro', array(null) )}}/" + $("#findCarro").val(),
-contentType : "application/json; charset=utf-8",
-dataType : "json",
-success : function(data) {
-/*
-response($.map(data, function(item) {
-return {
-id : item.id,
-value : item.placas
-}
-}))
-*/
-//return data;
-response(data);
-}
-});
-},
-focus : function(event, ui) {
-$("#findCarro").val(ui.item.placas);
-return false;
-},
-select : function(event, ui) {
-$("#carro_id").val(ui.item.id);
-$('#findCarro').val(ui.item.placas);
-var txt = "<b>No. Economico:</b> " + ui.item.noEconomico + " <b>Placas:</b> " + ui.item.placas + "</b> <b>Marca:</b> " + ui.item.marca + "<b> Modelo:</b> " + ui.item.modelo + "";
-$('#datosCarro').html(txt);
-return false;
-}
-}).autocomplete("instance")._renderItem = function(ul, item) {
-var v = icont++;
-//JSON.stringify(ul);
-var css = (((v % 2) == 0) ? "oddRow" : "evenRow");
-return $("<li class='" + css + "'>").append("<a><b>No. Economico:</b> " + item.noEconomico + " <a><b>Placas:</b> " + item.placas + "</b><br> <b>Marca:</b> " + item.marca + "<b> Modelo:</b> " + item.modelo + "</a>").appendTo(ul);
-};
+		$("#findCarro").autocomplete({
+			source : function(request, response) {
+				$.ajax({
+					type : "GET",
+					url : "{{ action('CarrosController@findCarro', array(null) )}}/" + $("#findCarro").val(),
+					contentType : "application/json; charset=utf-8",
+					dataType : "json",
+					success : function(data) {
+						/*
+						response($.map(data, function(item) {
+						return {
+						id : item.id,
+						value : item.placas
+						}
+						}))
+						*/
+						//return data;
+						response(data);
+					}
+				});
+			},
+			focus : function(event, ui) {
+				$("#findCarro").val(ui.item.placas);
+				return false;
+			},
+			select : function(event, ui) {
+				$("#carro_id").val(ui.item.id);
+				$('#findCarro').val(ui.item.placas);
+				var txt='';
+				txt+='<div class="form-group">';
+				txt+='				<label class="col-sm-4 control-label" >No. Economico</label>';
+				txt+='				<div class="col-sm-6">';
+				txt+=ui.item.noEconomico;				
+				txt+='				</div>';
+				txt+='</div>';
+					
+				txt+='<div class="form-group">';
+				txt+='				<label class="col-sm-4 control-label" >Placas</label>';
+				txt+='				<div class="col-sm-6">';
+				txt+=ui.item.placas;				
+				txt+='				</div>';
+				txt+='</div>';
+				
+				txt+='<div class="form-group">';
+				txt+='				<label class="col-sm-4 control-label" >Marca</label>';
+				txt+='				<div class="col-sm-6">';
+				txt+=ui.item.marca;				
+				txt+='				</div>';
+				txt+='</div>';
+			
+				txt+='<div class="form-group">';
+				txt+='				<label class="col-sm-4 control-label" >Modelo</label>';
+				txt+='				<div class="col-sm-6">';
+				txt+=ui.item.modelo;				
+				txt+='				</div>';
+				txt+='</div>';
+
+				$('#datosCarro').html(txt);
+				return false;
+			}
+		}).autocomplete("instance")._renderItem = function(ul, item) {
+			var v = icont++;
+			//JSON.stringify(ul);
+			var css = (((v % 2) == 0) ? "oddRow" : "evenRow");
+			return $("<li class='" + css + "'>").append("<a><b>No. Economico:</b> " + item.noEconomico + " <a><b>Placas:</b> " + item.placas + "</b><br> <b>Marca:</b> " + item.marca + "<b> Modelo:</b> " + item.modelo + "</a>").appendTo(ul);
+		};
 
 $("#findDepartamento").autocomplete({
 source : function(request, response) {
@@ -360,7 +433,7 @@ $("#findServicio").autocomplete({
 source : function(request, response) {
 $.ajax({
 type : "GET",
-url : "{{ action('ServicioController@findServicio', array(null) )}}/" + $("#findServicio").val(),
+url : "{{ action('ServicioController@findServicio', array(null) )}}/"+$("#departamento_id").val()+"/" + $("#findServicio").val(),
 contentType : "application/json; charset=utf-8",
 dataType : "json",
 success : function(data) {
@@ -387,5 +460,5 @@ var v = icont++;
 var css = (((v % 2) == 0) ? "oddRow" : "evenRow");
 return $("<li class='" + css + "'>").append("<a><b>Codigo:</b> " + item.codigo + "<a><b>Descripcion:</b> " + item.descripcion + " <a><b>Precio:</b> " + item.precio + "</a>").appendTo(ul);
 };
-
 </script>
+
