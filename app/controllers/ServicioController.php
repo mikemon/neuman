@@ -130,11 +130,11 @@ class ServicioController extends \BaseController {
 		echo json_encode($resultado);		 		 
 	}
 	
-	public function findServicio($text=null)
+	public function findServicio($departamento_id,$text=null)
 	{
 		$text= $text;
 		$resultado = DB::select('SELECT * FROM servicio 
-		WHERE codigo like ? or  descripcion like ?', array("%".strtoupper($text)."%","%".strtoupper($text)."%"));
+		WHERE departamento_id=? and (codigo like ? or  descripcion like ? )', array($departamento_id,"%".strtoupper($text)."%","%".strtoupper($text)."%"));
 		echo json_encode($resultado);		 		 
 	}
 
