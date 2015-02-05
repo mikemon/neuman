@@ -1,25 +1,7 @@
 <?php
 
-/*
- |--------------------------------------------------------------------------
- | Application Routes
- |--------------------------------------------------------------------------
- |
- | Here is where you can register all of the routes for an application.
- | It's a breeze. Simply tell Laravel the URIs it should respond to
- | and give it the Closure to execute when that URI is requested.
- |
- */
-/*
- Route::get('/', function()
- {
- return View::make('hello');
- });
- */
 Route::get('/', function() {
 	return Redirect::to('home');
-	//exit;
-	//return View::make('hello');
 });
 Route::get('usuarios', array('uses' => 'UsuariosController@mostrarUsuarios'));
 
@@ -86,13 +68,11 @@ Route::get('contact', function() {
 
 /*medidaLLanta*/
 Route::resource('medidaLlanta', 'MedidaLlantaController');
-
 /*******/
 /*marcaLLanta*/
 Route::resource('marcaLlanta', 'MarcaLlantaController');
 
 /*******/
-
 /*asiganacionCarro*/
 Route::resource('asignacionCarro', 'AsignacionCarroController');
 /*******/
@@ -112,16 +92,21 @@ Route::resource('flotilla', 'FlotillaController');
 /*******/
 
 /*ordenServicio*/
-Route::resource('ordenServicio', 'OrdenServicioController', array('only' => array('index', 'edit', 'create', 'update', 'store','destroy')));
+Route::resource('ordenServicio', 'OrdenServicioController', array('only' => array('index', 'edit', 'create', 'update', 'store', 'destroy')));
 Route::get('ordenServicio/show/{id}', array('uses' => 'OrdenServicioController@show'));
 //Route::get('ordenServicio/delete/{id}', array('uses' => 'OrdenServicioController@destroy'));
+Route::post('ordenServicio/addProducto', array('uses' => 'OrdenServicioController@addProductoInOrder'));
+Route::post('ordenServicio/addServicio', array('uses' => 'OrdenServicioController@addServicioInOrder'));
+Route::post('ordenServicio/getServiciosAndProductos', array('uses' => 'OrdenServicioController@getServiciosAndProductosOrden'));
+Route::post('ordenServicio/deleteServiciosInOrden', array('uses' => 'OrdenServicioController@deleteServiciosInOrden'));
+Route::post('ordenServicio/deleteProductoInOrden', array('uses' => 'OrdenServicioController@deleteProductoInOrden'));
+Route::get('ordenServicio/aplicarOrden', array('uses' => 'OrdenServicioController@aplicarOrden'));
 
 
-
+/*Servicio*/
 Route::get('findDepartamentoByText/{text}', array('uses' => 'ServicioController@findDepartamento'));
 Route::get('findSubDepartamentoByText/{departamento_id}/{text}', array('uses' => 'ServicioController@findSubDepartamento'));
 Route::get('findServicioByText/{departamento_id}/{text}', array('uses' => 'ServicioController@findServicio'));
-
 /*******/
 
 /*flotilla*/
@@ -146,19 +131,21 @@ Route::get("firebird", function() {
 	}
 });
 
-
-/*
- Route::get('home', array('as' => 'home', function() {
-	return View::make('pages.home');
-}));
- * */
-
-Route::post('visor/getProductos', array('as' => 'getListProductos',function() {
+Route::get("tester", function() {
+	//echo "ok";
+	$maealmInstance = Maealm::where('NUMALM', '=', "'01'") -> where('NUMART', '=', "'PHM70802'") -> select('*') -> get();
+	print_r($maealmInstance);
+	exit ;
+	foreach ($maealmInstance as $key => $value) {
+		echo $value -> NUMART . " -- " . $value -> NUMALM . " -- " . $value -> EXUALM . "<br>";
+	}
+});
+Route::post('visor/getProductos', array('as' => 'getListProductos', function() {
 	$result = Configuracion::whereVariable('numPrecioEnOrden') -> first();
 	if ($result) {
 		$numprecio = $result -> valor;
 	} else {
-		echo "No se ha configurado el numero de precio en Ordenes de servivio";
+		echo "No se ha configurado el numero de precio en Ordenes de servicio";
 		exit ;
 	}
 
@@ -166,7 +153,8 @@ Route::post('visor/getProductos', array('as' => 'getListProductos',function() {
 	if ($result) {
 		$almacenProductos = $result -> valor;
 	} else {
-		echo "No se ha configurado el numero de precio en Ordenes de servivio";
+		echo "No se ha configurado el numero de Almacen
+		 en Ordenes de servicio";
 		exit ;
 	}
 
@@ -183,13 +171,22 @@ Route::post('visor/getProductos', array('as' => 'getListProductos',function() {
 	echo '<table  class="display" id="tableProductos">';
 	echo '<thead>';
 	echo '<tr>';
-	echo '<th>CODIGO</th><th>NOMBRE</th><td>EXISTENCIA</th><td>PRECIO</th><td>Opcion</th>';
+	echo '<th>CODIGO</th><th>NOMBRE</th><td>EXISTENCIA</th><td>APARTADO</th><td>DISPONIBLE</th><td>PRECIO</th><td>Opcion</th>';
 	echo "</tr>";
 	echo '</thead>';
+	$cnt = 0;
 	foreach ($productos as $value) {
+		$disponible=round(($value -> EXUALM-$value -> APAALM),2);
 		echo '<tr class="rowArt" id="' . $value -> NUMART . '">';
-		echo '<td>' . $value -> NUMART . '</td><td>' . $value -> NOMART . '</td><td>' . $value -> EXUALM . '</td><td>' . round($value -> PRECIO, 2) . '</td>';
-		echo '<td>' . '<a id="'.$value -> NUMART.'" class="trProducto"><span class="glyphicon glyphicon-plus-sign" aria-hidden="true" ></span></a>' . '</td>';
+		echo '<td>' . $value -> NUMART . '</td><td>' . $value -> NOMART
+		. '</td><td>' . round($value -> EXUALM,2) 
+		. '</td><td>'. round($value -> APAALM,2) 
+		. '</td><td>'.$disponible.'</td><td>' . round($value -> PRECIO, 2) . '</td>';
+		echo '<td>' . 
+		(($disponible>0)?
+		'<a id="pro_' . ($cnt++) . '" class="addProducto" rel="' . $value -> NUMART . '|-|' . $value -> NOMART . '|-|' . round($value -> PRECIO, 2). '|-|' . $disponible . '"><span class="glyphicon glyphicon-plus-sign" aria-hidden="true" ></span></a>' 
+		:'')
+		. '</td>';
 		echo "</tr>";
 	}
 	echo "</table>";
@@ -203,3 +200,21 @@ Route::post('visor/getProductos', array('as' => 'getListProductos',function() {
 	echo "</script>";
 }));
 
+Route::get("getExistencia", function() {
+
+	/*$maealmInstance=Maealm::all();
+	 foreach ($maealmInstance as $key => $value) {
+	 echo $value -> NUMART . " -- " . $value -> NUMALM . "<br>";
+	 }
+	 */
+	$input = Input::all();
+	$numart= $input['NUMART'];
+	$maealmInstance = new Maealm();
+	$aExixtencia=$maealmInstance -> getExistencia($numart);
+	if ($aExixtencia) {
+		return json_encode($aExixtencia);
+	} else {
+		return null;
+	}
+
+});

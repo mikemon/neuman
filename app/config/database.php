@@ -49,13 +49,13 @@ return array(
 	
 		'firebird' => array(
             'driver' => 'firebird',
-            'dsn' => 'host=127.0.0.1;dbname=D:/base/romasa/fernandaasturias.fdb;',
+            'dsn' => 'host=127.0.0.1;dbname=C:/base/romasa/fernandaasturias.fdb;',
              'host'=>'127.0.0.1',
-             'dbname'=>'D:/base/romasa/fernandaasturias.fdb',
+             'dbname'=>'C:/base/romasa/fernandaasturias.fdb',
             'grammar' => 'DB2',
             'username' => 'SYSDBA',
             'password' => '050954ICA',
-            'database' => 'D:/base/romasa/fernandaasturias.fdb',
+            'database' => 'C:/base/romasa/fernandaasturias.fdb',
         ),
 
 		'sqlite' => array(

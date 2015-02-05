@@ -110,8 +110,196 @@ body {
     z-index: 100000000;
 }
 
-
+/***/
+.glyphicon {
+	cursor: pointer;
+}
 /****quitar le borde punteado en firefox****/
 a:active, a:active * { outline: none !important; -moz-outline-style: none !important; }
 a:focus, a:focus * { outline: none !important; -moz-outline-style: none !important; }
+
+button:active, button:active * { outline: none !important; -moz-outline-style: none !important; }
+button:focus, button:focus * { outline: none !important; -moz-outline-style: none !important; }
+
+
+/* =============================================================================
+
+	STYLE.CSS
+	version: 1.6
+	updated: 2009-03-06, 13:00 GMT+1
+
+============================================================================= */
+
+/* =============================================================================
+HTML - styles
+============================================================================= */
+
+
+body {background-color:#eaeaea; color:#303030;}
+body{color: #2E2E2E; 
+    font-family: helvetica,arial,sans-serif;/*"Open Sans","Helvetica",Sans;*/
+    font-size: 1.4em;
+    font-weight: 300}
+
+table.display  {border:2px solid #cfcfcf;}
+/*#content table th {border-right:1px solid #0074B3; background-color:#0085cc; color:#fff;}*/
+/*#content table th {border-right:1px solid #CCCCCC; background-color:#0085cc; color:#EEEEEE;} */
+table.display th {
+  color: #000000;
+    text-shadow: 1px 1px 1px #FFFFFF;
+}
+table.display td {border:1px solid #cfcfcf; border-bottom: none; border-top: none;}
+table.display tr.bg td {background-color:#e8f6ff;}
+#content dl dt {color:#df0000;}
+#content fieldset {border:1px solid #ccc;}
+#content legend {background:#FFF; color:#0085cc;}
+#content acronym, #content abbr, #content .help {border-bottom:1px dotted #cfcfcf;}
+
+/* =============================================================================
+HTML - without styles
+============================================================================= */
+
+table.nostyle th, dl.nostyle dt {color:#303030 !important;}
+
+/* =============================================================================
+LAYOUT
+============================================================================= */
+
+#tray {background-color:#303030; color:#cfcfcf;}
+#tray a, #tray strong {color:#fff;}
+#tray a:hover, #tray a:active, #tray a:focus {color:#b4e3ff;}
+#content {border:1px solid #afafaf; background:#fff; min-height: 450px;}
+#footer {color:#707070;}
+#footer a {color:#707070;}
+#footer a:hover, #footer a:active, #footer a:focus {color:#303030;}
+
+/* =============================================================================
+OTHERS
+============================================================================= */
+
+#aside #logo img {border:1px solid #bfbfbf;}
+#aside #search fieldset a {color:#303030;}
+#aside #search fieldset {border:1px solid #bfbfbf;}
+#aside #search fieldset a:hover, #aside #search fieldset a:active, #aside #search fieldset a:focus {color:#df0000;}
+#aside #btn-create a {background-color:#fff; color:#303030;}
+#aside #btn-create a span {background-color:#fff;}
+#aside ul li a {border-bottom:1px solid #cfcfcf; color:#303030;}
+#aside ul li#submenu-active a {background-color:#df0000; color:#fff;}
+#aside ul li a:hover, #aside ul li a:active, #aside ul li a:focus {color:#df0000;}
+#aside ul ul li a, #aside ul li#submenu-active ul li a {border-bottom:1px solid #cfcfcf; background-color:#f5f5f5; color:#303030;}
+#aside ul li ul li a {background-color:#e3e3e3;}
+#aside ul ul li a:hover, #aside ul ul li a:active, #aside ul ul li a:focus, #aside ul li#submenu-active ul li a:hover, #aside ul li#submenu-active ul li a:active, #aside ul li#submenu-active ul li a:focus {color:#df0000;}
+/* #content h1 {background-color:#303030; color:#fff;} */
+#content .tabs {border-bottom:1px solid #cfcfcf;}
+#content .tabs a {color:#303030;}
+#content .tabs a span {color:#303030;}
+#content .tabs .ui-tabs-selected a {color:#fff;}
+#content .tabs .ui-tabs-selected a span {color:#fff;}
+.high {color:#df0000;}
+.high-bg {background:#FFB;}
+.low {color:#707070;}
+
+/* =============================================================================
+MESSAGES
+============================================================================= */
+
+div.jGrowl div.msg.warning,.msg.warning {border:2px solid #F2DD8C; background-color:#FFF5CC;color: #303030; padding-left: 40px;}
+.msg.warning a {color:#df0000;} 
+.msg.warning a:hover, .msg.warning a:active, .msg.warning a:focus {color:#303030;}
+
+div.jGrowl div.msg.info, .msg.info {border:2px solid #B8E2FB; background-color:#E8F6FF;color: #303030; padding-left: 40px;  }
+
+
+div.jGrowl div.msg.done, .msg.done {border:2px solid #BBDF8D; background-color:#EAF7D9;color: #303030; padding-left: 40px;}
+div.jGrowl div.msg.error, .msg.error {border:2px solid #FFAEAE; background-color:#FEEBEB;color: #303030; padding-left: 40px;}
+
+td label {
+    display: block;
+    font-weight: bold;
+    min-width: 130px;
+    text-align: left;
+    width: 150px;
+    
+    padding-right: 10px;
+    padding-top: 5px;
+}
+
+
+
+input[type="radio"],
+input[type="checkbox"] {
+  margin: 4px 0 0;
+  margin-top: 1px \9;
+  *margin-top: 0;
+  line-height: normal;
+}
+
+tr.odd:hover,tr.even:hover{
+	
+		
+	background-color: #E8F6FF;
+    border: 1px solid #0085CC; 
+
+}
+
+/* ---------------------------------------
+		ICON DOCK
+----------------------------------------- */
+
+#icondock ul{ padding-left:18px}
+#icondock ul li a img { margin-bottom: 10px;}
+
+#icondock ul li a {
+	float: left;
+	height: 70px;
+	width: 89px;
+	padding: 15px;
+	margin-right: 12px;
+	position: relative;
+	text-decoration: none;
+	border: 1px solid #CCC;
+	background-color: #F2F2F2;
+	margin-bottom: 20px;
+	margin-left: 0px;
+	text-align: center;
+	color: #666;
+	font-size: 11px;
+	font-weight: bold;
+	margin-top: 5px;
+	
+	/*Mozilla Browsers Only */
+	-moz-border-radius: 5px;	
+	
+}
+#icondock ul li{ display: block; background:none; float:left; padding-left:5px}
+#icondock ul li a:hover{ background-color: #FFF; border: 1px solid #999; color: #333;}
+
+#icondock ul li a span {
+	position: absolute;
+	height: 8px;
+	text-decoration: none;
+	background-color: #E60000;
+	padding: 7px;
+	color: #FFF;
+	font-weight: bold;
+	font-size: 9px;
+	left: 75px;
+	top: -8px;
+	right: 0px;
+	bottom: 0px;
+	line-height: 9px;
+	width: 8px;
+	text-align: center;
+	z-index: 1;
+	
+	/*Mozilla Browsers Only */
+	-moz-border-radius: 5px;
+	
+}
+
+.inbox {
+    background: none repeat scroll 0 0 #E5E9E8;
+    border: 1px solid #AEACAD;
+    overflow: hidden;
+}
 

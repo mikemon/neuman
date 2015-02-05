@@ -489,35 +489,41 @@ var modalCustom = function(window, ancho) {
  * @param        string:formulario     Formulario donde se tomaran los valors; si el pars esta vacio se toman los datos del formulario como tal.
  * @param        string:extendScript   true:false funcion a llamar despues de ejecutar la actualizacion del elemento HTML extiende las capacidades del llamado Ajax para completar la ejecucion con javascript
  */
-function invocaAjax(url, pars, target, formulario, extendScript) {
-	formulario = (formulario == undefined) ? '' : formulario
-	pars = (pars == undefined) ? '' : pars
-	var parametros
+function invocaAjax(url, pars, target, formulario, extendScript,dataType,async) {
+	formulario = (formulario == undefined) ? '' : formulario;
+	dataType=(dataType == undefined) ? 'html' : dataType;
+	async=(async == undefined) ? true : async;
+	pars = (pars == undefined) ? '' : pars;
+	var parametros;
 	if (formulario != '' && pars != '') {
-		parametros = jQuery(formulario).serialize() + '&' + pars
+		parametros = jQuery(formulario).serialize() + '&' + pars;
 	} else if (formulario == '' && pars != '') {
-		parametros = pars
+		parametros = pars;
 	} else {
-		parametros = jQuery(formulario).serialize()
+		parametros = jQuery(formulario).serialize();
 	}
 
 	jQuery.ajax({
 		type : 'POST',
 		url : url,
 		data : parametros,
+		dataType : dataType,
+		async :async,
 		success : function(html) {
 			var s = typeof html;
 			if (s == 'object') {
 				if (html.error) {
 					formValidation(html, target, 'vanish');
 				} else {
-					extendJSON(html)
+					//extendJSON(html);
+					extendScript(html);
 				}
 
 			} else {
-				jQuery('#' + target).html(html)
+				jQuery('#' + target).html(html);
 				if (extendScript) {
-					extendJavaScript()
+					//extendJavaScript()
+					extendScript(html);
 				}
 			}
 		},
@@ -526,7 +532,7 @@ function invocaAjax(url, pars, target, formulario, extendScript) {
 		},
 		complete : function(XMLHttpRequest, textStatus) {
 			if (cargaStatus(XMLHttpRequest.status) == false) {
-				return
+				return false;
 			}
 
 		}

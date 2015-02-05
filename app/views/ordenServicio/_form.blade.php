@@ -1,23 +1,23 @@
 <script>
 	var aServicios = new Array();
-	var cntRowDetalle = 1;
-
+	var cntRowDetalle = 0;
 </script>
-
 <style>
 	.oddRow {
 		background-color: #f5f5f5;
 		border-color: #ddd;
 	}
 </style>
-
 <div class="form-group">
 	<div class="col-sm-6">
-		{{ Form::button('Guardar orden', array('type'=>'submit','class'=>'btn btn-success')) }}
-
+		{{Form::hidden('ordenServicio_id', @$ordenServicioInstance->id,array('id'=>'ordenServicio_id'))}}
+		
+		{{ Form::button('Guardar orden', array('type'=>'submit','class'=>'btn btn-primary')) }}
+		
 		{{ Form::button('Cancelar', array('type'=>'button','class'=>'btn btn-warning')) }}
+		{{ Form::button('Aplicar orden', array('id'=>'apliOrden','type'=>'button','class'=>'btn btn-success')) }}
+		
 	</div>
-
 </div>
 <div role="tabpanel">
 	<ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
@@ -96,7 +96,10 @@
 					</button>
 				</div>
 				<div class="btn-group">
-					<a href="#" class="btn btn-info "  id="addProducto" >Agregar productos</a>
+					<a href="#" class="btn btn-info "  id="showProductos" >Agregar productos</a>
+				</div>
+				<div class="btn-group">
+				{{ Form::button('Actualizar', array('type'=>'button','class'=>'btn btn-warning','id'=>'resfrescarDetalle')) }}
 				</div>
 				<br>
 				<br>
@@ -126,7 +129,6 @@
 <input type="hidden" id="s_descripcion" value="-1" />
 <input type="hidden" id="s_codigo" value="-1" />
 <input type="hidden" id="s_precio" value="-1" />
-
 <input type="hidden" id="aCadenaServicios" name="aCadenaServicios" value="-1" />
 
 <div id="responsive" class="modal modal-wide fade">
@@ -157,7 +159,6 @@
 						<input class="form-control input-sm" id="findServicio" name="findServicio" type="text" size="55" />
 					</div>
 				</div>
-
 				<div class="form-group">
 
 					<label class="col-sm-4 control-label" for="carro">Precio</label>
@@ -259,41 +260,105 @@ function enviar() {
 }
 //addServicio
 $(document).on("click", "#addServicio", function(evt) {
-$('#responsive').modal('show')
-});
-//addProducto
-$(document).on("click", "#addProducto", function(evt) {
-invocaAjax('{{URL::route('getListProductos');}}', '', 'divProductos');
-modal('#divProductos',600);
-jQuery('#divProductos').dialog('open');
+	$('#responsive').modal('show');
 });
 
-$('body').on('click', '.borraTrServicio', function() {
-if (($(".borraTrServicio").length) > 0) {
-if (!confirm('Esta seguro?')) {
-return false;
-}
-jQuery('#s_' + this.id).remove();
-//calcular();
-}
+//showProductos
+$(document).on("click", "#showProductos", function(evt) {
+	invocaAjax('{{URL::route('getListProductos');}}', '', 'divProductos',null,null,null,false);
+	modal('#divProductos',1200);
+	jQuery('#divProductos').dialog('open');
 });
+//addProducto
+$(document).on('click', '.addProducto', function(evt) {
+	var cnt=prompt("Cantidad");
+	//alert(this.id);
+	if(cnt!=null){
+		if(cnt>0){
+			var ido=this.id;
+			var str=null;
+			var str=$('#'+ido).attr('rel')+'|-|'+cnt;
+			var datos=null;
+			var datos=str.split('|-|');
+			var disp=0;
+			disp=parseFloat(datos[3]);
+			cnt =parseFloat(cnt);
+			if( cnt > disp ){
+				alert('Cantidad no disponible para este producto');
+				return false;
+			}
+			dataJson=JSON.stringify(datos);
+			invocaAjax("{{ action('OrdenServicioController@addProductoInOrder', array(null) )}}" ,('jSonProducto='+dataJson+'&idO='+($('#ordenServicio_id').val())) , null,null,ejecutar,"json");
+		}else{
+			alert(cnt+' No es una cantidad aceptable');
+		}
+	}
+});
+
+function ejecutar(data){
+	if(data.exito){
+		refrescarDetalle();	
+	}else{
+		alert('No se logro agregar');
+		alert(data.msg);
+	}
+	jQuery('#divProductos').dialog('close');
+	
+}
+
+function removeTr(data){
+	//alert (data);
+	//jQuery('#s_' + data.id).remove();
+	jQuery('#' + data.id).remove();
+}
+
+$('body').on('click', '.borraTrServicio', function() {
+	if (($(".borraTrServicio").length) > 0) {
+		if (!confirm('Esta seguro?')) {
+			return false;
+		}else{
+			var idServPiv=jQuery('#s_' + this.id).attr('name');
+			var idServ=jQuery('#s_' + this.id).attr('rel');
+			invocaAjax('{{ action('OrdenServicioController@deleteServiciosInOrden', array(null) )}}', 'idO='+$('#ordenServicio_id').val()+'&idServPiv='+idServPiv+'&idServ='+idServ, null,null,removeTr,"json");
+		}
+		//calcular();
+	}
+});
+
+$('body').on('click', '.borraTrProducto', function() {
+	if (($(".borraTrProducto").length) > 0) {
+		if (!confirm('Esta seguro?')) {
+			return false;
+		}else{
+			var idOrdPro=jQuery('#p_' + this.id).attr('name');
+			invocaAjax('{{ action('OrdenServicioController@deleteProductoInOrden', array(null) )}}', 'idOrdPro='+idOrdPro, null,null,removeTr,"json");
+		}
+		//calcular();
+	}
+});
+
+
+function setDetalle(data){
+	$('#elementosOrden tbody').html(data);
+}
+function refrescarDetalle(){
+	invocaAjax('{{ action('OrdenServicioController@getServiciosAndProductosOrden', array(null) )}}', 'id='+$('#ordenServicio_id').val(), null,null,setDetalle);
+}
+//resfrescarDetalle
+$(document).on("click", "#resfrescarDetalle", function(evt) {
+	refrescarDetalle();
+});
+function closeModal(){	
+	$('#responsive').modal('hide');
+	refrescarDetalle();
+}
 //seleccionarServicio
 $(document).on("click", "#seleccionarServicio", function(evt) {
-if ($("#servicio_id").val() > 0) {
-var aux = cntRowDetalle++;
-txt = '';
-txt += '<tr class="trServicio" name="' + aux + '"  id="s_' + aux + '" rel="'+$("#servicio_id").val()+'" ><td><span class="glyphicon glyphicon-trash borraTrServicio" aria-hidden="true"id="' + aux + '"></span></td>';
-txt += '<td style="text-align:center;" id="s_' + aux + '_cons">' + aux + '</td>';
-txt += '<td style="text-align:center;" id="s_' + aux + '_codigo">' + $("#s_codigo").val() + '</td>';
-txt += '<td style="text-align:left;" id="s_' + aux + '_descripcion">' + $("#s_descripcion").val() + '</td>';
-txt += '<td style="text-align:right;" id="s_' + aux + '_cantidad">1</td>';
-txt += '<td style="text-align:right;" id="s_' + aux + '_precio">' + $("#precioServicio").val() + '</td>';
-txt += '<td style="text-align:right;" id="s_' + aux + '_subtotal">' + $("#precioServicio").val() + '</td></tr>';
-//$('#responsive').modal('close')
-$('#elementosOrden tbody').append(txt);
-} else {
-alert('No se ha seleccionado un servicio');
-}
+	if ($("#servicio_id").val() > 0) {
+		invocaAjax("{{ action('OrdenServicioController@addServicioInOrder', array(null) )}}" ,('precio='+$("#precioServicio").val()+'&servicio_id='+$("#servicio_id").val()+'&idO='+($('#ordenServicio_id').val())) , null,null,closeModal);
+	} else {
+		alert('No se ha seleccionado un servicio');
+	}
 });
 
 var icont = 0;

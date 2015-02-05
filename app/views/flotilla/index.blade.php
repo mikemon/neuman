@@ -21,6 +21,7 @@ Lista de Medida Llanta
 		<tr>
 			<th style="text-align: center; width:20%;">Opciones</th>
 			<th  style="text-align: center;width:10%;">id</th>
+			<th style="text-align: center; width:40%;">Flotilla</th>
 			<th style="text-align: center; width:40%;">Cliente</th>
 	
 		</tr>
@@ -35,7 +36,7 @@ Lista de Medida Llanta
 			{{ Form::close() }} 
 		</td>
 		<td style="text-align: center; width:10%;">{{$flotillaInstance->id}} </td>
-	
+		<td style="text-align: left; width:40%;">{{$flotillaInstance->nombre}} </td>
 		<td style="text-align: left; width:40%;">{{$flotillaInstance->cliente->numcte." ".$flotillaInstance->cliente->nomcte}} </td>
 	</tr>
 	@endforeach
