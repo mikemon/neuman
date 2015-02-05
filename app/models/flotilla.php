@@ -6,6 +6,9 @@ class Flotilla extends Eloquent{
     {
         return $this->belongsTo('Cliente', 'cliente_id');
     }
+	public function carros(){
+        return $this->hasMany('Carro', 'flotilla_id');
+     }
 	
 }
 ?>

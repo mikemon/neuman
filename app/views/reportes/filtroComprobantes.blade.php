@@ -13,7 +13,14 @@ Información del flotilla
 
 	<form name="formFiltro" action="{{ action('ReportesController@reporteComprobantes', null )}}" method="post">
 
-		<div class="panel panel-default">			
+		<div class="panel panel-default">	
+			<label >Flotilla:</label>
+			<select name="flotilla_id" id="flotilla_id">
+				@foreach($listFlotilla as $flotillaInstance)
+					<option value="{{$flotillaInstance->id}}" >{{$flotillaInstance->nombre}} ({{$flotillaInstance->cliente->nomcte}})</option>
+				@endforeach
+			</select>
+			<br />		
 			<label >Comprende de :</label>
 			<input type="text" id="fechaComprobanteIni" name="fechaComprobanteIni" value="{{date("Y-m-d")}}" class="tipoFechaSimple" />
 			<label > A: </label>

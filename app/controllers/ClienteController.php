@@ -120,5 +120,15 @@ class ClienteController extends \BaseController {
 		}
 
 	}
+	public function getFlotillas($id) {
+		
+		$clienteInstance = Cliente::find($id);
+		if (is_null($clienteInstance)) {
+			return "No existe!";
+		} else {
+			$flotillas=$clienteInstance->flotillas;
+			//return Redirect::action('ClienteController@show', array($clienteInstance -> id));
+		}
+	}
 
 }

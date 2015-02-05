@@ -25,7 +25,7 @@ Lista de Comprobantes de Pago.
                 <th style="text-align: center; width:70%;">Descripcion</th>
               </tr>
      </thead>
-	@foreach($registroComprobantePago as $registroComprobanteInstance)
+	@foreach($listaRegistroComprobantePago as $registroComprobanteInstance)
 			<tr>
     			<td style="text-align: left; width:20%;">
     				<a href="{{ action('registroComprobantePagoController@show', array($registroComprobanteInstance->id) )}}" class="btn btn-info " >Ver</a>

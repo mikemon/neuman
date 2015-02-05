@@ -13,7 +13,7 @@ Formulario de Carro
 <br>
 <div class="panel panel-default">
 	<div class="panel-heading">
-		<h3 class="panel-title">Editar carro</h3>
+		<h3 class="panel-title">Editar carro {{$carro->id}}</h3>
 	</div>
 	<div class="panel-body">
 		{{ Form::model($carro, array('method' => 'PATCH', 'route' =>array('carros.update', $carro->id),'class'=>'form-horizontal')) }}

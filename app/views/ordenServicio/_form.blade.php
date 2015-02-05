@@ -52,6 +52,20 @@
 					</nav>
 				</div>
 			</div>
+			
+			
+			<div class="form-group">
+				<label class="col-sm-2 control-label" for="descripcion">Cliente</label>
+					<div class="col-sm-6">
+						{{Form::text('cliente_id', @$ordenServicioInstance->carro->flotilla->cliente->nomcte,array('placeholder'=>'Cliente','list'=>'clienteList','class'=>'form-control input-sm'))}}
+					</div>	
+						<datalist id="clienteList">			
+							@foreach($clientes as $clienteInstance)
+								<option @if(@$ordenServicioInstance->carro->flotilla->cliente->id==$clienteInstance->id)selected @endif value="{{$clienteInstance->id}}" label="{{$clienteInstance->nomcte}}" />
+							@endforeach
+						</datalist>	
+				</div>
+			
 			<div class="form-group">
 				<div id="datosCarro" class="col-sm-8"></div>
 			</div>

@@ -10,7 +10,7 @@ class FlotillaController extends \BaseController {
 	public function index() {
 		
 		//echo "estoy en index";
-		$listaFlotilla = flotilla::all();
+		$listaFlotilla = Flotilla::all();
 		return View::make('flotilla.index', array('listaFlotilla' => $listaFlotilla ));
 
 	}

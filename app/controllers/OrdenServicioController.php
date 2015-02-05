@@ -87,12 +87,13 @@ class OrdenServicioController extends \BaseController {
 
 		$operadores = Operador::all();
 		$carros = Carro::all();
+		$clientes=Cliente::all();
 
 		//return View::make('ordenServicio.create',array('carros' => $carros,'operadores' => $operadores));
 		if (is_null($ordenServicioInstance)) {
 			return "No existe!";
 		} else {
-			return View::make('ordenServicio/edit') -> with(array('ordenServicioInstance' => $ordenServicioInstance, 'carros' => $carros, 'operadores' => $operadores));
+			return View::make('ordenServicio/edit') -> with(array('ordenServicioInstance' => $ordenServicioInstance, 'carros' => $carros, 'operadores' => $operadores,'clientes'=>$clientes));
 		}
 	}
 

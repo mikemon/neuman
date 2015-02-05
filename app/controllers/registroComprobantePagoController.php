@@ -5,8 +5,8 @@ class RegistroComprobantePagoController extends BaseController {
 	 * Muestra la lista con todos los registroComprobantePago
 	 */
 	public function mostrarRegistroComprobantePago() {
-		$registroComprobantePago = RegistroComprobantePago::all();
-		return View::make('registroComprobantePago.lista', array('registroComprobantePago' => $registroComprobantePago));
+		$listaRegistroComprobantePago = RegistroComprobantePago::all();
+		return View::make('registroComprobantePago.lista', array('listaRegistroComprobantePago' => $listaRegistroComprobantePago));
 	}
 
 	/**

@@ -20,15 +20,17 @@
 	$totLitros = 0;
 	$totKmRecorridos = 0;
 	$totCompra = 0;
+	
 	?>
 	@foreach($listaComprobantes as $registroComprobanteInstance)
-
+	
+		
 	@if($actual==null)
 	<?php
 	$actual = $registroComprobanteInstance -> carro -> id;
 	?>
 	<tr>
-		<td style="background:#0B0B61;color: #FFFFFF; ">{{ $registroComprobanteInstance->operador->nombre }} {{$registroComprobanteInstance->operador->apellidos}}</td>
+		<td style="background:#0B0B61;color: #FFFFFF; ">{{ utf8_decode($registroComprobanteInstance->operador->nombre) }} {{utf8_decode($registroComprobanteInstance->operador->apellidos)}}</td>
 		<td style="background:#0B0B61;color: #FFFFFF; "></td>
 		<td style="background:#0B0B61;color: #FFFFFF; "></td>
 		<td style="background:#0B0B61;color: #FFFFFF; "></td>
@@ -73,7 +75,7 @@
 	</tr>
 
 	<tr>
-		<td style="background:#0B0B61;color: #FFFFFF; ">{{ $registroComprobanteInstance->operador->nombre }} {{$registroComprobanteInstance->operador->apellidos}}</td>
+		<td style="background:#0B0B61;color: #FFFFFF; ">{{ utf8_decode($registroComprobanteInstance->operador->nombre) }} {{utf8_decode($registroComprobanteInstance->operador->apellidos)}}</td>
 		<td style="background:#0B0B61;color: #FFFFFF; "></td>
 		<td style="background:#0B0B61;color: #FFFFFF; "></td>
 		<td style="background:#0B0B61;color: #FFFFFF; "></td>
@@ -103,8 +105,8 @@
 	<tr>
 		<td style="text-align: center;">{{$fecha}} </td>
 		<td style="text-align: left;">{{ $registroComprobanteInstance->carro->noEconomico }} </td>
-		<td style="text-align: left;">{{ $registroComprobanteInstance->operador->nombre }} {{$registroComprobanteInstance->operador->apellidos}} </td>
-		<td style="text-align: left;">{{$registroComprobanteInstance->descripcion}} </td>
+		<td style="text-align: left;">{{ utf8_decode($registroComprobanteInstance->operador->nombre) }} {{utf8_decode($registroComprobanteInstance->operador->apellidos)}} </td>
+		<td style="text-align: left;">{{utf8_decode($registroComprobanteInstance->descripcion)}} </td>
 		<td style="text-align: right;">{{ round (($registroComprobanteInstance->total/$registroComprobanteInstance->datoRendimiento->litros),2) }} </td>
 		<td style="text-align: right;">{{$registroComprobanteInstance->datoRendimiento->litros}} </td>
 		<td style="text-align: right ;">{{$registroComprobanteInstance->datoRendimiento->kmInicial}} </td>
@@ -112,7 +114,7 @@
 		<td style="text-align: right;">{{$registroComprobanteInstance->datoRendimiento->kmFinal - $registroComprobanteInstance->datoRendimiento->kmInicial}} </td>
 		<td style="text-align: right;">{{ round(($registroComprobanteInstance->datoRendimiento->odometro), 2)}} </td>
 		<td style="text-align: right;">{{round($registroComprobanteInstance->total,2)}} </td>
-		<td style="text-align: left;">{{$registroComprobanteInstance->datoRendimiento->observacion}} </td>
+		<td style="text-align: left;">{{ utf8_decode($registroComprobanteInstance->datoRendimiento->observacion)}} </td>
 	</tr>
 	<?php
 	$totLitros += $registroComprobanteInstance -> datoRendimiento -> litros;
@@ -131,7 +133,7 @@
 		<td style="background:#04B404;color: #000000; "></td>
 		<td style="background:#04B404;color: #000000; "></td>
 		<td style="background:#04B404;color: #000000; text-align: right;">{{$totKmRecorridos}}</td>
-		<td style="background:#04B404;color: #000000; text-align: right;">{{round(($totKmRecorridos/$totLitros),2)}}</td>
+		<td style="background:#04B404;color: #000000; text-align: right;">{{@round(($totKmRecorridos/$totLitros),2)}}</td>
 		<td style="background:#04B404;color: #000000; "></td>
 		<td style="background:#04B404;color: #000000; "></td>
 	</tr>
