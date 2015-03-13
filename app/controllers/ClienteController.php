@@ -120,13 +120,23 @@ class ClienteController extends \BaseController {
 		}
 
 	}
+	public function findCliente($text=null)
+	{
+		$listCliente= Cliente::where('nomcte','like','%'. $text.'%')
+							->orWhere('nomcte','like','%'.strtoupper($text).'%')							
+							->orWhere('numcte','like','%'.$text.'%')
+							->orWhere('numcte','like','%'.strtoupper($text).'%')					
+							->get(array('id','numcte','nomcte'));
+		 echo json_encode($listCliente);
+	}
+	
 	public function getFlotillas($id) {
 		
 		$clienteInstance = Cliente::find($id);
 		if (is_null($clienteInstance)) {
 			return "No existe!";
 		} else {
-			$flotillas=$clienteInstance->flotillas;
+			return $flotillas=$clienteInstance->flotillas->toJson();;
 			//return Redirect::action('ClienteController@show', array($clienteInstance -> id));
 		}
 	}

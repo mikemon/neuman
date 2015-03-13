@@ -5,7 +5,9 @@ class RegistroComprobantePagoController extends BaseController {
 	 * Muestra la lista con todos los registroComprobantePago
 	 */
 	public function mostrarRegistroComprobantePago() {
-		$listaRegistroComprobantePago = RegistroComprobantePago::all();
+		//$listaRegistroComprobantePago = RegistroComprobantePago::orderBy('id', 'asc') -> get();
+		$listaRegistroComprobantePago = RegistroComprobantePago::orderBy('id', 'desc') -> paginate();
+
 		return View::make('registroComprobantePago.lista', array('listaRegistroComprobantePago' => $listaRegistroComprobantePago));
 	}
 
@@ -18,27 +20,42 @@ class RegistroComprobantePagoController extends BaseController {
 		//all();
 		$carros = Carro::all();
 		//return View::make('carros.lista', array('carros' => $carros));
-		return View::make('registroComprobantePago.crear', array('carros' => $carros, 'operadores' => $operadores, 'tipoComprobante' => $tipoComprobante));
+		return View::make('registroComprobantePago.crear', array('carros' => $carros, 'operadores' => $operadores, 'tipoComprobante' => $tipoComprobante, 'componenteFecha' => "fechaComprobante"));
 	}
 
 	/**
 	 * Crear el registroComprobantePago nuevo
 	 */
-	public function crear() {//store() {//crear() {
-		//RegistroComprobantePago::create(Input::all());
-		//return Redirect::to('registroComprobantePago');
+	public function crear() {
+
 		$input = Input::all();
 		//echo json_encode($input);
-
-		$datoRendimientoActivo = DatoRendimiento::where('activo', '=', 'true') -> where('carro_id', '=', $input['carro_id'])//whereActivo('true') ->  first();
-		-> first();
-		if ($datoRendimientoActivo) {
-			$input['kmInicial'] = ($datoRendimientoActivo -> kmFinal == 0) ? $datoRendimientoActivo -> kmInicial : $datoRendimientoActivo -> kmFinal;
-		}
-
-		//echo "<br>";
-		//echo json_encode($input);
 		//exit;
+		/*
+		 $datoRendimientoActivo = DatoRendimiento::where('activo', '=', 'true') -> where('carro_id', '=', $input['carro_id'])
+		 -> first();
+		 if ($datoRendimientoActivo) {
+		 $input['kmInicial'] = ($datoRendimientoActivo -> kmFinal == 0) ? $datoRendimientoActivo -> kmInicial : $datoRendimientoActivo -> kmFinal;
+		 }
+		 */
+		if (!(isset($input['kmInicial']))) {
+
+			$datoRendimientoActivo = DatoRendimiento::where('activo', '=', 'true') -> where('carro_id', '=', $input['carro_id']) -> first();
+			if ($datoRendimientoActivo) {
+				$input['kmInicial'] = ($datoRendimientoActivo -> kmFinal == 0) ? $datoRendimientoActivo -> kmInicial : $datoRendimientoActivo -> kmFinal;
+				$datoRendimientoActivo -> activo = false;
+				$datoRendimientoActivo -> save();
+			} else {
+				$input['kmInicial'] = $input['kmInicialPost'];
+
+			}
+		} else {
+			$datoRendimientoActivo = DatoRendimiento::where('activo', '=', 'true') -> where('carro_id', '=', $input['carro_id']) -> first();
+			if ($datoRendimientoActivo) {
+				$datoRendimientoActivo -> activo = false;
+				$datoRendimientoActivo -> save();
+			}
+		}
 
 		$datoRendimientoInstance = new DatoRendimiento();
 		$datoRendimientoInstance -> kmInicial = $input['kmInicial'];
@@ -48,7 +65,8 @@ class RegistroComprobantePagoController extends BaseController {
 		$datoRendimientoInstance -> observacion = $input['observacion'];
 		$datoRendimientoInstance -> usuarioInsert_id = 1;
 		$datoRendimientoInstance -> carro_id = $input['carro_id'];
-		$datoRendimientoInstance -> activo = true;
+		$datoRendimientoInstance -> activo = Helpers::isToday($input['fechaComprobante']);
+		//true;
 		$datoRendimientoInstance -> save();
 
 		$registroComprobanteInstance = new RegistroComprobantePago();
@@ -62,13 +80,13 @@ class RegistroComprobantePagoController extends BaseController {
 		$registroComprobanteInstance -> datoRendimiento_id = $datoRendimientoInstance -> id;
 
 		$registroComprobanteInstance -> save();
-
-		if ($datoRendimientoActivo) {
-			//echo "entro";
-			$datoRendimientoActivo -> activo = false;
-			$datoRendimientoActivo -> save();
-		}
-
+		/*
+		 if ($datoRendimientoActivo) {
+		 //echo "entro";
+		 $datoRendimientoActivo -> activo = false;
+		 $datoRendimientoActivo -> save();
+		 }
+		 */
 		return Redirect::to('registroComprobantePago');
 
 	}
@@ -92,7 +110,7 @@ class RegistroComprobantePagoController extends BaseController {
 			return "No existe!";
 		} else {
 			//return View::make('registroComprobantePago.edit', array('registroComprobantePagoInstance' => $registroComprobantePagoInstance, 'clientes' => $clientes));
-			return View::make('registroComprobantePago.edit', array('registroComprobantePagoInstance' => $registroComprobantePagoInstance, 'carros' => $carros, 'operadores' => $operadores, 'tipoComprobante' => $tipoComprobante));
+			return View::make('registroComprobantePago.edit', array('registroComprobantePagoInstance' => $registroComprobantePagoInstance, 'carros' => $carros, 'operadores' => $operadores, 'tipoComprobante' => $tipoComprobante, 'componenteFecha' => "fechaComprobante", 'datoRendimientoInstance' => $registroComprobantePagoInstance -> datoRendimiento));
 		}
 
 	}
@@ -104,25 +122,24 @@ class RegistroComprobantePagoController extends BaseController {
 		if (is_null($registroComprobantePagoInstance)) {
 			return "No existe!";
 		} else {
-			
-			$input = Input::all();
 
+			$input = Input::all();
 			/*Guardar cambios en datoRendimiento*/
 			$datoRendimientoInstance = DatoRendimiento::find($registroComprobantePagoInstance -> datoRendimiento -> id);
-			$datoRendimientoInstance -> kmInicial = $input['kmInicial'];
+			$datoRendimientoInstance -> kmInicial = $input['kmInicialPost'];
 			$datoRendimientoInstance -> kmFinal = $input['kmFinal'];
 			$datoRendimientoInstance -> litros = $input['litros'];
 			$datoRendimientoInstance -> odometro = $input['odometro'];
 			$datoRendimientoInstance -> observacion = $input['observacion'];
+			$datoRendimientoInstance -> activo = Helpers::isToday($input['fechaComprobante']);
 			$datoRendimientoInstance -> save();
 			////*****************////
 			/*GUARDAR CAMBIOS EN RegistroComprobantePago*/
-			$registroComprobantePagoInstance->total=$input['total'];
-			$registroComprobantePagoInstance->descripcion=$input['descripcion'];
-			$registroComprobantePagoInstance->fechaComprobante=$input['fechaComprobante'];
-			$registroComprobantePagoInstance->save();
+			$registroComprobantePagoInstance -> total = $input['total'];
+			$registroComprobantePagoInstance -> descripcion = $input['descripcion'];
+			$registroComprobantePagoInstance -> fechaComprobante = $input['fechaComprobante'];
+			$registroComprobantePagoInstance -> save();
 			/**////////////////*/
-			
 			return Redirect::action('registroComprobantePagoController@show', array($registroComprobantePagoInstance -> id));
 		}
 

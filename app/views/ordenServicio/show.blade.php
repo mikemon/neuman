@@ -70,6 +70,6 @@ Información del ordenServicio
 				<div class="col-sm-2">
 					<a href="{{ action('OrdenServicioController@edit', array($ordenServicioInstance->id) )}}" class="btn btn-warning " >Editar</a>
 				</div>
-			</div>
+	</div>
 
 	@stop

@@ -1,7 +1,6 @@
 <script>
 	var aServicios = new Array();
 	var cntRowDetalle = 0; 
-	var fechaActual='{{date("d/m/Y")}}';
 </script>
 <style>
 	.oddRow {
@@ -13,7 +12,6 @@
 	<div class="col-sm-6">
 		{{Form::hidden('ordenServicio_id', @$ordenServicioInstance->id,array('id'=>'ordenServicio_id'))}}
 
-		
 		{{ Form::button('Guardar orden', array('type'=>'submit','class'=>'btn btn-primary')) }}
 
 		{{ Form::button('Cancelar', array('type'=>'button','class'=>'btn btn-warning')) }}
@@ -21,9 +19,7 @@
 
 	</div>
 </div>
-
 <div role="tabpanel">
-	
 	<ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
 		<li class="active">
 			<a href="#carro" data-toggle="tab">Carro</a>
@@ -31,11 +27,9 @@
 		<li>
 			<a href="#descripcion" data-toggle="tab">Descripcion orden</a>
 		</li>
-		<!--
 		<li>
 			<a href="#datoRendimiento" data-toggle="tab">Dato rendimiento</a>
 		</li>
-		-->
 		<li>
 			<a href="#servPro" data-toggle="tab">Servicios y productos</a>
 		</li>
@@ -43,12 +37,11 @@
 	<div id="my-tab-content" class="tab-content">
 		<div class="tab-pane active" id="carro">
 			<br/>
-			
 			<div class="form-group">
 				<label class="col-sm-2 control-label" for="descripcion">Cliente</label>
 				<div class="col-sm-6">
 					{{Form::text('cliente', @$ordenServicioInstance->carro->flotilla->cliente->nomcte,array('placeholder'=>'Cliente','id'=>'cliente','list'=>'clienteList','class'=>'form-control input-sm'))}}
-					<input type="hidden" name="cliente_id" id="cliente_id" value="{{@$ordenServicioInstance->carro->flotilla->cliente->id}}" />
+					<input type="hidden" name="cliente_id" id="cliente_id" />
 				</div>
 				<datalist id="clienteList" name="clienteList">
 
@@ -58,7 +51,7 @@
 				<label class="col-sm-2 control-label" for="descripcion">Flotilla</label>
 				<div class="col-sm-6">
 					{{Form::text('flotilla', @$ordenServicioInstance->carro->flotilla->nombre,array('placeholder'=>'Flotilla','id'=>'flotilla','list'=>'flotillaList','class'=>'form-control input-sm'))}}
-					<input type="hidden" name="flotilla_id" id="flotilla_id" value="{{@$ordenServicioInstance->carro->flotilla->id}}"  />
+					<input type="hidden" name="flotilla_id" id="flotilla_id"  />
 				</div>
 				<datalist id="flotillaList">
 
@@ -77,7 +70,7 @@
 					//alert(val);
 					if (val === "")
 						return;
-					$.get("{{action('ClienteController@findCliente', array(null) )}}/" + val, null, function(res) {
+					$.get('{{action("ClienteController@findCliente", array(null) )}}/' + val, null, function(res) {
 						var dataList = $("#clienteList");
 						dataList.empty();
 						if (res.length) {
@@ -98,7 +91,7 @@
 					if (!(id == undefined)) {
 						$('#cliente_id').val($('#' + id).attr('name'));
 						var val = $('#' + id).attr('name');
-						$.get("{{action('ClienteController@getFlotillas', array(null) )}}/" + val, null, function(res) {
+						$.get('{{action("ClienteController@getFlotillas", array(null) )}}/' + val, null, function(res) {
 							var dataList = $("#flotillaList");
 							dataList.empty();
 							if (res.length) {
@@ -110,7 +103,7 @@
 							}
 						}, "json");
 					} else {
-						jQuery('#flotilla').val('');
+						jQuery('#flotilla').val(-1);
 						jQuery('#carro_id').val(-1);
 					}
 				});
@@ -124,74 +117,22 @@
 					if (!(id == undefined)) {
 						$('#flotilla_id').val($('#' + id).attr('name'));
 					} else {
-						jQuery('#carro_id').val(-1);
+						jQuery('#carro').val(-1);
 					}
 				});
-
 			</script>
 
 			<div class="form-group">
 				<div id="datosCarro" class="col-sm-8"></div>
 			</div>
-			
-			<div class="form-group">
-	<label for="operador" class="col-sm-2 control-label">Operador</label>
-	<div class="col-sm-6">
-		
-		<select name="operador_id" id="operador_id" class="form-control input-lg">
-			<option value="-1" selected>Seleccionar operador...</option>
-			@if($ordenServicioInstance)
-				@foreach($operadores as $operador)
-					<option @if(@$ordenServicioInstance->operador_id == $operador->id ) {{'selected'}}  @endif value="{{$operador->id}}">{{$operador->nombre}} {{$operador->apellidos}} </option>
-				@endforeach
-			@endif
-		</select>
-	</div>
-</div>
-			
 		</div>
 		<div class="tab-pane" id="descripcion">
 			<h4>Descripcion de la orden</h4>
 			<p>
 				<div class="form-group">
-					<label for="clientes" class="col-sm-2 control-label">Fecha</label>
-					<div class="col-sm-6">
-						{{Form::text('fingreso', null,array('placeholder'=>'Seleccionar fecha','class'=>'form-control input-sm','id'=>'fingreso'))}}
-					</div>
-				</div>
-				<script>
-				$("#fingreso").datetimepicker({
-					maxDate : 0,
-					minDate : '+0D +2M +0Y',
-					yearRange : '+0:c+1',
-					changeMonth : true,
-					changeYear : true,
-					showButtonPanel : true,
-					dateFormat : 'yy-mm-dd',
-					onSelect: function(dateText) {
-						analizaFecha(this.value);
-					}
-				});
-		
-				</script>
-				<div class="form-group">
-					<label class="col-sm-2 control-label" for="descripcion">Serie</label>
-					<div class="col-sm-6">
-						<label class="col-sm-2 control-label" for="serie" style="text-align: left;">{{@$ordenServicioInstance->carro->flotilla->cliente->sercte}}</label>
-					</div>
-				</div>
-				
-				<div class="form-group">
 					<label class="col-sm-2 control-label" for="descripcion">Folio</label>
 					<div class="col-sm-6">
 						{{Form::text('numfol', null,array('placeholder'=>'Folio','class'=>'form-control input-sm'))}}
-					</div>
-				</div>
-				
-				<div class="form-group">
-					<label class="col-sm-2 control-label" for="descripcion">Km Final</label>
-					<div class="col-sm-6">
-						{{Form::text('kmFinal', null,array('placeholder'=>'Kilometraje final','class'=>'form-control input-sm'))}}
 					</div>
 				</div>
 
@@ -210,16 +151,14 @@
 
 			</p>
 		</div>
-		<!--
 		<div class="tab-pane" id="datoRendimiento">
-			<br>
+			<h1>Dato rendimiento</h1>
 			<p>
 				@include('datoRendimiento._form')
 			</p>
 		</div>
-		-->
 		<div class="tab-pane" id="servPro">
-			<br>
+			<h4>Servicios y productos</h4>
 			<p>
 				<div class="btn-group">
 					<button class="btn btn-primary" type="button"  id="addServicio">
@@ -312,41 +251,6 @@
 <div id="divProductos"></div>
 
 <script type="text/javascript">
-	@if(@$ordenServicioInstance->carro)
-		var txt='';
-		txt+='<div class="form-group">';
-		txt+='				<label class="col-sm-4 control-label" >No. Economico</label>';
-		txt+='				<div class="col-sm-6">';
-		txt+='					{{$ordenServicioInstance->carro->noEconomico}}';				
-		txt+='				</div>';
-		txt+='</div>';
-		
-		txt+='<div class="form-group">';
-		txt+='				<label class="col-sm-4 control-label" >Placas</label>';
-		txt+='				<div class="col-sm-6">';
-		txt+='					{{$ordenServicioInstance->carro->placas}}';				
-		txt+='				</div>';
-		txt+='</div>';
-		
-		txt+='<div class="form-group">';
-		txt+='				<label class="col-sm-4 control-label" >Marca</label>';
-		txt+='				<div class="col-sm-6">';
-		txt+='					{{$ordenServicioInstance->carro->marca}}';				
-		txt+='				</div>';
-		txt+='</div>';
-		
-		txt+='<div class="form-group">';
-		txt+='				<label class="col-sm-4 control-label" >Modelo</label>';
-		txt+='				<div class="col-sm-6">';
-		txt+='					{{$ordenServicioInstance->carro->modelo}}';				
-		txt+='				</div>';
-		txt+='</div>';
-					
-		$('#datosCarro').html(txt);
-	@else
-		$('#carro_id').val(-1);	
-	@endif
-
 	jQuery(document).ready(function($) {
 		$('#tabs').tab();
 	});
@@ -354,16 +258,9 @@
 	function validar() {
 		if ($('#carro_id').val() != -1) {
 			if ($('.trServicio').length <= 0) {
-				//alert('No existe ningun servicio en la orden');
-				//return false;
-				if (!confirm('No existe ningun servicio en la orden, esta seguro de guardar?')) {
-					return false;
-				}else{
-					return true;	
-				}
-				
+				alert('No existe ningun servicio en la orden')
 			} else {
-				return true;
+				return true
 			}
 		} else {
 			alert('Selecionar carro');
@@ -372,7 +269,7 @@
 	}
 
 	function enviar() {
-		
+		alert('ok');
 		if (validar()) {
 			var aServicios = null;
 			aServicios = new Array();
@@ -382,6 +279,7 @@
 				aServicios[aux] = new Object();
 				var sufijo = $('#' + this.id).attr('name');
 				aServicios[aux].id = $('#' + this.id).attr('rel');
+				;
 				aServicios[aux].codigo = $('#s_' + sufijo + '_codigo').html();
 				aServicios[aux].cantidad = $('#s_' + sufijo + '_cantidad').html();
 				aServicios[aux].descripcion = $('#s_' + sufijo + '_descripcion').html();
@@ -390,15 +288,6 @@
 			});
 			var strServiciosPOST = JSON.stringify(aServicios);
 			$('#aCadenaServicios').val(strServiciosPOST);
-			/*
-			if(document.getElementById('kmInicial').disabled==true){
-				$('#kmInicial').prop('disabled',true);
-				$('#kmInicialPost').val($('#kmInicial').val());
-				$('#kmInicial').prop('disabled',false);
-			}else{
-				$('#kmInicialPost').val($('#kmInicial').val());
-			}
-			*/
 			return true;
 		} else {
 			return false;
@@ -580,13 +469,6 @@
 			txt += '</div>';
 
 			$('#datosCarro').html(txt);
-			
-			//invocaAjax('{{URL::route("getHistorialRendimiento")}}', 'id=' + $('#carro_id').val(), null, null, setDetalle);
-			//url, pars, target, formulario, extendScript,dataType,async
-			invocaAjax('{{URL::route("getOperadoresByCarro");}}', 'id=' + $('#carro_id').val(), 'operador_id', null, null, 'html', false);
-
-	
-			
 			return false;
 		}
 	}).autocomplete("instance")._renderItem = function(ul, item) {
@@ -691,8 +573,6 @@
 		var css = (((v % 2) == 0) ? "oddRow" : "evenRow");
 		return $("<li class='" + css + "'>").append("<a><b>Codigo:</b> " + item.codigo + "<a><b>Descripcion:</b> " + item.descripcion + " <a><b>Precio:</b> " + item.precio + "</a>").appendTo(ul);
 	};
-	@if($ordenServicioInstance->carro)
-	
-		//getPrecioCombustible({{$ordenServicioInstance->carro->id}});
-	@endif
+
 </script>
+

@@ -15,7 +15,7 @@ body {
 	background: #FFFFFF;
 	padding-left: 15px;
 	padding-right: 15px;
-	height: 90%;
+	height: 95%;
 }
 
 .box:after {
@@ -301,5 +301,12 @@ tr.odd:hover,tr.even:hover{
     background: none repeat scroll 0 0 #E5E9E8;
     border: 1px solid #AEACAD;
     overflow: hidden;
+}
+
+a:hover span {
+  color: #6E6E6E;
+}
+button:hover span {
+  color: #6E6E6E;
 }
 

@@ -20,7 +20,10 @@
       
      <label>Operador: </label>   {{ $registroComprobantePago->operador->nombre }} {{ $registroComprobantePago->operador->apellidos }}
            
-<br />      
+<br />
+
+<label>Fecha y Hora: </label>  {{$registroComprobantePago->fechaComprobante}}      
+<br/>
      <label>Descripcion: </label>   {{ $registroComprobantePago->descripcion }}
  <h3>Datos rendimiento</h3>
  
@@ -36,5 +39,12 @@
      <label>Observacion: </label>   {{ $registroComprobantePago->datoRendimiento->observacion }}
     	                	                    	            	          
 <br />
+
+<div class="form-group">
+				<div class="col-sm-2">
+					<a href="{{ action('registroComprobantePagoController@editarRegistroComprobantePago', array($registroComprobantePago->id) )}}" class="btn btn-warning " >Editar</a>
+				</div>
+	</div>
+
 
 @stop

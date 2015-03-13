@@ -19,15 +19,15 @@ Lista de carros
 	<thead>
 		<tr>
 			<th style="text-align: center; width:20%;">Opciones</th>
-			<th  style="text-align: center;width:10%;">id</th>
-			<th  style="text-align: center;width:10%;">No. Serie</th>
+			<th  style="text-align: center;width:5%;">id</th>
+			<th  style="text-align: center;width:10%;">No.Eco</th>
 			<th style="text-align: center; width:40%;">Datos</th>
 			<th style="text-align: center; width:20%;">Flotilla</th>
 
 		</tr>
 	</thead>
 	@foreach($listaCarro as $carroInstance)
-	<tr>
+	<tr style="font-size: 12px;">
 		<td style="text-align: center; width:20%;">
 			<a href="{{ action('CarrosController@show', array($carroInstance->id) )}}" class="btn btn-info "  >Ver</a>
 			<a href="{{ action('CarrosController@edit', array($carroInstance->id) )}}" class="btn btn-warning " >Editar</a> 
@@ -35,9 +35,9 @@ Lista de carros
 				{{ Form::button('Borrar', array('type'=>'submit','class'=>'btn btn-danger')) }}
 			{{ Form::close() }} 
 		</td>
-		<td style="text-align: center; width:10%;">{{$carroInstance->id}} </td>
-		<td style="text-align: center; width:10%;">{{$carroInstance->noSerie}} </td>
-		<td style="text-align: left; width:40%;">{{' <label> Placas:</label>'.$carroInstance->placas.' <label> NoEco:</label>'.$carroInstance->noEconomico.' <label>Marca:</label>'.$carroInstance->marca.' <label> Modelo:</label>'.$carroInstance->modelo}} </td>
+		<td style="text-align: center; width:5%;">{{$carroInstance->id}} </td>
+		<td style="text-align: center; width:10%;">{{$carroInstance->noEconomico}} </td>
+		<td style="text-align: left; width:40%;">{{' <b> Placas:</b>'.$carroInstance->placas.' <b> No.Serie:</b>'.$carroInstance->noSerie.' <b>Marca:</b>'.$carroInstance->marca.' <b> Modelo:</b>'.$carroInstance->modelo}} </td>
 		<td style="text-align: center; width:20%;">{{@$carroInstance->flotilla->nombre}} </td>
 
 	</tr>

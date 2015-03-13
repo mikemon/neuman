@@ -3,6 +3,7 @@
 		@include('includes.head')
 	</head>
 	<body>
+		<div id="spinner" class="fondo ui-widget-overlay"  ></div>
 		<!--
 		@section('sidebar')
 		Taller-refacciones
@@ -18,7 +19,7 @@
 			<footer class="row">
 				@include('includes.footer')
 			</footer>
-			<div id="spinner" class="fondo ui-widget-overlay"  ></div>
+			
 		</div>
 
 	</body>
@@ -49,6 +50,6 @@
 		showButtonPanel : true,
 		dateFormat : 'yy-mm-dd'
 	}); 
-	//document.getElementById("spinner").style.display = "block";
+	document.getElementById("spinner").style.display = "none";
 
 </script>

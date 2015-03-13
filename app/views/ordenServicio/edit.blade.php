@@ -15,7 +15,7 @@ Formulario de OrdenServicio
 			<h3 class="panel-title"><label> Editar ordenServicio: {{$ordenServicioInstance->id}}</label></h3>
 		</div>
 		<div class="panel-body">
-			{{ Form::model($ordenServicioInstance, array('method' => 'PATCH', 'route' =>array('ordenServicio.update', $ordenServicioInstance->id),'class'=>'form-horizontal')) }}
+			{{ Form::model($ordenServicioInstance, array('method' => 'PATCH', 'route' =>array('ordenServicio.update', $ordenServicioInstance->id),'class'=>'form-horizontal','onsubmit'=>'return enviar();')) }}
 			@include('ordenServicio._form')
 			{{ Form::close() }}
 		</div>

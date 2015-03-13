@@ -8,7 +8,9 @@ class OrdenServicioController extends \BaseController {
 	 * @return Response
 	 */
 	public function index() {
-		$listaOrdenServicio = OrdenServicio::all();
+
+		$listaOrdenServicio = OrdenServicio::orderBy('id', 'asc') -> paginate();
+		//all();
 		return View::make('ordenServicio.index', array('listaOrdenServicio' => $listaOrdenServicio));
 
 	}
@@ -38,7 +40,7 @@ class OrdenServicioController extends \BaseController {
 		$ordenServicioInstance -> save();
 
 		//return View::make('ordenServicio.edit', array('carros' => $carros, 'operadores' => $operadores, 'ordenServicioInstance' => $ordenServicioInstance));
-		return View::make('ordenServicio/edit') -> with(array('ordenServicioInstance' => $ordenServicioInstance, 'carros' => $carros, 'operadores' => $operadores));
+		return View::make('ordenServicio/edit') -> with(array('ordenServicioInstance' => $ordenServicioInstance, 'carros' => $carros, 'operadores' => $operadores, 'componenteFecha' => 'fingeso'));
 
 	}
 
@@ -85,16 +87,33 @@ class OrdenServicioController extends \BaseController {
 		//
 		$ordenServicioInstance = OrdenServicio::find($id);
 
-		$operadores = Operador::all();
+		$carroInstance = Carro::find($ordenServicioInstance -> carro_id);
+		$listAsignacionCarro = $carroInstance -> asignacionesCarro;
+
+		$operadores = array();
+		foreach ($listAsignacionCarro as $asignacionInstance) {
+			$operadores[] = $asignacionInstance->operador;
+		}
 		$carros = Carro::all();
-		$clientes=Cliente::all();
+		$clientes = Cliente::all();
 
 		//return View::make('ordenServicio.create',array('carros' => $carros,'operadores' => $operadores));
 		if (is_null($ordenServicioInstance)) {
 			return "No existe!";
 		} else {
-			return View::make('ordenServicio/edit') -> with(array('ordenServicioInstance' => $ordenServicioInstance, 'carros' => $carros, 'operadores' => $operadores,'clientes'=>$clientes));
+			return View::make('ordenServicio/edit') -> with(array('ordenServicioInstance' => $ordenServicioInstance, 'carroInstance' => $ordenServicioInstance -> carro, 'carros' => $carros, 'operadores' => $operadores, 'clientes' => $clientes, 'datoRendimientoInstance' => $ordenServicioInstance -> datoRendimiento, 'componenteFecha' => 'fingeso'));
 		}
+	}
+
+	private function isToday($fecha) {
+		$fechaIn = $fecha;
+		//$input['fecha'];
+		$fechaActual = date('Y-m-d H:i:s');
+		$datetime1 = new DateTime($fechaActual);
+		$datetime2 = new DateTime($fechaIn);
+		$interval = $datetime1 -> diff($datetime2);
+
+		return (($datetime1 -> format('Y-m-d') == $datetime2 -> format('Y-m-d')) ? true : false);
 	}
 
 	/**
@@ -111,6 +130,37 @@ class OrdenServicioController extends \BaseController {
 		} else {
 			$data = Input::all();
 			$ordenServicioInstance -> fill($data);
+			/*
+			 if (!(isset($data['kmInicial']))) {
+
+			 $datoRendimientoActivo = DatoRendimiento::where('activo', '=', 'true') -> where('carro_id', '=', $data['carro_id']) -> first();
+			 if ($datoRendimientoActivo) {
+			 $input['kmInicial'] = ($datoRendimientoActivo -> kmFinal == 0) ? $datoRendimientoActivo -> kmInicial : $datoRendimientoActivo -> kmFinal;
+			 $datoRendimientoActivo -> activo = false;
+			 $datoRendimientoActivo -> save();
+			 } else {
+			 $input['kmInicial'] = $data['kmInicialPost'];
+
+			 }
+			 }
+
+			 if (!$ordenServicioInstance -> datoRendimiento) {
+			 $datoRendimientoInstance = new DatoRendimiento();
+			 $datoRendimientoInstance -> kmInicial = ((isset($data['kmInicial'])) ? $data['kmInicial'] : $data['kmInicialPost']);
+			 $datoRendimientoInstance -> kmFinal = $data['kmFinal'];
+			 $datoRendimientoInstance -> litros = $data['litros'];
+			 $datoRendimientoInstance -> odometro = $data['odometro'];
+			 $datoRendimientoInstance -> observacion = $data['observacion'];
+			 $datoRendimientoInstance -> usuarioInsert_id = 1;
+			 $datoRendimientoInstance -> carro_id = $data['carro_id'];
+			 $activo = Helpers::isToday($data['fingreso']);
+			 $datoRendimientoInstance -> activo = $activo;
+			 $datoRendimientoInstance -> save();
+
+			 $ordenServicioInstance -> datoRendimiento_id = $datoRendimientoInstance -> id;
+
+			 }
+			 */
 			$ordenServicioInstance -> save();
 			return Redirect::action('OrdenServicioController@show', array($ordenServicioInstance -> id));
 		}
@@ -264,19 +314,19 @@ class OrdenServicioController extends \BaseController {
 
 		$maealmInstance = new Maealm();
 		if ($maealmInstance -> apartadoAutomatico) {
-			$resApartado = $maealmInstance -> setApartado($ordenServicioProducto->numart, "apaalm -" . $ordenServicioProducto->cantidad);
+			$resApartado = $maealmInstance -> setApartado($ordenServicioProducto -> numart, "apaalm -" . $ordenServicioProducto -> cantidad);
 			if (!$resApartado) {
 				return json_encode(array("exito" => false, "msg" => "No se realizo Desapartado este producto"));
 			}
 		}
 
 		$resp = $ordenServicioProducto -> delete();
-		echo json_encode(array("exito" => (($resp == 1) ? true : false), "id" => ("p_" . $input['idOrdPro']),"msg" => "Eliminado correctamente de la Orden" ));
+		echo json_encode(array("exito" => (($resp == 1) ? true : false), "id" => ("p_" . $input['idOrdPro']), "msg" => "Eliminado correctamente de la Orden"));
 	}
-	
-	public function aplicarOrden(){
-		$movimientoInstance=new Movimiento();
-		$movimientoInstance->crearMovimiento();
+
+	public function aplicarOrden() {
+		$movimientoInstance = new Movimiento();
+		$movimientoInstance -> crearMovimiento();
 	}
 
 }

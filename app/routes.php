@@ -26,7 +26,9 @@ Route::resource('operador', 'OperadorController');
 Route::resource('carros', 'CarrosController');
 Route::get('carros/getComprobantesForIdCarro/{id}', array('uses' => 'CarrosController@getComprobantesPagos'));
 Route::get('getDatoRendimientoActivo/{id}', array('uses' => 'CarrosController@getDatoRendimientoActivo'));
-Route::get('findCarroByText/{text}', array('uses' => 'CarrosController@findCarro'));
+Route::post('findCarroByText', array('uses' => 'CarrosController@findCarro'));
+Route::get('getPrecioCombustible/{id}', array('uses' => 'CarrosController@getPrecioCombustibleForId'));
+
 /*-----------------------------------------|*/
 
 /*|------------------------TIPOCOMPROBANTE----------*/
@@ -83,6 +85,9 @@ Route::resource('tipoCarro', 'TipoCarroController');
 /*******/
 /*cliente*/
 Route::resource('cliente', 'ClienteController');
+Route::get('findClienteByText/{text}', array('uses' => 'ClienteController@findCliente'));
+
+Route::get('cliente/getFlotillas/{id}', array('uses' => 'ClienteController@getFlotillas'));
 
 /*******/
 
@@ -101,7 +106,6 @@ Route::post('ordenServicio/getServiciosAndProductos', array('uses' => 'OrdenServ
 Route::post('ordenServicio/deleteServiciosInOrden', array('uses' => 'OrdenServicioController@deleteServiciosInOrden'));
 Route::post('ordenServicio/deleteProductoInOrden', array('uses' => 'OrdenServicioController@deleteProductoInOrden'));
 Route::get('ordenServicio/aplicarOrden', array('uses' => 'OrdenServicioController@aplicarOrden'));
-
 
 /*Servicio*/
 Route::get('findDepartamentoByText/{text}', array('uses' => 'ServicioController@findDepartamento'));
@@ -176,17 +180,10 @@ Route::post('visor/getProductos', array('as' => 'getListProductos', function() {
 	echo '</thead>';
 	$cnt = 0;
 	foreach ($productos as $value) {
-		$disponible=round(($value -> EXUALM-$value -> APAALM),2);
+		$disponible = round(($value -> EXUALM - $value -> APAALM), 2);
 		echo '<tr class="rowArt" id="' . $value -> NUMART . '">';
-		echo '<td>' . $value -> NUMART . '</td><td>' . $value -> NOMART
-		. '</td><td>' . round($value -> EXUALM,2) 
-		. '</td><td>'. round($value -> APAALM,2) 
-		. '</td><td>'.$disponible.'</td><td>' . round($value -> PRECIO, 2) . '</td>';
-		echo '<td>' . 
-		(($disponible>0)?
-		'<a id="pro_' . ($cnt++) . '" class="addProducto" rel="' . $value -> NUMART . '|-|' . $value -> NOMART . '|-|' . round($value -> PRECIO, 2). '|-|' . $disponible . '"><span class="glyphicon glyphicon-plus-sign" aria-hidden="true" ></span></a>' 
-		:'')
-		. '</td>';
+		echo '<td>' . $value -> NUMART . '</td><td>' . $value -> NOMART . '</td><td>' . round($value -> EXUALM, 2) . '</td><td>' . round($value -> APAALM, 2) . '</td><td>' . $disponible . '</td><td>' . round($value -> PRECIO, 2) . '</td>';
+		echo '<td>' . (($disponible > 0) ? '<a id="pro_' . ($cnt++) . '" class="addProducto" rel="' . $value -> NUMART . '|-|' . $value -> NOMART . '|-|' . round($value -> PRECIO, 2) . '|-|' . $disponible . '"><span class="glyphicon glyphicon-plus-sign" aria-hidden="true" ></span></a>' : '') . '</td>';
 		echo "</tr>";
 	}
 	echo "</table>";
@@ -208,9 +205,9 @@ Route::get("getExistencia", function() {
 	 }
 	 */
 	$input = Input::all();
-	$numart= $input['NUMART'];
+	$numart = $input['NUMART'];
 	$maealmInstance = new Maealm();
-	$aExixtencia=$maealmInstance -> getExistencia($numart);
+	$aExixtencia = $maealmInstance -> getExistencia($numart);
 	if ($aExixtencia) {
 		return json_encode($aExixtencia);
 	} else {
@@ -218,3 +215,102 @@ Route::get("getExistencia", function() {
 	}
 
 });
+
+//Route::get("getDifFecha", function() {
+Route::get('service/getDifFecha', array('as' => 'getDifFecha', function() {
+
+	$input = Input::all();
+
+	$fechaIn = $input['fecha'];
+	$fechaActual = date('Y-m-d H:i:s');
+
+	$datetime1 = new DateTime($fechaActual);
+	//DateTime('2009-10-11');
+	$datetime2 = new DateTime($fechaIn);
+	//DateTime('2009-10-13');
+	$interval = $datetime1 -> diff($datetime2);
+
+	echo json_encode(array("diaActual" => (($datetime1 -> format('Y-m-d') == $datetime2 -> format('Y-m-d')) ? true : false), "fechaActual" => $fechaActual, "diferencia" => array("valor" => $interval -> format('%R%'), "datos" => $interval)));
+}));
+
+Route::post('service/getHistorialRendimiento', array('as' => 'getHistorialRendimiento', function() {
+
+	//echo $id;//json_encode($input);
+	//exit;
+	$input = Input::all();
+	$id = $input['id'];
+	$carroInstance = Carro::find($id);
+	//echo json_encode($carroInstance);
+	//Carro::orderBy('id', 'asc')
+	$registros = $carroInstance -> registroComprobantePagos('fechaComprobante', 'asc') -> get();
+	//print_r($registros);
+	//exit;
+	echo '<table  class="display" id="tableProductos">';
+
+	echo '<thead>';
+	echo '<tr>';
+	echo '<th>id</th><th>Descripcion</th><td>fecha hora</th><td>kmInicial</th><td>kmFinal</th><td>Rendimiento</th><td>Observacion</th>';
+	echo "</tr>";
+	echo '</thead>';
+
+	foreach ($registros as $registroComprobante) {
+		echo "<tr>";
+
+		$fecha = new DateTime($registroComprobante -> fechaComprobante);
+
+		echo "<td>" . $registroComprobante -> id . "</td>" . "<td>" . $registroComprobante -> descripcion . "</td>" . "<td>" . $fecha -> format('d-m-Y H:i:s') . "</td>" . "<td>" . $registroComprobante -> datoRendimiento -> kmInicial . "</td>" . "<td>" . $registroComprobante -> datoRendimiento -> kmFinal . "</td>" . "<td>" . $registroComprobante -> datoRendimiento -> odometro . "</td>" . "<td>" . $registroComprobante -> datoRendimiento -> observacion . "</td>";
+		//fechaComprobante", d."",d."",d.,d.activo,d.,r.descripcion
+
+		echo "</tr>";
+	}
+	echo "</table>";
+	echo "<script>";
+	echo "$('.ui-state-default').hover(function() {";
+	echo "$(this).addClass('ui-state-hover');";
+	echo "}, function() {";
+	echo "$(this).removeClass('ui-state-hover');";
+	echo "});";
+	echo "";
+	echo "</script>";
+}));
+
+Route::get('reportes/ordenServicio', array('as' => 'getOrdenServicio', function() {
+	$listOrdenes = OrdenServicio::all();
+	echo "<table border ='1'>";
+	echo "<tr>";
+	echo "<th>fecha</th>";
+	echo "<th>folio</th>";
+	echo "<th>kilometraje</th>";
+	echo "<th>carro(numEmo)</th>";
+	echo "<th>Operador</th>";
+	echo "<th>descripcion de servicio</th>";
+
+	echo "</tr>";
+	foreach ($listOrdenes as $ordenServicioInstance) {
+		echo "<tr>";
+
+		echo "<td>" . $ordenServicioInstance -> fingreso . "</td>";
+		echo "<td>" . $ordenServicioInstance -> folio . "</td>";
+		echo "<td>" . $ordenServicioInstance -> kmFinal . "</td>";
+		echo "<td>" . @$ordenServicioInstance -> carro -> noEconomico . "</td>";
+		echo "<td>" . @$ordenServicioInstance -> carro -> id . "</td>";
+		echo "<td>" . $ordenServicioInstance -> fallaReportada . "</td>";
+		echo "</tr>";
+	}
+
+	echo "</table>";
+}));
+
+Route::post('getOperadoresByCarro', array('as' => 'getOperadoresByCarro', function() {
+	$input = Input::all();
+	$id = $input['id'];
+	$carroInstance = Carro::find($id);
+	$listAsignacionCarro= $carroInstance -> asignacionesCarro;
+	
+	echo '<option selected="" value="-1">Seleccionar operador...</option>';
+	foreach ($listAsignacionCarro as $asignacionCarroInstance) {
+		//echo $operadorInstance;
+		echo '<option value="'.$asignacionCarroInstance->operador->id.'">'.$asignacionCarroInstance->operador->nombre.' '.$asignacionCarroInstance->operador->apellidos.'</option>';	
+	}
+	
+}));

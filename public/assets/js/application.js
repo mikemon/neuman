@@ -15,11 +15,13 @@ $(document).ready(function() {
  * Activa la imagen de carga por cada Peticion Ajax en Automatico
  */
 jQuery(document).ajaxStart(function() {
-	document.getElementById("spinner").style.display = "block";
+	//document.getElementById("spinner").style.display = "block";
+	$("#spinner").css("display", "block");
 });
 
 jQuery(document).ajaxStop(function() {
-	document.getElementById("spinner").style.display = "none";
+	//document.getElementById("spinner").style.display = "none";
+	$("#spinner").css("display", "none");
 });
 /**Activa ComboBox de Jquery*/
 /*
